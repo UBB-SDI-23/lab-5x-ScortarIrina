@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const DOG_API_BASE_URL = 'http://localhost:8080/dogs';
+const DOG_API_BASE_URL = '/dogs';
 
 class DogService {
 

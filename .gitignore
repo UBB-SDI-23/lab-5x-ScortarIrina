@@ -138,3 +138,5 @@ build/
 /derby.log
 /mvnw
 /mvnw.cmd
+/backend/derby.log
+/node_modules/

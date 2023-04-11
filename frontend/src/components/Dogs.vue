@@ -233,10 +233,15 @@ export default {
 
         onSubmitShowFiltered(w){
             w.preventDefault()
-            axios.get(DogService.getUrl() + '/dogs-heavier-than-given-number/' + this.filterForm.weight)
-                .then((response) => {
-                this.dogs = response.data;
-            });
+            if (this.filterForm.weight.length === 0) {
+                this.getDogs()
+            }
+            else {
+                axios.get(DogService.getUrl() + '/dogs-heavier-than-given-number/' + this.filterForm.weight)
+                    .then((response) => {
+                        this.dogs = response.data;
+                    });
+            }
         }
     },
     created() {
