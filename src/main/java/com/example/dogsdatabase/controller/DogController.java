@@ -50,7 +50,7 @@ public class DogController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/dogs-heavier-than-given-number/{weight}")
+    @GetMapping("/dogs/dogs-heavier-than-given-number/{weight}")
     List<DogDTO> getDogsHeavierThanGivenWeight(@PathVariable int weight) {
         return dogService.getDogsByWeight(weight)
                 .stream()
