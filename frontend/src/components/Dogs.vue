@@ -9,11 +9,12 @@
                     <th>
                         <form v-on:submit.prevent="onSubmitShowFiltered">
                             <div class="form-control">
-                                <input type="text" v-model="filterForm.weight" id="weight" placeholder="dogs heavier than"/>
+                                <input type="text" v-model="filterForm.weight" id="weight"
+                                       placeholder="dogs heavier than"/>
                             </div>
                             <input type="submit" value="Filter dogs" class="btn btn-primary"/>
                         </form>
-                        <h2 class="text-center"> Dogs List</h2>
+                        <h2 class="text-center"> Dogs List &#128203;</h2>
                     </th>
 
                     <!--                the second column is the form for adding a dog-->
@@ -32,16 +33,16 @@
                                 <thead>
                                 <tr>
                                     <!--                                    dogs table header-->
-                                    <th><h5 class="text-center"> Dog Id</h5></th>
-                                    <th><h5 class="text-center"> Dog Name</h5></th>
-                                    <th><h5 class="text-center"> Dog Breed</h5></th>
-                                    <th><h5 class="text-center"> Dog Age</h5></th>
-                                    <th><h5 class="text-center"> Dog Weight</h5></th>
+                                    <th @click="sortList('id')"><h5 class="text-center"> Dog Id<span id="sid" style="opacity: 0"> ▲</span></h5></th>
+                                    <th @click="sortList('name')"><h5 class="text-center"> Dog Name<span id="sname" style="opacity: 0"> ▲</span></h5></th>
+                                    <th @click="sortList('breed')"><h5 class="text-center"> Dog Breed<span id="sbreed" style="opacity: 0"> ▲</span></h5></th>
+                                    <th @click="sortList('age')"><h5 class="text-center"> Dog Age<span id="sage" style="opacity: 0"> ▲</span></h5></th>
+                                    <th @click="sortList('weight')"><h5 class="text-center"> Dog Weight<span id="sweight" style="opacity: 0"> ▲</span></h5></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <!--                                the dog entries-->
-                                <tr v-for="dog in dogs" v-bind:key="dog.id">
+                                <tr v-for="dog in sortedDogs" v-bind:key="dog.id">
                                     <td> {{ dog.id }}</td>
                                     <td> {{ dog.name }}</td>
                                     <td> {{ dog.breed }}</td>
@@ -129,6 +130,7 @@ import axios, {Axios, AxiosError} from 'axios';
 
 export default {
     name: 'Dogs',
+
     data() {
         return {
             dogs: [],
@@ -150,9 +152,28 @@ export default {
             },
             filterForm: {
                 weight: ''
-            }
+            },
+            currentSort:'id',
+            currentSortDir:'desc'
+        };
+    },
+
+    mounted() {
+        this.sortList('id');
+    },
+
+    computed:{
+        sortedDogs:function() {
+            return this.dogs.sort((a,b) => {
+                let modifier = 1;
+                if(this.currentSortDir === 'desc') modifier = -1;
+                if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+                if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+                return 0;
+            });
         }
     },
+
     methods: {
         getDogs() {
             DogService.getDogs().then((response) => {
@@ -231,18 +252,32 @@ export default {
             this.updateForm.weight = ' '
         },
 
-        onSubmitShowFiltered(w){
+        onSubmitShowFiltered(w) {
             w.preventDefault()
             if (this.filterForm.weight.length === 0) {
                 this.getDogs()
-            }
-            else {
+            } else {
                 axios.get(DogService.getUrl() + '/dogs-heavier-than-given-number/' + this.filterForm.weight)
                     .then((response) => {
                         this.dogs = response.data;
                     });
             }
+        },
+
+        sortList:function (s) {
+            // remove icon of current sort icon
+            document.getElementById('s' + this.currentSort).style.opacity = "0";
+            //if s == current sort, reverse
+            if (s === this.currentSort) {
+                this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc';
+            } else {
+                this.currentSortDir = 'asc';
+            }
+            this.currentSort = s;
+            document.getElementById('s' + this.currentSort).innerHTML = this.currentSortDir==='asc' ? ' ▲' : ' ▼';
+            document.getElementById('s' + this.currentSort).style.opacity = "1";
         }
+
     },
     created() {
         this.getDogs();
@@ -278,5 +313,10 @@ export default {
 
 #container {
     position: relative;
+}
+
+th:hover {
+    cursor: pointer;
+    background: rgb(229, 255, 211);
 }
 </style>
