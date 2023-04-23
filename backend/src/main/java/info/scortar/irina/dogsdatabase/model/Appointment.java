@@ -17,16 +17,18 @@ public class Appointment {
     private Date date;
     @Min(value = 0, message = "The price of an appointment cannot be a negative number!")
     private float price;
+    private String description;
 
     public Appointment() {
     }
 
-    public Appointment(Long id, Dog dog, Vet vet, Date date, float price) {
+    public Appointment(Long id, Dog dog, Vet vet, Date date, float price, String description) {
         this.id = id;
         this.dog = dog;
         this.vet = vet;
         this.date = date;
         this.price = price;
+        this.description = description;
     }
 
     public Long getId() {
@@ -67,5 +69,13 @@ public class Appointment {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

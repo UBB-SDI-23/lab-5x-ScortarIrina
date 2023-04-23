@@ -1,5 +1,6 @@
 package info.scortar.irina.dogsdatabase.controller;
 
+import info.scortar.irina.dogsdatabase.DTOs.DogDTO;
 import info.scortar.irina.dogsdatabase.exceptions.OwnerNotFoundException;
 import info.scortar.irina.dogsdatabase.mapper.Mapper;
 import info.scortar.irina.dogsdatabase.model.Dog;
@@ -10,6 +11,7 @@ import info.scortar.irina.dogsdatabase.service.OwnerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 @RestController
 public class OwnerController {
 
+    public static int PAGE_SIZE = 100;
     @Autowired
     private OwnerService ownerService;
     @Autowired
@@ -28,11 +31,18 @@ public class OwnerController {
     private Mapper mapper;
 
     @GetMapping("/owners")
-    List<OwnerDTO> getAllOwners() {
-        return ownerService.getAllOwners()
-                .stream()
-                .map(mapper::toOwnerDTO)
-                .collect(Collectors.toList());
+    ResponseEntity<Map<String, Object>> getAllOwners(@RequestParam Optional<String> page, @RequestParam Optional<String> size) {
+        int p = Integer.parseInt(page.orElse("0"));
+
+        int pSize = Integer.parseInt(size.orElse("0"));
+
+        Map<String, Object> ret = ownerService.getAllOwners(p, pSize);
+
+        List<OwnerDTO> dtos = ((List<Owner>) ret.get("owners")).stream().map(mapper::toOwnerDTO).collect(Collectors.toList());
+
+        ret.put("dogs", dtos);
+
+        return new ResponseEntity<>(ret, HttpStatus.OK);
     }
 
     @GetMapping("/owners/{id}")
@@ -45,7 +55,7 @@ public class OwnerController {
         this.ownerService.addOwner(newOwner);
     }
 
-    @PostMapping("/dog-to-owner/{owner_id}/dog")
+    @PostMapping("/owners/dog-to-owner/{owner_id}/dog")
     void addDogToOwner(@PathVariable Long owner_id, @Valid @RequestBody Dog newDog) {
         Owner owner = ownerService.getOwnerById(owner_id).orElseThrow(()->new OwnerNotFoundException(owner_id));
         newDog.setOwner(owner);
@@ -54,7 +64,7 @@ public class OwnerController {
         ownerService.addOwner(owner);
     }
 
-    @PostMapping("/dogs-to-owner/{owner_id}/dogs")
+    @PostMapping("/owners/dogs-to-owner/{owner_id}/dogs")
     void addDogsToOwner(@PathVariable Long owner_id, @RequestBody List<@Valid Dog> newDogs) {
         Owner owner = ownerService.getOwnerById(owner_id).orElseThrow(()->new OwnerNotFoundException(owner_id));
         for(Dog dog: newDogs) {
@@ -76,10 +86,10 @@ public class OwnerController {
         ownerService.deleteOwner(id);
     }
 
-    @GetMapping("/owners-alphabetically-by-first-name")
-    List<OwnerDTO> getOwnersSortedByFirstName() {
-        return ownerService.getOwnersSortedByFirstName();
-    }
+//    @GetMapping("/owners-alphabetically-by-first-name")
+//    List<OwnerDTO> getOwnersSortedByFirstName() {
+//        return ownerService.getOwnersSortedByFirstName();
+//    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

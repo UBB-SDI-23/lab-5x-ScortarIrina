@@ -32,7 +32,7 @@ public class Mapper {
 
     public AppointmentDTO toAppointmentDTO(Appointment appointment) {
         return new AppointmentDTO(appointment.getId(), appointment.getDog().getId(), appointment.getVet().getId(),
-                appointment.getDate().toString());
+                appointment.getDate().toString(), appointment.getDescription());
     }
 
     public MedicalLicenceDTO toMedicalLicenceDTO(MedicalLicense medicalLicense) {

@@ -1,18 +1,21 @@
 package info.scortar.irina.dogsdatabase.service;
 
+import info.scortar.irina.dogsdatabase.controller.OwnerController;
 import info.scortar.irina.dogsdatabase.mapper.Mapper;
+import info.scortar.irina.dogsdatabase.model.Dog;
 import info.scortar.irina.dogsdatabase.model.Owner;
 import info.scortar.irina.dogsdatabase.DTOs.OwnerDTO;
 import info.scortar.irina.dogsdatabase.repository.OwnerRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,10 +28,32 @@ public class OwnerService {
     @Autowired
     private Mapper mapper;
 
-    public List<Owner> getAllOwners() {
+    public Map<String, Object> getAllOwners(int page, int pSize) {
         List<Owner> owners = new ArrayList<>();
-        ownerRepository.findAll().forEach(owners::add);
-        return owners;
+
+        Map<String, Object> response = new HashMap<>();
+
+        if (page > -1) {
+            Pageable p = PageRequest.of(page, pSize > 0 ? pSize : OwnerController.PAGE_SIZE, Sort.by("id"));
+
+            Page<Owner> pageOwners = ownerRepository.findAll(p);
+
+            response.put("owners", pageOwners.getContent());
+            response.put("currentPage", pageOwners.getNumber());
+            response.put("totalItems", pageOwners.getTotalElements());
+            response.put("totalPages", pageOwners.getTotalPages());
+
+            return response;
+        } else {
+            ownerRepository.findAll().forEach(owners::add);
+
+            response.put("owners", owners);
+            response.put("currentPage", 0);
+            response.put("totalItems", owners.size());
+            response.put("totalPages", 1);
+        }
+
+        return response;
     }
 
     public Optional<Owner> getOwnerById(Long id) {
@@ -47,9 +72,9 @@ public class OwnerService {
         ownerRepository.deleteById(id);
     }
 
-    public List<OwnerDTO> getOwnersSortedByFirstName() {
-        List<Owner> owners = getAllOwners();
-        List<Owner> ownersAlphabetically = owners.stream().sorted(Comparator.comparing(Owner::getFirst_name)).toList();
-        return ownersAlphabetically.stream().map((mapper::toOwnerDTO)).toList();
-    }
+//    public List<OwnerDTO> getOwnersSortedByFirstName() {
+//        List<Owner> owners = getAllOwners();
+//        List<Owner> ownersAlphabetically = owners.stream().sorted(Comparator.comparing(Owner::getFirst_name)).toList();
+//        return ownersAlphabetically.stream().map((mapper::toOwnerDTO)).toList();
+//    }
 }

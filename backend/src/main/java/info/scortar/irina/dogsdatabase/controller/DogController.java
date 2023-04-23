@@ -8,6 +8,7 @@ import info.scortar.irina.dogsdatabase.service.DogService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,8 @@ import java.util.stream.Collectors;
 //@CrossOrigin("http://localhost:5173/")
 public class DogController {
 
+    public static int PAGE_SIZE = 100;
+
     @Autowired
     private DogService dogService;
 
@@ -30,11 +33,18 @@ public class DogController {
 
 
     @GetMapping("/dogs")
-    List<DogDTO> getAllDogs() {
-        return dogService.getAllDogs()
-                .stream()
-                .map(mapper::toDogDTO)
-                .collect(Collectors.toList());
+    ResponseEntity<Map<String, Object>> getAllDogs(@RequestParam Optional<String> page, @RequestParam Optional<String> size) {
+        int p = Integer.parseInt(page.orElse("0"));
+
+        int pSize = Integer.parseInt(size.orElse("0"));
+
+        Map<String, Object> ret = dogService.getAllDogs(p, pSize);
+
+        List<DogDTO> dtos = ((List<Dog>) ret.get("dogs")).stream().map(mapper::toDogDTO).collect(Collectors.toList());
+
+        ret.put("dogs", dtos);
+
+        return new ResponseEntity<>(ret, HttpStatus.OK);
     }
 
     @GetMapping("/dogs/{id}")
@@ -44,18 +54,12 @@ public class DogController {
 
     @GetMapping("/dogs-of-owner/{owner_id}")
     List<DogDTO> getDogsOfOwner(@PathVariable Owner owner_id) {
-        return dogService.getDogsByOwner(owner_id)
-                .stream()
-                .map(mapper::toDogDTO)
-                .collect(Collectors.toList());
+        return dogService.getDogsByOwner(owner_id).stream().map(mapper::toDogDTO).collect(Collectors.toList());
     }
 
     @GetMapping("/dogs/dogs-heavier-than-given-number/{weight}")
     List<DogDTO> getDogsHeavierThanGivenWeight(@PathVariable int weight) {
-        return dogService.getDogsByWeight(weight)
-                .stream()
-                .map(mapper::toDogDTO)
-                .collect(Collectors.toList());
+        return dogService.getDogsByWeight(weight).stream().map(mapper::toDogDTO).collect(Collectors.toList());
     }
 
     @PostMapping("/dogs")
@@ -79,8 +83,8 @@ public class DogController {
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName =((FieldError) error).getField();
-            String errorMessage =error.getDefaultMessage();
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
         return errors;

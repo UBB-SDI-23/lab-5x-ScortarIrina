@@ -6,12 +6,14 @@ public class AppointmentDTO {
     private Long dog_id;
     private Long vet_id;
     private String date;
+    private String description;
 
-    public AppointmentDTO(Long appointment_id, Long dog_id, Long vet_id, String date) {
+    public AppointmentDTO(Long appointment_id, Long dog_id, Long vet_id, String date, String description) {
         this.dog_id = dog_id;
         this.vet_id = vet_id;
         this.date = date;
         this.appointment_id = appointment_id;
+        this.description = description;
     }
 
     public Long getAppointment_id() {
@@ -44,5 +46,13 @@ public class AppointmentDTO {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
