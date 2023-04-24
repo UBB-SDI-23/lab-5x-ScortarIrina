@@ -6,11 +6,13 @@
 
 <script>
 import Dogs from './components/Dogs.vue'
+import Owners from './components/Dogs.vue'
 
 export default {
     name: 'App',
     components: {
-        Dogs
+        Dogs,
+        Owners
     }
 }
 </script>
@@ -22,7 +24,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     table-layout: auto;
-    color: #2c3e50;
+    color: #000000;
     margin-top: 60px;
 }
 </style>

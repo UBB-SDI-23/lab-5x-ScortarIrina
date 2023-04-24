@@ -128,14 +128,14 @@ export default {
   margin: 10px 0;
   .pagination-item {
     display: inline-block;
-    color: #ddd;
+    color: #aeaf92;
     a {
       text-decoration: none;
       margin: 5px;
       color: #2c3e50;
     }
     a.disabled {
-      color: #ccc;
+      color: #000000;
       cursor: no-drop;
     }
     .active {
@@ -148,6 +148,6 @@ export default {
 }
 button[disabled], html input[disabled] {
   cursor: default;
-  color: lightgray;
+  color: #2a4f59;
 }
 </style>

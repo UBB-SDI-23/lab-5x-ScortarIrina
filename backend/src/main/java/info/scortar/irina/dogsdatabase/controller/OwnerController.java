@@ -1,6 +1,5 @@
 package info.scortar.irina.dogsdatabase.controller;
 
-import info.scortar.irina.dogsdatabase.DTOs.DogDTO;
 import info.scortar.irina.dogsdatabase.exceptions.OwnerNotFoundException;
 import info.scortar.irina.dogsdatabase.mapper.Mapper;
 import info.scortar.irina.dogsdatabase.model.Dog;
@@ -40,7 +39,7 @@ public class OwnerController {
 
         List<OwnerDTO> dtos = ((List<Owner>) ret.get("owners")).stream().map(mapper::toOwnerDTO).collect(Collectors.toList());
 
-        ret.put("dogs", dtos);
+        ret.put("owners", dtos);
 
         return new ResponseEntity<>(ret, HttpStatus.OK);
     }

@@ -17,6 +17,11 @@ export default defineConfig({
         target: 'http://localhost:8080',
         ws: true,
         changeOrigin: true
+      },
+      '^/owners': {
+        target: 'http://localhost:8080',
+        ws: true,
+        changeOrigin: true
       }
     },
     // port: 80
