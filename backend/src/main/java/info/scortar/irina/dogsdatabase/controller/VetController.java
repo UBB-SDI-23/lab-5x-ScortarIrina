@@ -50,25 +50,22 @@ public class VetController {
     }
 
     @PostMapping("/vets")
-    void addVet(@RequestBody @Valid Vet newVet) {
-        this.vetService.addVet(newVet);
+    void addVet(@RequestBody @Valid VetDTO newVet) {
+        Vet vet = mapper.fromVetDTO(newVet);
+        this.vetService.addVet(vet);
     }
 
     @PutMapping("/vets/{id}")
-    void updateVet(@RequestBody @Valid Vet newVet, @PathVariable Long id) {
-        newVet.setId(id);
-        vetService.updateVet(newVet, id);
+    void updateVet(@RequestBody @Valid VetDTO newVet, @PathVariable Long id) {
+        Vet vet = mapper.fromVetDTO(newVet);
+        vet.setId(id);
+        vetService.updateVet(vet, id);
     }
 
     @DeleteMapping("/vets/{id}")
     void deleteVet(@PathVariable @Valid Long id) {
         vetService.deleteVet(id);
     }
-
-//    @GetMapping("/vets-sorted-by-medical-field")
-//    List<VetDTO> getVetsSortedByMedicalField() {
-//        return vetService.getVetsSortedByMedicalField();
-//    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

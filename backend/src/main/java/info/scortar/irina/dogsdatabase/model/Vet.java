@@ -16,7 +16,6 @@ public class Vet {
     private String last_name;
     @NotEmpty(message = "The specialty cannot be empty!")
     private String specialty;
-    @Min(value = 25, message = "A vet has to be at least 25 years old!")
     private int age;
     @Min(0)
     private int years_of_experience;
@@ -29,7 +28,8 @@ public class Vet {
     public Vet() {
     }
 
-    public Vet(Long id, String first_name, String last_name, String specialty, int age, int years_of_experience, int salary, List<Appointment> appointments, MedicalLicense medicalLicense) {
+    public Vet(Long id, String first_name, String last_name, String specialty, int age, int years_of_experience,
+               int salary, List<Appointment> appointments, MedicalLicense medicalLicense) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;

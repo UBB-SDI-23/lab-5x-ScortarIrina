@@ -6,14 +6,24 @@ public class VetDTO {
     private String first_name;
     private String last_name;
     private String specialty;
+    private int age;
     private Long medical_licence_id;
 
-    public VetDTO(Long id, String first_name, String last_name, String specialty, Long medical_licence_id) {
+    public VetDTO(Long id, String first_name, String last_name, String specialty, int age, Long medical_licence_id) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.specialty = specialty;
+        this.age = age;
         this.medical_licence_id = medical_licence_id;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public Long getId() {

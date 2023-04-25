@@ -12,15 +12,10 @@ import java.util.Objects;
 @Entity
 public class Owner {
     private @Id @GeneratedValue Long id;
-    @NotBlank(message = "First name cannot be empty!")
     private String first_name;
-    @NotBlank(message = "Last name cannot be empty!")
     private String last_name;
-    @Min(value = 18, message = "An owner has to be at least 18 years old!")
     private int age;
-    @NotBlank(message = "Gender cannot be empty!")
     private String gender;
-    @NotBlank(message = "Job cannot be empty!")
     private String job;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)

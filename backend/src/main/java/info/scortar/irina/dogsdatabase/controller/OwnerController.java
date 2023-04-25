@@ -50,8 +50,9 @@ public class OwnerController {
     }
 
     @PostMapping("/owners")
-    void addOwner(@RequestBody @Valid Owner newOwner) {
-        this.ownerService.addOwner(newOwner);
+    void addOwner(@RequestBody @Valid OwnerDTO newOwner) {
+        Owner owner = mapper.fromOwnerDTO(newOwner);
+        this.ownerService.addOwner(owner);
     }
 
     @PostMapping("/owners/dog-to-owner/{owner_id}/dog")
@@ -75,20 +76,17 @@ public class OwnerController {
     }
 
     @PutMapping("/owners/{id}")
-    void updateOwner(@RequestBody Owner newOwner, @PathVariable Long id) {
-        newOwner.setId(id);
-        ownerService.updateOwner(newOwner, id);
+    void updateOwner(@RequestBody OwnerDTO newOwner, @PathVariable Long id) {
+        Owner owner = mapper.fromOwnerDTO(newOwner);
+        owner.setId(id);
+        owner.setAge(0);
+        ownerService.updateOwner(owner, id);
     }
 
     @DeleteMapping("/owners/{id}")
     void deleteOwner(@PathVariable Long id) {
         ownerService.deleteOwner(id);
     }
-
-//    @GetMapping("/owners-alphabetically-by-first-name")
-//    List<OwnerDTO> getOwnersSortedByFirstName() {
-//        return ownerService.getOwnersSortedByFirstName();
-//    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

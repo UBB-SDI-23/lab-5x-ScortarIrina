@@ -11,11 +11,8 @@ import java.util.List;
 public class Dog {
 
     private @Id @GeneratedValue Long id;
-    @NotBlank(message = "Name cannot be empty!")
     private String name;
-    @NotBlank(message = "Breed cannot be empty!")
     private String breed;
-    @Min(0)
     private int age;
     private int weight;
     @JsonInclude(JsonInclude.Include.NON_NULL)

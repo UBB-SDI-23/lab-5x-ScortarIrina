@@ -470,7 +470,7 @@
                     </div>
                     <div class="form-control">
                         <label>Owner ID: </label>
-                        <input type="text" v-model="createFormDog.owner.id" id="owner_id"
+                        <input type="text" v-model="clickedDog.owner_id" id="owner_id"
                                placeholder="Enter dog owner ID"/>
                     </div>
                     <hr>
@@ -502,7 +502,7 @@
                     </div>
                     <div class="form-control">
                         <label>Owner ID: </label>
-                        <input type="text" v-model="createFormDog.owner.id" id="owner_id"
+                        <input type="text" v-model="createFormDog.owner_id" id="owner_id"
                                placeholder="Enter dog owner ID"/>
                     </div>
                     <hr>
@@ -569,17 +569,17 @@
                 <form v-on:submit.prevent="onSubmitCreateOwner" class="add-form">
                     <div class="form-control">
                         <label>First name: </label>
-                        <input type="text" v-model="clickedOwner.first_name" id="first_name"
+                        <input type="text" v-model="createFormOwner.first_name" id="first_name"
                                placeholder="Enter owner first name"/>
                     </div>
                     <div class="form-control">
                         <label>Last name: </label>
-                        <input type="text" v-model="clickedOwner.last_name" id="last_name"
+                        <input type="text" v-model="createFormOwner.last_name" id="last_name"
                                placeholder="Enter owner last name"/>
                     </div>
                     <div class="form-control">
                         <label>Job: </label>
-                        <input type="text" v-model="clickedOwner.job" id="job"
+                        <input type="text" v-model="createFormOwner.job" id="job"
                                placeholder="Enter owner job"/>
                     </div>
                     <hr>
@@ -622,6 +622,11 @@
                                placeholder="Enter vet last name"/>
                     </div>
                     <div class="form-control">
+                        <label>Age: </label>
+                        <input type="text" v-model="clickedVet.age" id="age"
+                               placeholder="Enter vet age (>25)"/>
+                    </div>
+                    <div class="form-control">
                         <label>Specialty: </label>
                         <input type="text" v-model="clickedVet.specialty" id="specialty"
                                placeholder="Enter vet specialty"/>
@@ -635,17 +640,22 @@
                 <form v-on:submit.prevent="onSubmitCreateVet" class="add-form">
                     <div class="form-control">
                         <label>First name: </label>
-                        <input type="text" v-model="clickedVet.first_name" id="first_name"
+                        <input type="text" v-model="createFormVet.first_name" id="first_name"
                                placeholder="Enter vet first name"/>
                     </div>
                     <div class="form-control">
                         <label>Last name: </label>
-                        <input type="text" v-model="clickedVet.last_name" id="last_name"
+                        <input type="text" v-model="createFormVet.last_name" id="last_name"
                                placeholder="Enter vet last name"/>
                     </div>
                     <div class="form-control">
-                        <label>Job: </label>
-                        <input type="text" v-model="clickedVet.specialty" id="specialty"
+                        <label>Age: </label>
+                        <input type="text" v-model="createFormVet.age" id="age"
+                               placeholder="Enter vet age"/>
+                    </div>
+                    <div class="form-control">
+                        <label>Specialty: </label>
+                        <input type="text" v-model="createFormVet.specialty" id="specialty"
                                placeholder="Enter vet specialty"/>
                     </div>
                     <hr>
@@ -874,7 +884,7 @@ export default {
                 breed: '',
                 age: '',
                 weight: '',
-                owner: {id: ''}
+                owner_id: ''
             },
             clickedDog: {
                 id: '',
@@ -882,7 +892,7 @@ export default {
                 breed: '',
                 age: '',
                 weight: '',
-                owner: {id: ''}
+                owner_id: ''
             },
             dogs: [],
             createFormDog: {
@@ -890,7 +900,7 @@ export default {
                 breed: '',
                 age: '',
                 weight: '',
-                owner: {id: ''}
+                owner_id: ''
             },
             deleteFormDog: {
                 id: ''
@@ -901,7 +911,7 @@ export default {
                 breed: '',
                 age: '',
                 weight: '',
-                owner: {id: ''}
+                owner_id: ''
             },
             filterFormDog: {
                 weight: ''
@@ -957,12 +967,14 @@ export default {
                 id: '',
                 first_name: '',
                 last_name: '',
+                age: '',
                 specialty: ''
             },
             clickedVet: {
                 id: '',
                 first_name: '',
                 last_name: '',
+                age: '',
                 specialty: ''
             },
             vets: [],
@@ -970,6 +982,7 @@ export default {
                 id: '',
                 first_name: '',
                 last_name: '',
+                age: '',
                 specialty: ''
             },
             deleteFormVet: {
@@ -982,6 +995,7 @@ export default {
                 id: '',
                 first_name: '',
                 last_name: '',
+                age: '',
                 specialty: ''
             },
 
@@ -1283,7 +1297,7 @@ export default {
             this.createFormDog.breed = ' '
             this.createFormDog.age = ' '
             this.createFormDog.weight = ' '
-            this.createFormDog.owner = ''
+            this.createFormDog.owner_id = ''
         },
 
         onSubmitCreateOwner(e) {
@@ -1329,6 +1343,7 @@ export default {
             });
             this.createFormVet.first_name = ' '
             this.createFormVet.last_name = ' '
+            this.createFormVet.age = ''
             this.createFormVet.specialty = ' '
         },
 
@@ -1496,7 +1511,7 @@ export default {
                 breed: '',
                 age: '',
                 weight: '',
-                owner: {id: ''}
+                owner_id: ''
             }
             try {
                 localDog.id = this.clickedDog.id;
@@ -1504,7 +1519,7 @@ export default {
                 localDog.breed = this.clickedDog.breed;
                 localDog.age = this.clickedDog.age;
                 localDog.weight = this.clickedDog.weight;
-                localDog.owner.id = this.clickedDog.owner.id;
+                localDog.owner_id = this.clickedDog.owner_id;
 
                 if (!localDog.id) {
                     localDog.id = document.getElementById('update_input_id').value;
@@ -1625,12 +1640,14 @@ export default {
                 id: '',
                 first_name: '',
                 last_name: '',
+                age: '',
                 specialty: ''
             }
 
             localVet.id = this.clickedVet.id;
             localVet.first_name = this.clickedVet.first_name;
             localVet.last_name = this.clickedVet.last_name;
+            localVet.age = this.clickedVet.age;
             localVet.specialty = this.clickedVet.specialty;
 
             if (!localVet.id) {

@@ -5,6 +5,7 @@ import info.scortar.irina.dogsdatabase.model.Dog;
 import info.scortar.irina.dogsdatabase.DTOs.DogDTO;
 import info.scortar.irina.dogsdatabase.model.Owner;
 import info.scortar.irina.dogsdatabase.service.DogService;
+import info.scortar.irina.dogsdatabase.service.OwnerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,9 @@ public class DogController {
 
     @Autowired
     private DogService dogService;
+
+    @Autowired
+    private OwnerService ownerService;
 
     @Autowired
     private Mapper mapper;
@@ -63,14 +67,20 @@ public class DogController {
     }
 
     @PostMapping("/dogs")
-    void addDog(@RequestBody @Valid Dog newDog) {
-        this.dogService.addDog(newDog);
+    void addDog(@RequestBody @Valid DogDTO newDog) {
+        Optional<Owner> owner = ownerService.getOwnerById(newDog.getOwner_id());
+        Dog dog = mapper.fromDogDTO(newDog);
+        dog.setOwner(owner.orElse(null));
+        this.dogService.addDog(dog);
     }
 
     @PutMapping("/dogs/{id}")
-    void updateDog(@RequestBody @Valid Dog newDog, @PathVariable Long id) {
-        newDog.setId(id);
-        dogService.updateDog(newDog);
+    void updateDog(@RequestBody @Valid DogDTO newDog, @PathVariable Long id) {
+        Optional<Owner> owner = ownerService.getOwnerById(newDog.getOwner_id());
+        Dog dog = mapper.fromDogDTO(newDog);
+        dog.setOwner(owner.orElse(null));
+        dog.setId(id);
+        dogService.updateDog(dog);
     }
 
     @DeleteMapping("/dogs/{id}")
