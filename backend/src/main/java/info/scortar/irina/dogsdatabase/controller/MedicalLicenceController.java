@@ -1,13 +1,16 @@
 package info.scortar.irina.dogsdatabase.controller;
 
+import info.scortar.irina.dogsdatabase.DTOs.VetDTO;
 import info.scortar.irina.dogsdatabase.mapper.Mapper;
 import info.scortar.irina.dogsdatabase.model.MedicalLicense;
 import info.scortar.irina.dogsdatabase.DTOs.MedicalLicenceDTO;
+import info.scortar.irina.dogsdatabase.model.Vet;
 import info.scortar.irina.dogsdatabase.service.MedicalLicenceService;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -21,20 +24,32 @@ import java.util.stream.Collectors;
 @RestController
 public class MedicalLicenceController {
 
+    public static int PAGE_SIZE = 100;
     @Autowired
     private MedicalLicenceService medicalLicenceService;
     @Autowired
     private Mapper mapper;
 
-    @GetMapping("/licences")
-    List<MedicalLicenceDTO> getAllMedicalLicences() {
-        return medicalLicenceService.getAllMedicalLicences()
+    @GetMapping("/licenses")
+    ResponseEntity<Map<String, Object>> getAllMedicalLicenses(@RequestParam Optional<String> page,
+                                                              @RequestParam Optional<String> size) {
+        int p = Integer.parseInt(page.orElse("0"));
+
+        int pSize = Integer.parseInt(size.orElse("0"));
+
+        Map<String, Object> ret = medicalLicenceService.getAllMedicalLicenses(p, pSize);
+
+        List<MedicalLicenceDTO> dtos = ((List<MedicalLicense>) ret.get("licenses"))
                 .stream()
                 .map(mapper::toMedicalLicenceDTO)
                 .collect(Collectors.toList());
+
+        ret.put("licenses", dtos);
+
+        return new ResponseEntity<>(ret, HttpStatus.OK);
     }
 
-    @GetMapping("/licences/{id}")
+    @GetMapping("/licenses/{id}")
     Optional<MedicalLicenceDTO> getMedicalLicenceById(@PathVariable Long id) {
         return medicalLicenceService.getMedicalLicenceById(id)
                 .stream()
@@ -42,18 +57,18 @@ public class MedicalLicenceController {
                 .findFirst();
     }
 
-    @PostMapping("/licences")
+    @PostMapping("/licenses")
     void addMedicalLicence(@RequestBody @Valid MedicalLicense newMedicalLicense) {
         this.medicalLicenceService.addMedicalLicence(newMedicalLicense);
     }
 
-    @PutMapping("/licences/{id}")
+    @PutMapping("/licenses/{id}")
     void updateMedicalLicence(@RequestBody @Valid MedicalLicense newMedicalLicense, @PathVariable Long id) {
         newMedicalLicense.setId(id);
         medicalLicenceService.updateMedicalLicence(newMedicalLicense, id);
     }
 
-    @DeleteMapping("/licences/{id}")
+    @DeleteMapping("/licenses/{id}")
     void deleteMedicalLicence(@PathVariable Long id) {
         medicalLicenceService.deleteMedicalLicence(id);
     }

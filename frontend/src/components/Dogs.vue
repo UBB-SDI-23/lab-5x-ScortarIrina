@@ -2,7 +2,7 @@
     <div class="container" id="container">
         <Loader :loading="showLoader"/>
         <TabsWrapper class="allTabs">
-            <TabItem title="Dogs">
+            <TabItem title="Dogs" class="tabs">
                 <table class="table table-striped" id="contentTableDogs">
                     <table class="table table-striped" id="contentTableDogsList">
                         <thead>
@@ -90,7 +90,7 @@
                 </table>
             </TabItem>
 
-            <TabItem title="Owners">
+            <TabItem title="Owners" class="tabs">
                 <table class="table table-striped" id="contentTableOwners">
                     <table class="table table-striped" id="contentTableOwnersList">
                         <thead>
@@ -172,9 +172,177 @@
                 </table>
             </TabItem>
 
-            <TabItem title="Vets">Vets</TabItem>
+            <TabItem title="Vets" class="tabs">
+                <table class="table table-striped" id="contentTableVets">
+                    <table class="table table-striped" id="contentTableVetsList">
+                        <thead>
+                        <tr>
+                            <input type="button" value="Update vet" class="btn btn-primary"
+                                   @click="showModalClickedVets(this.clickedVet, false, true, false, false)"/>
+                            <input type="button" value="Create vet" class="btn btn-primary"
+                                   @click="showModalClickedVets(this.clickedVet, false, false, true, false)"/>
+                            <input type="button" value="Delete vet" class="btn btn-primary"
+                                   @click="showModalClickedVets(this.clickedVet, false, false, false, true)"/>
+                        </tr>
+                        <tr>
 
-            <TabItem title="Licenses">Licenses</TabItem>
+                            <th>
+                                <h2 class="text-center"> Vets List &#128203;</h2>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="container">
+                                  <span class="showItems">
+                                    Show Items:
+                                        <select @change="onChangeRecordsPerPage" v-model.number="recordsPerPage">
+                                            <option :value="10">10</option>
+                                            <option :value="20">20</option>
+                                            <option :value="30">30</option>
+                                            <option :value="40">40</option>
+                                            <option :value="50">50</option>
+                                            <option :value="100">100</option>
+                                        </select>
+                                  </span>
+                                    <span>
+                                    Go to Page <input type="text" v-model="enterPageNo">
+                                        <button type="button" @click.prevent="gotoPageVets">Go</button>
+                                  </span>
+                                    <span>
+                                    <Pagination v-if="sortedVets" :total-pages='this.totalPages'
+                                                :per-page='this.recordsPerPage' :current-page='this.page'
+                                                @pagechanged="onPageChangeVets"/>
+                                  </span>
+                                    <table class="table table-striped" id="vetTable">
+                                        <thead>
+                                        <tr>
+                                            <th @click="sortList('id')">
+                                                <h5 class="text-center"> Vet Id
+                                                    <span id="sid" style="opacity: 0"> ▲</span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('first_name')">
+                                                <h5 class="text-center"> Vet First Name
+                                                    <span id="sfname" style="opacity: 0"> ▲</span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('last_name')">
+                                                <h5 class="text-center"> Vet Last Name
+                                                    <span id="slname" style="opacity: 0"> ▲</span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('specialty')">
+                                                <h5 class="text-center"> Vet Specialty
+                                                    <span id="sspecialty" style="opacity: 0"> ▲</span>
+                                                </h5>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="vet in sortedVets" v-bind:key="vet.id"
+                                            @click="showModalClickedVets(vet, false, true, false, false)">
+                                            <td> {{ vet.id }}</td>
+                                            <td> {{ vet.first_name }}</td>
+                                            <td> {{ vet.last_name }}</td>
+                                            <td> {{ vet.specialty }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </table>
+            </TabItem>
+
+            <TabItem title="Licenses" class="tabs">
+                <table class="table table-striped" id="contentTableVets">
+                    <table class="table table-striped" id="contentTableVetsList">
+                        <thead>
+                        <tr>
+                            <input type="button" value="Update license" class="btn btn-primary"
+                                   @click="showModalClickedLicenses(this.clickedLicense, false, true, false, false)"/>
+                            <input type="button" value="Create license" class="btn btn-primary"
+                                   @click="showModalClickedLicenses(this.clickedLicense, false, false, true, false)"/>
+                            <input type="button" value="Delete license" class="btn btn-primary"
+                                   @click="showModalClickedLicenses(this.clickedLicense, false, false, false, true)"/>
+                        </tr>
+                        <tr>
+
+                            <th>
+                                <h2 class="text-center"> Licenses List &#128203;</h2>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="container">
+                                  <span class="showItems">
+                                    Show Items:
+                                        <select @change="onChangeRecordsPerPage" v-model.number="recordsPerPage">
+                                            <option :value="10">10</option>
+                                            <option :value="20">20</option>
+                                            <option :value="30">30</option>
+                                            <option :value="40">40</option>
+                                            <option :value="50">50</option>
+                                            <option :value="100">100</option>
+                                        </select>
+                                  </span>
+                                    <span>
+                                    Go to Page <input type="text" v-model="enterPageNo">
+                                        <button type="button" @click.prevent="gotoPageLicenses">Go</button>
+                                  </span>
+                                    <span>
+                                    <Pagination v-if="sortedLicenses" :total-pages='this.totalPages'
+                                                :per-page='this.recordsPerPage' :current-page='this.page'
+                                                @pagechanged="onPageChangeLicenses"/>
+                                  </span>
+                                    <table class="table table-striped" id="licenseTable">
+                                        <thead>
+                                        <tr>
+                                            <th @click="sortList('id')">
+                                                <h5 class="text-center"> License Id
+                                                    <span id="sid" style="opacity: 0"> ▲</span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('serial_number')">
+                                                <h5 class="text-center"> License Serial Number
+                                                    <span id="sserialno" style="opacity: 0"> ▲</span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('university')">
+                                                <h5 class="text-center"> License University
+                                                    <span id="suniversity" style="opacity: 0"> ▲</span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('city')">
+                                                <h5 class="text-center"> License City
+                                                    <span id="scity" style="opacity: 0"> ▲</span>
+                                                </h5>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="license in sortedLicenses" v-bind:key="license.id"
+                                            @click="showModalClickedLicenses(license, false, true, false, false)">
+                                            <td> {{ license.id }}</td>
+                                            <td> {{ license.serial_number }}</td>
+                                            <td> {{ license.university }}</td>
+                                            <td> {{ license.city }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </table>
+            </TabItem>
 
             <TabItem title="Appointments">Appointments</TabItem>
         </TabsWrapper>
@@ -265,7 +433,8 @@
             </div>
         </Modal>
 
-        <Modal ref="modal" v-show="showModalOwners" @close-modal="updateAndCloseModalOwners()" :div-height="this.divHeight"
+        <Modal ref="modal" v-show="showModalOwners" @close-modal="updateAndCloseModalOwners()"
+               :div-height="this.divHeight"
                @keydown.esc="updateAndCloseModalOwners()" tabindex="0" id="modal">
             <div v-show="this.updateOwnerClicked" class="add-form">
                 <h6>OWNER DETAILS</h6>
@@ -331,6 +500,149 @@
             </div>
         </Modal>
 
+        <Modal ref="modal" v-show="showModalVets" @close-modal="updateAndCloseModalVets()" :div-height="this.divHeight"
+               @keydown.esc="updateAndCloseModalVets()" tabindex="0" id="modal">
+            <div v-show="this.updateVetClicked" class="add-form">
+                <h6>VET DETAILS</h6>
+                <form v-on:submit.prevent="onSubmitUpdateVet" class="add-form">
+                    <div class="form-control">
+                        <label>ID: </label>
+                        <span v-show="this.clickedVet.id !== ''" id="update_span_id">{{ this.clickedVet.id }}</span>
+                        <input type="text" v-show="this.clickedVet.id === ''" id="update_input_id"
+                               v-bind="this.clickedVet.id"
+                               placeholder="Enter vet ID"/>
+                    </div>
+                    <div class="form-control">
+                        <label>First name: </label>
+                        <input type="text" v-model="clickedVet.first_name" id="first_name"
+                               placeholder="Enter vet first name"/>
+                    </div>
+                    <div class="form-control">
+                        <label>Last name: </label>
+                        <input type="text" v-model="clickedVet.last_name" id="last_name"
+                               placeholder="Enter vet last name"/>
+                    </div>
+                    <div class="form-control">
+                        <label>Specialty: </label>
+                        <input type="text" v-model="clickedVet.specialty" id="specialty"
+                               placeholder="Enter vet specialty"/>
+                    </div>
+                    <hr>
+                    <input type="submit" value="Update vet" class="btn btn-primary"/>
+                </form>
+            </div>
+            <div v-show="this.createVetClicked" class="add-form">
+                <h6>VET DETAILS</h6>
+                <form v-on:submit.prevent="onSubmitCreateVet" class="add-form">
+                    <div class="form-control">
+                        <label>First name: </label>
+                        <input type="text" v-model="clickedVet.first_name" id="first_name"
+                               placeholder="Enter vet first name"/>
+                    </div>
+                    <div class="form-control">
+                        <label>Last name: </label>
+                        <input type="text" v-model="clickedVet.last_name" id="last_name"
+                               placeholder="Enter vet last name"/>
+                    </div>
+                    <div class="form-control">
+                        <label>Job: </label>
+                        <input type="text" v-model="clickedVet.specialty" id="specialty"
+                               placeholder="Enter vet specialty"/>
+                    </div>
+                    <hr>
+                    <input type="submit" value="Add vet" class="btn btn-primary"/>
+                </form>
+            </div>
+            <div v-show="this.deleteVetClicked" class="add-form">
+                <form v-on:submit.prevent="onSubmitDeleteVet" class="add-form">
+                    <div class="form-control">
+                        <label>ID: </label>
+                        <input type="text" v-model="deleteFormVet.id" id="id"
+                               placeholder="Enter vet ID"/>
+                    </div>
+                    <hr>
+                    <input type="submit" value="Delete vet" class="btn btn-primary"/>
+                </form>
+            </div>
+        </Modal>
+
+        <Modal ref="modal" v-show="showModalLicenses" @close-modal="updateAndCloseModalLicenses()"
+               :div-height="this.divHeight"
+               @keydown.esc="updateAndCloseModalLicenses()" tabindex="0" id="modal">
+            <div v-show="this.updateLicenseClicked" class="add-form">
+                <h6>LICENSE DETAILS</h6>
+                <form v-on:submit.prevent="onSubmitUpdateLicense" class="add-form">
+                    <div class="form-control">
+                        <label>ID: </label>
+                        <span v-show="this.clickedLicense.id !== ''" id="update_span_id">{{this.clickedLicense.id }}</span>
+                        <input type="text" v-show="this.clickedLicense.id === ''" id="update_input_id"
+                               v-bind="this.clickedLicense.id"
+                               placeholder="Enter license ID"/>
+                    </div>
+                    <div class="form-control">
+                        <label>Serial number: </label>
+                        <input type="text" v-model="clickedLicense.serial_number" id="serial_number"
+                               placeholder="Enter license serial number"/>
+                    </div>
+                    <div class="form-control">
+                        <label>University: </label>
+                        <input type="text" v-model="clickedLicense.university" id="university"
+                               placeholder="Enter license university"/>
+                    </div>
+                    <div class="form-control">
+                        <label>City: </label>
+                        <input type="text" v-model="clickedLicense.city" id="city"
+                               placeholder="Enter license city"/>
+                    </div>
+                    <hr>
+                    <input type="submit" value="Update license" class="btn btn-primary"/>
+                </form>
+            </div>
+            <div v-show="this.createLicenseClicked" class="add-form">
+                <h6>MEDICAL LICENSE DETAILS</h6>
+                <form v-on:submit.prevent="onSubmitCreateLicense" class="add-form">
+                    <div class="form-control">
+                        <label>Serial number: </label>
+                        <input type="text" v-model="clickedLicense.serial_number" id="serial_number"
+                               placeholder="Enter license serial number"/>
+                    </div>
+                    <div class="form-control">
+                        <label>University: </label>
+                        <input type="text" v-model="clickedLicense.university" id="university"
+                               placeholder="Enter license university"/>
+                    </div>
+                    <div class="form-control">
+                        <label>City: </label>
+                        <input type="text" v-model="clickedLicense.city" id="city"
+                               placeholder="Enter license city"/>
+                    </div>
+                    <div class="form-control">
+                        <label>Country: </label>
+                        <input type="text" v-model="clickedLicense.country" id="country"
+                               placeholder="Enter license country"/>
+                    </div>
+                    <div class="form-control">
+                        <label>Vet ID: </label>
+                        <input type="text" v-model="clickedLicense.vet_id" id="vet_id"
+                               placeholder="Enter license vet_id"/>
+                    </div>
+                    <hr>
+                    <input type="submit" value="Add medical license" class="btn btn-primary"/>
+                </form>
+            </div>
+            <div v-show="this.deleteLicenseClicked" class="add-form">
+                <form v-on:submit.prevent="onSubmitDeleteLicense" class="add-form">
+                    <div class="form-control">
+                        <label>ID: </label>
+                        <input type="text" v-model="deleteFormLicense.id" id="id"
+                               placeholder="Enter license ID"/>
+                    </div>
+                    <hr>
+                    <input type="submit" value="Delete license" class="btn btn-primary"/>
+                </form>
+            </div>
+        </Modal>
+
     </div>
 </template>
 
@@ -344,6 +656,8 @@ import TabsWrapper from './TabsWrapper.vue'
 import TabItem from './TabItem.vue'
 import Modal from "@/components/Modal.vue";
 import OwnerService from "@/services/OwnerService";
+import VetService from "@/services/VetService";
+import LicenseService from "@/services/LicenseService";
 
 export default {
     name: 'Dogs',
@@ -360,6 +674,8 @@ export default {
             divHeight: 440,
             showModalDogs: false,
             showModalOwners: false,
+            showModalVets: false,
+            showModalLicenses: false,
 
             listDogsClicked: false,
             updateDogClicked: false,
@@ -439,6 +755,91 @@ export default {
                 job: ''
             },
 
+            listVetsClicked: false,
+            updateVetClicked: false,
+            createVetClicked: false,
+            deleteVetClicked: false,
+
+            emptyVet: {
+                id: '',
+                first_name: '',
+                last_name: '',
+                specialty: ''
+            },
+            clickedVet: {
+                id: '',
+                first_name: '',
+                last_name: '',
+                specialty: ''
+            },
+            vets: [],
+            createFormVet: {
+                id: '',
+                first_name: '',
+                last_name: '',
+                specialty: ''
+            },
+            deleteFormVet: {
+                id: '',
+                first_name: '',
+                last_name: '',
+                specialty: ''
+            },
+            updateFormVet: {
+                id: '',
+                first_name: '',
+                last_name: '',
+                specialty: ''
+            },
+
+            //
+            listLicensesClicked: false,
+            updateLicenseClicked: false,
+            createLicenseClicked: false,
+            deleteLicenseClicked: false,
+
+            emptyLicense: {
+                id: '',
+                serial_number: '',
+                university: '',
+                city: '',
+                country: '',
+                vet_id: ''
+            },
+            clickedLicense: {
+                id: '',
+                serial_number: '',
+                university: '',
+                city: '',
+                country: '',
+                vet_id: ''
+            },
+            licenses: [],
+            createFormLicense: {
+                id: '',
+                serial_number: '',
+                university: '',
+                city: '',
+                country: '',
+                vet_id: ''
+            },
+            deleteFormLicense: {
+                id: '',
+                serial_number: '',
+                university: '',
+                city: '',
+                country: '',
+                vet_id: ''
+            },
+            updateFormLicense: {
+                id: '',
+                serial_number: '',
+                university: '',
+                city: '',
+                country: '',
+                vet_id: ''
+            },
+
             currentSort: 'id',
             currentSortDir: 'desc',
             showLoader: false,
@@ -467,6 +868,26 @@ export default {
 
         sortedOwners: function () {
             return this.owners.sort((a, b) => {
+                let modifier = 1;
+                if (this.currentSortDir === 'desc') modifier = -1;
+                if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+                if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+                return 0;
+            });
+        },
+
+        sortedVets: function () {
+            return this.vets.sort((a, b) => {
+                let modifier = 1;
+                if (this.currentSortDir === 'desc') modifier = -1;
+                if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+                if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+                return 0;
+            });
+        },
+
+        sortedLicenses: function () {
+            return this.licenses.sort((a, b) => {
                 let modifier = 1;
                 if (this.currentSortDir === 'desc') modifier = -1;
                 if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
@@ -509,6 +930,38 @@ export default {
             }
         },
 
+        showModalClickedVets(vet, lClicked, uClicked, cClicked, dClicked) {
+            this.clickedVet = vet;
+            this.listVetsClicked = lClicked;
+            this.updateVetClicked = uClicked;
+            this.createVetClicked = cClicked;
+            this.deleteVetClicked = dClicked;
+            this.showModalVets = true;
+            if (this.listVetsClicked) {
+                this.divHeight = 150;
+            } else if (this.deleteVetClicked) {
+                this.divHeight = 200;
+            } else {
+                this.divHeight = 440;
+            }
+        },
+
+        showModalClickedLicenses(license, lClicked, uClicked, cClicked, dClicked) {
+            this.clickedLicense = license;
+            this.listLicensesClicked = lClicked;
+            this.updateLicenseClicked = uClicked;
+            this.createLicenseClicked = cClicked;
+            this.deleteLicenseClicked = dClicked;
+            this.showModalLicenses = true;
+            if (this.listLicensesClicked) {
+                this.divHeight = 150;
+            } else if (this.deleteLicenseClicked) {
+                this.divHeight = 200;
+            } else {
+                this.divHeight = 440;
+            }
+        },
+
         updateAndCloseModalDogs() {
             this.showModalDogs = false
             document.getElementById('update_input_id').value = '';
@@ -519,6 +972,18 @@ export default {
             this.showModalOwners = false
             document.getElementById('update_input_id').value = '';
             this.clickedOwner = this.emptyOwner;
+        },
+
+        updateAndCloseModalVets() {
+            this.showModalVets = false
+            document.getElementById('update_input_id').value = '';
+            this.clickedVet = this.emptyVet;
+        },
+
+        updateAndCloseModalLicenses() {
+            this.showModalLicenses = false
+            document.getElementById('update_input_id').value = '';
+            this.clickedLicense = this.emptyLicense;
         },
 
         onSubmitCreateDog(e) {
@@ -568,6 +1033,54 @@ export default {
             this.createFormOwner.job = ' '
         },
 
+        onSubmitCreateVet(e) {
+            e.preventDefault()
+            if (!this.createFormVet.first_name) {
+                alert('Please Add a First Name')
+                return
+            }
+
+            this.showLoader = true
+            axios.post(VetService.getUrl(), this.createFormVet)
+                .then((res) => {
+                    window.location.reload()
+                })
+                .catch((error) => {
+                    alert(JSON.stringify(error.response.data));
+                    console.log(JSON.stringify(error.response.data));
+                }).finally(() => {
+                this.showLoader = false
+            });
+            this.createFormVet.first_name = ' '
+            this.createFormVet.last_name = ' '
+            this.createFormVet.specialty = ' '
+        },
+
+        onSubmitCreateLicense(e) {
+            e.preventDefault()
+            if (!this.createFormLicense.serial_number) {
+                alert('Please Add a Serial Number')
+                return
+            }
+
+            this.showLoader = true
+            axios.post(LicenseService.getUrl(), this.createFormLicense)
+                .then((res) => {
+                    window.location.reload()
+                })
+                .catch((error) => {
+                    alert(JSON.stringify(error.response.data));
+                    console.log(JSON.stringify(error.response.data));
+                }).finally(() => {
+                this.showLoader = false
+            });
+            this.createFormLicense.serial_number = ' '
+            this.createFormLicense.university = ' '
+            this.createFormLicense.city = ' '
+            this.createFormLicense.country = ' '
+            this.createFormLicense.vet_id = ' '
+        },
+
         onSubmitDeleteDog(e) {
             e.preventDefault()
             if (!this.deleteFormDog.id) {
@@ -608,6 +1121,48 @@ export default {
                 this.showLoader = false
             });
             this.deleteFormOwner.id = ' '
+        },
+
+        onSubmitDeleteVet(e) {
+            e.preventDefault()
+            if (!this.deleteFormVet.id) {
+                alert('Please Add an ID')
+                return
+            }
+
+            this.showLoader = true
+            axios.delete(VetService.getUrl() + '/' + this.deleteFormVet.id, this.deleteFormVet)
+                .then((res) => {
+                    window.location.reload()
+                })
+                .catch((error) => {
+                    alert(JSON.stringify(error.response.data));
+                    console.log(JSON.stringify(error.response.data));
+                }).finally(() => {
+                this.showLoader = false
+            });
+            this.deleteFormVet.id = ' '
+        },
+
+        onSubmitDeleteLicense(e) {
+            e.preventDefault()
+            if (!this.deleteFormLicense.id) {
+                alert('Please Add an ID')
+                return
+            }
+
+            this.showLoader = true
+            axios.delete(LicenseService.getUrl() + '/' + this.deleteFormVet.id, this.deleteFormVet)
+                .then((res) => {
+                    window.location.reload()
+                })
+                .catch((error) => {
+                    alert(JSON.stringify(error.response.data));
+                    console.log(JSON.stringify(error.response.data));
+                }).finally(() => {
+                this.showLoader = false
+            });
+            this.deleteFormLicense.id = ' '
         },
 
         onSubmitUpdateDog(e) {
@@ -734,6 +1289,160 @@ export default {
             });
         },
 
+        onSubmitUpdateVet(e) {
+            e.preventDefault()
+
+            // use local const, we don't want changes to affect for due to reactivity
+            const localVet = {
+                id: '',
+                first_name: '',
+                last_name: '',
+                specialty: ''
+            }
+
+            localVet.id = this.clickedVet.id;
+            localVet.first_name = this.clickedVet.first_name;
+            localVet.last_name = this.clickedVet.last_name;
+            localVet.specialty = this.clickedVet.specialty;
+
+            if (!localVet.id) {
+                localVet.id = document.getElementById('update_input_id').value;
+            }
+
+            if (!localVet.id) {
+                localVet.id = document.getElementById('update_span_id').textContent;
+            }
+
+            if (!localVet.id) {
+                alert('Please Add an ID');
+
+                this.clickedVet = this.emptyVet;
+
+                window.location.reload();
+
+                return;
+            }
+            if (!localVet.first_name) {
+                alert('Please Add a First Name');
+                this.clickedVet = this.emptyVet;
+
+                window.location.reload();
+
+                return;
+            }
+
+            if (!localVet.last_name) {
+                alert('Please Add a Last Name');
+                this.clickedVet = this.emptyVet;
+
+                window.location.reload();
+
+                return;
+            }
+
+            this.showLoader = true;
+            axios.put(VetService.getUrl() + '/' + localVet.id, localVet)
+                .then((res) => {
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    alert(JSON.stringify(error.response.data));
+                    console.log(JSON.stringify(error.response.data));
+                    window.location.reload();
+                }).finally(() => {
+                this.clickedVet = this.emptyVet;
+                this.showLoader = false;
+            });
+        },
+
+        onSubmitUpdateLicense(e) {
+            e.preventDefault()
+
+            // use local const, we don't want changes to affect for due to reactivity
+            const localLicense = {
+                id: '',
+                serial_number: '',
+                university: '',
+                city: '',
+                country: '',
+                vet_id: ''
+            }
+
+            localLicense.id = this.clickedLicense.id;
+            localLicense.serial_number = this.clickedLicense.serial_number;
+            localLicense.university = this.clickedLicense.university;
+            localLicense.city = this.clickedLicense.city;
+            localLicense.country = this.clickedLicense.country;
+            localLicense.vet_id = this.clickedLicense.vet_id;
+
+            if (!localLicense.id) {
+                localLicense.id = document.getElementById('update_input_id').value;
+            }
+
+            if (!localLicense.id) {
+                localLicense.id = document.getElementById('update_span_id').textContent;
+            }
+
+            if (!localLicense.id) {
+                alert('Please Add an ID');
+
+                this.clickedLicense = this.emptyLicense;
+
+                window.location.reload();
+
+                return;
+            }
+            if (!localLicense.serial_number) {
+                alert('Please Add a Serial Number');
+                this.clickedLicense = this.emptyLicense;
+
+                window.location.reload();
+
+                return;
+            }
+
+            if (!localLicense.university) {
+                alert('Please Add a University');
+                this.clickedLicense = this.emptyLicense;
+
+                window.location.reload();
+
+                return;
+            }
+
+            if (!localLicense.city) {
+                alert('Please Add a City');
+                this.clickedLicense = this.emptyLicense;
+
+                window.location.reload();
+
+                return;
+            }
+
+            if (!localLicense.country) {
+                alert('Please Add a Country');
+                this.clickedLicense = this.emptyLicense;
+
+                window.location.reload();
+
+                return;
+            }
+
+            this.showLoader = true;
+            axios.put(LicenseService.getUrl() + '/' + localLicense.id, localLicense)
+                .then((res) => {
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    alert(JSON.stringify(error.response.data));
+                    console.log(JSON.stringify(error.response.data));
+                    window.location.reload();
+                }).finally(() => {
+                this.clickedLicense = this.emptyLicense;
+                this.showLoader = false;
+            });
+        },
+
         onSubmitShowFilteredDogs(e) {
             e.preventDefault()
             if (this.filterFormDog.weight.length === 0) {
@@ -781,6 +1490,38 @@ export default {
             });
         },
 
+        loadPageVets() {
+            this.showLoader = true
+            const updatedPage = this.page - 1;
+            this.showLoader = true;
+            axios.get(VetService.getUrl() + '?page=' + updatedPage + '&size=' + this.recordsPerPage)
+                .then((response) => {
+                    this.showLoader = false
+                    this.vets = response.data.vets;
+                    this.totalRecords = response.data.totalItems;
+                    this.totalPages = response.data.totalPages;
+                    this.page = response.data.currentPage + 1;
+                }).finally(() => {
+                this.showLoader = false;
+            });
+        },
+
+        loadPageLicenses() {
+            this.showLoader = true
+            const updatedPage = this.page - 1;
+            this.showLoader = true;
+            axios.get(LicenseService.getUrl() + '?page=' + updatedPage + '&size=' + this.recordsPerPage)
+                .then((response) => {
+                    this.showLoader = false
+                    this.licenses = response.data.licenses;
+                    this.totalRecords = response.data.totalItems;
+                    this.totalPages = response.data.totalPages;
+                    this.page = response.data.currentPage + 1;
+                }).finally(() => {
+                this.showLoader = false;
+            });
+        },
+
         onPageChangeDogs(page) {
             this.page = page
             this.loadPageDogs()
@@ -791,9 +1532,21 @@ export default {
             this.loadPageOwners()
         },
 
+        onPageChangeVets(page) {
+            this.page = page
+            this.loadPageVets()
+        },
+
+        onPageChangeLicenses(page) {
+            this.page = page
+            this.loadPageLicenses()
+        },
+
         onChangeRecordsPerPage() {
             this.loadPageDogs()
             this.loadPageOwners()
+            this.loadPageVets()
+            this.loadPageLicenses()
         },
 
         gotoPageDogs() {
@@ -807,6 +1560,20 @@ export default {
             if (!isNaN(parseInt(this.enterPageNo))) {
                 this.page = parseInt(this.enterPageNo)
                 this.loadPageOwners()
+            }
+        },
+
+        gotoPageVets() {
+            if (!isNaN(parseInt(this.enterPageNo))) {
+                this.page = parseInt(this.enterPageNo)
+                this.loadPageVets()
+            }
+        },
+
+        gotoPageLicenses() {
+            if (!isNaN(parseInt(this.enterPageNo))) {
+                this.page = parseInt(this.enterPageNo)
+                this.loadPageLicenses()
             }
         },
 
@@ -825,15 +1592,25 @@ export default {
         },
 
     },
+
     created() {
         this.loadPageDogs();
         this.loadPageOwners();
+        this.loadPageVets();
+        this.loadPageLicenses();
+
         this.escapeHandler = (e) => {
             if (e.key === 'Escape' && this.showModalDogs) {
                 this.updateAndCloseModalDogs();
             }
             if (e.key === 'Escape' && this.showModalOwners) {
                 this.updateAndCloseModalOwners();
+            }
+            if (e.key === 'Escape' && this.showModalVets) {
+                this.updateAndCloseModalVets();
+            }
+            if (e.key === 'Escape' && this.showModalLicenses) {
+                this.updateAndCloseModalLicenses();
             }
         }
 
@@ -849,6 +1626,10 @@ export default {
 
 <style>
 
+.tabs {
+    background-color: rgba(140, 197, 197, 0.82);
+}
+
 #dogTable {
     width: 800px;
     table-layout: auto;
@@ -859,9 +1640,19 @@ export default {
     table-layout: auto;
 }
 
+#vetTable {
+    width: 800px;
+    table-layout: auto;
+}
+
+#licenseTable {
+    width: 800px;
+    table-layout: auto;
+}
+
 #container {
     position: relative;
-    background-color: #86afef;
+    background-color: #ffffff;
 }
 
 h5:hover {

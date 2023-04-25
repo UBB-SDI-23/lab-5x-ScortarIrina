@@ -56,8 +56,8 @@ export default defineComponent({
             return index !== undefined || index !== null;
         },
     },
-    setup(props: IProps, { emit, slots, attrs }) {
-        const { defaultIndex, resetTabs, position, direction, reverse } =
+    setup(props: IProps, {emit, slots, attrs}) {
+        const {defaultIndex, resetTabs, position, direction, reverse} =
             toRefs(props);
 
         const selectedIndex = ref(0);
@@ -207,7 +207,7 @@ export default defineComponent({
                 [
                     h(
                         "ul",
-                        { class: `tab-list ${position.value}`, role: "tabList" },
+                        {class: `tab-list ${position.value}`, role: "tabList"},
                         tabList
                     ),
                     ...tabToDisplay.value,
@@ -224,20 +224,25 @@ export default defineComponent({
   --border-color: #e2e2e2;
   --disabled-text-color: #999;
 }
+
 .tabs {
   display: grid;
   grid-template-columns: 1fr;
+
   .tab-list {
     list-style: none;
     display: flex;
     padding-left: 0;
     border-bottom: 1px solid var(--border-color);
+
     &.center {
       justify-content: center;
     }
+
     &.end {
       justify-content: flex-end;
     }
+
     &__item {
       padding: 8px 10px;
       cursor: pointer;
@@ -258,12 +263,14 @@ export default defineComponent({
         font-weight: 700;
         color: var(--primary-color);
       }
+
       &[aria-disabled="true"] {
         cursor: not-allowed;
         color: var(--disabled-text-color);
       }
     }
   }
+
   &.horizontal {
     &.reverse {
       .tab-list {
@@ -277,6 +284,7 @@ export default defineComponent({
   &.vertical {
     grid-template-columns: auto 1fr;
     gap: 1rem;
+
     .tab-list {
       flex-direction: column;
       border-bottom: none;
@@ -295,6 +303,7 @@ export default defineComponent({
 
     &.reverse {
       grid-template-columns: 1fr auto;
+
       .tab-list {
         grid-column: 2;
         border: none;

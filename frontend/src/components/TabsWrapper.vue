@@ -26,7 +26,7 @@ provide('selectedTitle', selectedTitle)
 
         </ul>
 
-        <slot />
+        <slot/>
     </div>
 </template>
 

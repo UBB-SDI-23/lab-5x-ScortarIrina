@@ -1,5 +1,7 @@
 package info.scortar.irina.dogsdatabase.service;
 
+import info.scortar.irina.dogsdatabase.controller.MedicalLicenceController;
+import info.scortar.irina.dogsdatabase.controller.VetController;
 import info.scortar.irina.dogsdatabase.model.MedicalLicense;
 import info.scortar.irina.dogsdatabase.model.Vet;
 import info.scortar.irina.dogsdatabase.repository.MedicalLicenceRepository;
@@ -7,11 +9,13 @@ import info.scortar.irina.dogsdatabase.repository.VetRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,10 +28,32 @@ public class MedicalLicenceService {
     @Autowired
     private VetRepository vetRepository;
 
-    public List<MedicalLicense> getAllMedicalLicences() {
-        List<MedicalLicense> medicalLicenses = new ArrayList<>();
-        medicalLicenceRepository.findAll().forEach(medicalLicenses::add);
-        return medicalLicenses;
+    public Map<String, Object> getAllMedicalLicenses(int page, int pSize) {
+        List<MedicalLicense> licenses = new ArrayList<>();
+
+        Map<String, Object> response = new HashMap<>();
+
+        if (page > -1) {
+            Pageable p = PageRequest.of(page, pSize > 0 ? pSize : MedicalLicenceController.PAGE_SIZE, Sort.by("id"));
+
+            Page<MedicalLicense> pageMedicalLicenses = medicalLicenceRepository.findAll(p);
+
+            response.put("licenses", pageMedicalLicenses.getContent());
+            response.put("currentPage", pageMedicalLicenses.getNumber());
+            response.put("totalItems", pageMedicalLicenses.getTotalElements());
+            response.put("totalPages", pageMedicalLicenses.getTotalPages());
+
+            return response;
+        } else {
+            medicalLicenceRepository.findAll().forEach(licenses::add);
+
+            response.put("licenses", licenses);
+            response.put("currentPage", 0);
+            response.put("totalItems", licenses.size());
+            response.put("totalPages", 1);
+        }
+
+        return response;
     }
 
     public Optional<MedicalLicense> getMedicalLicenceById(Long id) {

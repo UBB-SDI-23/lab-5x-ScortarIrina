@@ -1,17 +1,20 @@
 <template>
     <ul class="pagination">
         <li class="pagination-item">
-            <a href="#" @click.prevent="onClickFirstPage" :class="isInFirstPage? 'disabled':''" :disabled="isInFirstPage">First</a>
+            <a href="#" @click.prevent="onClickFirstPage" :class="isInFirstPage? 'disabled':''"
+               :disabled="isInFirstPage">First</a>
         </li>
         <li class="pagination-item">
-            <a href="#" @click.prevent="onClickPreviousPage" :class="isInFirstPage? 'disabled':''" :disabled="isInFirstPage">«</a>
+            <a href="#" @click.prevent="onClickPreviousPage" :class="isInFirstPage? 'disabled':''"
+               :disabled="isInFirstPage">«</a>
         </li>
         <li :key="page.id" v-for="page in pages" class="pagination-item">
             <a href="#" @click.prevent="onClickPage(page.name)" :disabled="page.isDisabled"
                :class="{ active: isPageActive(page.name) }">{{ page.name }}</a>
         </li>
         <li class="pagination-item">
-            <a href="#" @click.prevent="onClickNextPage" :class="isInLastPage? 'disabled':''" :disabled="isInLastPage">»</a>
+            <a href="#" @click.prevent="onClickNextPage" :class="isInLastPage? 'disabled':''"
+               :disabled="isInLastPage">»</a>
         </li>
         <li class="pagination-item">
             <a href="#" @click.prevent="onClickLastPage" :class="isInLastPage? 'disabled':''" :disabled="isInLastPage">Last</a>
@@ -42,16 +45,16 @@ export default {
         }
     },
     computed: {
-        isInFirstPage () {
+        isInFirstPage() {
             return this.currentPage === 1
         },
-        isInLastPage () {
+        isInLastPage() {
             if (this.totalPages === 0) {
                 return true
             }
             return this.currentPage === this.totalPages
         },
-        startPage () {
+        startPage() {
             // When on the first page
             if (this.currentPage === 1) {
                 return 1
@@ -66,7 +69,7 @@ export default {
             // When in between
             return this.currentPage - 1
         },
-        endPage () {
+        endPage() {
             if (this.totalPages === 0) {
                 return 1
             }
@@ -75,7 +78,7 @@ export default {
             }
             return Math.min(this.startPage + this.maxVisibleButtons - 1, this.totalPages)
         },
-        pages () {
+        pages() {
             const range = []
             for (let i = this.startPage; i <= this.endPage; i++) {
                 range.push({
@@ -87,35 +90,35 @@ export default {
         }
     },
     methods: {
-        onClickFirstPage () {
+        onClickFirstPage() {
             if (this.isInFirstPage) {
                 return false
             }
             this.$emit('pagechanged', 1)
         },
-        onClickPreviousPage () {
+        onClickPreviousPage() {
             if (this.isInFirstPage) {
                 return false
             }
             this.$emit('pagechanged', this.currentPage - 1)
         },
-        onClickPage (page) {
+        onClickPage(page) {
             this.$emit('pagechanged', page)
         },
-        onClickNextPage () {
+        onClickNextPage() {
             if (this.isInLastPage) {
                 return false
             }
             this.$emit('pagechanged', this.currentPage + 1)
         },
-        onClickLastPage () {
+        onClickLastPage() {
             console.log('onClickLastPage')
             if (this.isInLastPage) {
                 return false
             }
             this.$emit('pagechanged', this.totalPages)
         },
-        isPageActive (page) {
+        isPageActive(page) {
             return this.currentPage === page
         }
     }
@@ -126,18 +129,22 @@ export default {
   list-style-type: none;
   float: right;
   margin: 10px 0;
+
   .pagination-item {
     display: inline-block;
-    color: #aeaf92;
+    color: #646461;
+
     a {
       text-decoration: none;
       margin: 5px;
       color: #2c3e50;
     }
+
     a.disabled {
       color: #000000;
       cursor: no-drop;
     }
+
     .active {
       background-color: tomato;
       color: #ffffff !important;
@@ -146,6 +153,7 @@ export default {
     }
   }
 }
+
 button[disabled], html input[disabled] {
   cursor: default;
   color: #2a4f59;

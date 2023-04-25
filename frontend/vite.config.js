@@ -22,6 +22,16 @@ export default defineConfig({
         target: 'http://localhost:8080',
         ws: true,
         changeOrigin: true
+      },
+      '^/vets': {
+        target: 'http://localhost:8080',
+        ws: true,
+        changeOrigin: true
+      },
+      '^/licenses': {
+        target: 'http://localhost:8080',
+        ws: true,
+        changeOrigin: true
       }
     },
     // port: 80

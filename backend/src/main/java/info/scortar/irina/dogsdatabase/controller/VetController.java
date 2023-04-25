@@ -1,12 +1,15 @@
 package info.scortar.irina.dogsdatabase.controller;
 
+import info.scortar.irina.dogsdatabase.DTOs.OwnerDTO;
 import info.scortar.irina.dogsdatabase.DTOs.VetDTO;
 import info.scortar.irina.dogsdatabase.mapper.Mapper;
+import info.scortar.irina.dogsdatabase.model.Owner;
 import info.scortar.irina.dogsdatabase.model.Vet;
 import info.scortar.irina.dogsdatabase.service.VetService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -20,17 +23,25 @@ import java.util.stream.Collectors;
 @RestController
 public class VetController {
 
+    public static int PAGE_SIZE = 100;
     @Autowired
     private VetService vetService;
     @Autowired
     private Mapper mapper;
 
     @GetMapping("/vets")
-    List<VetDTO> getAllVets() {
-        return vetService.getAllVets()
-                .stream()
-                .map(mapper::toVetDTO)
-                .collect(Collectors.toList());
+    ResponseEntity<Map<String, Object>> getAllVets(@RequestParam Optional<String> page, @RequestParam Optional<String> size) {
+        int p = Integer.parseInt(page.orElse("0"));
+
+        int pSize = Integer.parseInt(size.orElse("0"));
+
+        Map<String, Object> ret = vetService.getAllVets(p, pSize);
+
+        List<VetDTO> dtos = ((List<Vet>) ret.get("vets")).stream().map(mapper::toVetDTO).collect(Collectors.toList());
+
+        ret.put("vets", dtos);
+
+        return new ResponseEntity<>(ret, HttpStatus.OK);
     }
 
     @GetMapping("/vets/{id}")
@@ -54,10 +65,10 @@ public class VetController {
         vetService.deleteVet(id);
     }
 
-    @GetMapping("/vets-sorted-by-medical-field")
-    List<VetDTO> getVetsSortedByMedicalField() {
-        return vetService.getVetsSortedByMedicalField();
-    }
+//    @GetMapping("/vets-sorted-by-medical-field")
+//    List<VetDTO> getVetsSortedByMedicalField() {
+//        return vetService.getVetsSortedByMedicalField();
+//    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

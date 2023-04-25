@@ -1,5 +1,6 @@
 <template>
-    <div tabindex="0" class="loader-overlay is-active" :class="{ 'is-full-page': isFullPage }" aria-label="Loading" v-show="loading">
+    <div tabindex="0" class="loader-overlay is-active" :class="{ 'is-full-page': isFullPage }" aria-label="Loading"
+         v-show="loading">
         <div class="loader-background"></div>
         <svg viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" :width="width" :height="height" :stroke="color">
             <g fill="none" fill-rule="evenodd">
@@ -63,13 +64,16 @@ export default {
   justify-content: center;
   overflow: hidden;
   z-index: 9999;
+
   &.is-active {
     display: flex;
   }
+
   &.is-full-page {
     z-index: 9999;
     position: fixed;
   }
+
   .loader-background {
     bottom: 0;
     left: 0;
