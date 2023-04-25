@@ -58,13 +58,17 @@
                                                     style="opacity: 0"> ▲</span>
                                             </h5></th>
                                             <th @click="sortList('breed')"><h5 class="text-center"> Dog Breed<span
-                                                    id="sbreed" style="opacity: 0"> ▲</span></h5></th>
+                                                    id="sbreed"
+                                                    style="opacity: 0"> ▲</span>
+                                            </h5></th>
                                             <th @click="sortList('age')"><h5 class="text-center"> Dog Age<span
                                                     id="sage"
                                                     style="opacity: 0"> ▲</span>
                                             </h5></th>
                                             <th @click="sortList('weight')"><h5 class="text-center"> Dog Weight<span
-                                                    id="sweight" style="opacity: 0"> ▲</span></h5></th>
+                                                    id="sweight"
+                                                    style="opacity: 0"> ▲</span>
+                                            </h5></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -175,7 +179,7 @@
             <TabItem title="Appointments">Appointments</TabItem>
         </TabsWrapper>
 
-        <Modal ref="modal" v-show="showModal" @close-modal="updateAndCloseModalDogs()" :div-height="this.divHeight"
+        <Modal ref="modal" v-show="showModalDogs" @close-modal="updateAndCloseModalDogs()" :div-height="this.divHeight"
                @keydown.esc="updateAndCloseModalDogs()" tabindex="0" id="modal">
             <div v-show="this.updateDogClicked" class="add-form">
                 <h6>DOG DETAILS</h6>
@@ -261,7 +265,7 @@
             </div>
         </Modal>
 
-        <Modal ref="modal" v-show="showModal" @close-modal="updateAndCloseModalOwners()" :div-height="this.divHeight"
+        <Modal ref="modal" v-show="showModalOwners" @close-modal="updateAndCloseModalOwners()" :div-height="this.divHeight"
                @keydown.esc="updateAndCloseModalOwners()" tabindex="0" id="modal">
             <div v-show="this.updateOwnerClicked" class="add-form">
                 <h6>OWNER DETAILS</h6>
@@ -354,7 +358,8 @@ export default {
     data() {
         return {
             divHeight: 440,
-            showModal: false,
+            showModalDogs: false,
+            showModalOwners: false,
 
             listDogsClicked: false,
             updateDogClicked: false,
@@ -478,7 +483,7 @@ export default {
             this.updateDogClicked = uClicked;
             this.createDogClicked = cClicked;
             this.deleteDogClicked = dClicked;
-            this.showModal = true;
+            this.showModalDogs = true;
             if (this.listDogsClicked) {
                 this.divHeight = 150;
             } else if (this.deleteDogClicked) {
@@ -494,7 +499,7 @@ export default {
             this.updateOwnerClicked = uClicked;
             this.createOwnerClicked = cClicked;
             this.deleteOwnerClicked = dClicked;
-            this.showModal = true;
+            this.showModalOwners = true;
             if (this.listOwnersClicked) {
                 this.divHeight = 150;
             } else if (this.deleteOwnerClicked) {
@@ -505,13 +510,13 @@ export default {
         },
 
         updateAndCloseModalDogs() {
-            this.showModal = false
+            this.showModalDogs = false
             document.getElementById('update_input_id').value = '';
             this.clickedDog = this.emptyDog;
         },
 
         updateAndCloseModalOwners() {
-            this.showModal = false
+            this.showModalOwners = false
             document.getElementById('update_input_id').value = '';
             this.clickedOwner = this.emptyOwner;
         },
@@ -824,8 +829,10 @@ export default {
         this.loadPageDogs();
         this.loadPageOwners();
         this.escapeHandler = (e) => {
-            if (e.key === 'Escape' && this.showModal) {
+            if (e.key === 'Escape' && this.showModalDogs) {
                 this.updateAndCloseModalDogs();
+            }
+            if (e.key === 'Escape' && this.showModalOwners) {
                 this.updateAndCloseModalOwners();
             }
         }
