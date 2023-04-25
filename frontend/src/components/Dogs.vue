@@ -699,26 +699,9 @@
                                placeholder="Enter license university"/>
                     </div>
                     <div class="form-control">
-                        <label>City: </label>
-                        <input type="text" v-model="clickedLicense.city" id="city"
-                               placeholder="Enter license city"/>
-                    </div>
-                    <hr>
-                    <input type="submit" value="Update license" class="btn btn-primary"/>
-                </form>
-            </div>
-            <div v-show="this.createLicenseClicked" class="add-form">
-                <h6>MEDICAL LICENSE DETAILS</h6>
-                <form v-on:submit.prevent="onSubmitCreateLicense" class="add-form">
-                    <div class="form-control">
-                        <label>Serial number: </label>
-                        <input type="text" v-model="clickedLicense.serial_number" id="serial_number"
-                               placeholder="Enter license serial number"/>
-                    </div>
-                    <div class="form-control">
-                        <label>University: </label>
-                        <input type="text" v-model="clickedLicense.university" id="university"
-                               placeholder="Enter license university"/>
+                        <label>Vet ID: </label>
+                        <input type="text" v-model="clickedLicense.vet_id" id="vet_id"
+                               placeholder="Enter license vet ID"/>
                     </div>
                     <div class="form-control">
                         <label>City: </label>
@@ -730,9 +713,36 @@
                         <input type="text" v-model="clickedLicense.country" id="country"
                                placeholder="Enter license country"/>
                     </div>
+                    <hr>
+                    <input type="submit" value="Update license" class="btn btn-primary"/>
+                </form>
+            </div>
+            <div v-show="this.createLicenseClicked" class="add-form">
+                <h6>MEDICAL LICENSE DETAILS</h6>
+                <form v-on:submit.prevent="onSubmitCreateLicense" class="add-form">
+                    <div class="form-control">
+                        <label>Serial number: </label>
+                        <input type="text" v-model="createFormLicense.serial_number" id="serial_number"
+                               placeholder="Enter license serial number"/>
+                    </div>
+                    <div class="form-control">
+                        <label>University: </label>
+                        <input type="text" v-model="createFormLicense.university" id="university"
+                               placeholder="Enter license university"/>
+                    </div>
+                    <div class="form-control">
+                        <label>City: </label>
+                        <input type="text" v-model="createFormLicense.city" id="city"
+                               placeholder="Enter license city"/>
+                    </div>
+                    <div class="form-control">
+                        <label>Country: </label>
+                        <input type="text" v-model="createFormLicense.country" id="country"
+                               placeholder="Enter license country"/>
+                    </div>
                     <div class="form-control">
                         <label>Vet ID: </label>
-                        <input type="text" v-model="clickedLicense.vet_id" id="vet_id"
+                        <input type="text" v-model="createFormLicense.vet_id" id="vet_id"
                                placeholder="Enter license vet_id"/>
                     </div>
                     <hr>
@@ -1468,7 +1478,7 @@ export default {
             }
 
             this.showLoader = true
-            axios.delete(LicenseService.getUrl() + '/' + this.deleteFormVet.id, this.deleteFormVet)
+            axios.delete(LicenseService.getUrl() + '/' + this.deleteFormLicense.id, this.deleteFormLicense)
                 .then((res) => {
                     window.location.reload()
                 })

@@ -45,8 +45,13 @@ public class Mapper {
     }
 
     public MedicalLicenceDTO toMedicalLicenceDTO(MedicalLicense medicalLicense) {
-        return new MedicalLicenceDTO(medicalLicense.getId(), medicalLicense.getSerial_number(), medicalLicense.getUniversity(), medicalLicense.getCity(),
-                medicalLicense.getVet().getFirst_name());
+        return new MedicalLicenceDTO(medicalLicense.getId(), medicalLicense.getSerial_number(),
+                medicalLicense.getUniversity(), medicalLicense.getCity(), medicalLicense.getVet().getId());
+    }
+
+    public MedicalLicense fromMedicalLicenseDTO(MedicalLicenceDTO medicalLicenceDTO) {
+        return new MedicalLicense(medicalLicenceDTO.getId(), medicalLicenceDTO.getSerial_number(),
+                medicalLicenceDTO.getUniversity(), medicalLicenceDTO.getCity(), null, null);
     }
 
     public OwnerWithDogsDTO toOwnersWithDogsDTO(Owner owner) {

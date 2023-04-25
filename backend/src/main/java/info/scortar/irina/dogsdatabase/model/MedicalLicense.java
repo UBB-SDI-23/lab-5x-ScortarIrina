@@ -13,7 +13,6 @@ public class MedicalLicense {
     private String university;
     @NotEmpty(message = "The city cannot be empty!")
     private String city;
-    @NotEmpty(message = "The country cannot be empty!")
     private String country;
 
     @OneToOne(optional = false)

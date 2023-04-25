@@ -6,13 +6,13 @@ public class MedicalLicenceDTO {
     private String serial_number;
     private String university;
     private String city;
-    private String vet_name;
+    private Long vet_id;
 
-    public MedicalLicenceDTO(Long id, String serial_number, String university, String city, String vet_name) {
+    public MedicalLicenceDTO(Long id, String serial_number, String university, String city, Long vet_id) {
         this.id = id;
         this.university = university;
         this.city = city;
-        this.vet_name = vet_name;
+        this.vet_id = vet_id;
         this.serial_number = serial_number;
     }
 
@@ -40,12 +40,12 @@ public class MedicalLicenceDTO {
         this.city = city;
     }
 
-    public String getVet_name() {
-        return vet_name;
+    public Long getVet_id() {
+        return vet_id;
     }
 
-    public void setVet_name(String vet_name) {
-        this.vet_name = vet_name;
+    public void setVet_id(Long vet_id) {
+        this.vet_id = vet_id;
     }
 
     public String getSerial_number() {

@@ -7,6 +7,7 @@ import info.scortar.irina.dogsdatabase.DTOs.MedicalLicenceDTO;
 import info.scortar.irina.dogsdatabase.model.Vet;
 import info.scortar.irina.dogsdatabase.service.MedicalLicenceService;
 
+import info.scortar.irina.dogsdatabase.service.VetService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,8 +26,13 @@ import java.util.stream.Collectors;
 public class MedicalLicenceController {
 
     public static int PAGE_SIZE = 100;
+
     @Autowired
     private MedicalLicenceService medicalLicenceService;
+
+    @Autowired
+    private VetService vetService;
+
     @Autowired
     private Mapper mapper;
 
@@ -58,14 +64,20 @@ public class MedicalLicenceController {
     }
 
     @PostMapping("/licenses")
-    void addMedicalLicence(@RequestBody @Valid MedicalLicense newMedicalLicense) {
-        this.medicalLicenceService.addMedicalLicence(newMedicalLicense);
+    void addMedicalLicence(@RequestBody @Valid MedicalLicenceDTO newMedicalLicense) {
+        Optional<Vet> vet = vetService.getVetById(newMedicalLicense.getVet_id());
+        MedicalLicense medicalLicense = mapper.fromMedicalLicenseDTO(newMedicalLicense);
+        medicalLicense.setVet(vet.orElse(null));
+        this.medicalLicenceService.addMedicalLicence(medicalLicense);
     }
 
     @PutMapping("/licenses/{id}")
-    void updateMedicalLicence(@RequestBody @Valid MedicalLicense newMedicalLicense, @PathVariable Long id) {
+    void updateMedicalLicence(@RequestBody @Valid MedicalLicenceDTO newMedicalLicense, @PathVariable Long id) {
+        Optional<Vet> vet = vetService.getVetById(newMedicalLicense.getVet_id());
+        MedicalLicense medicalLicense = mapper.fromMedicalLicenseDTO(newMedicalLicense);
+        medicalLicense.setVet(vet.orElse(null));
         newMedicalLicense.setId(id);
-        medicalLicenceService.updateMedicalLicence(newMedicalLicense, id);
+        medicalLicenceService.updateMedicalLicence(medicalLicense, id);
     }
 
     @DeleteMapping("/licenses/{id}")
