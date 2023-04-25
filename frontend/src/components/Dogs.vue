@@ -389,7 +389,7 @@
                                     <table class="table table-striped" id="appointmentTable">
                                         <thead>
                                         <tr>
-                                            <th @click="sortList('appointment_id')">
+                                            <th @click="sortList('id')">
                                                 <h5 class="text-center"> ID
                                                     <span id="sid" style="opacity: 0"> ▲</span>
                                                 </h5>
@@ -417,9 +417,9 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-for="appointment in sortedAppointments" v-bind:key="appointment.appointment_id"
+                                        <tr v-for="appointment in sortedAppointments" v-bind:key="appointment.id"
                                             @click="showModalClickedLicenses(appointment, false, true, false, false)">
-                                            <td> {{ appointment.appointment_id }}</td>
+                                            <td> {{ appointment.id }}</td>
                                             <td> {{ appointment.dog_id }}</td>
                                             <td> {{ appointment.vet_id }}</td>
                                             <td> {{ appointment.date }}</td>
@@ -740,9 +740,9 @@
                 <form v-on:submit.prevent="onSubmitUpdateAppointment" class="add-form">
                     <div class="form-control">
                         <label>ID: </label>
-                        <span v-show="this.clickedAppointment.appointment_id !== ''" id="update_span_id">{{this.clickedAppointment.appointment_id }}</span>
-                        <input type="text" v-show="this.clickedAppointment.appointment_id === ''" id="update_input_id"
-                               v-bind="this.clickedAppointment.appointment_id"
+                        <span v-show="this.clickedAppointment.id !== ''" id="update_span_id">{{this.clickedAppointment.id }}</span>
+                        <input type="text" v-show="this.clickedAppointment.id === ''" id="update_input_id"
+                               v-bind="this.clickedAppointment.id"
                                placeholder="Enter appointment ID"/>
                     </div>
                     <div class="form-control">
@@ -805,7 +805,7 @@
                 <form v-on:submit.prevent="onSubmitDeleteAppointment" class="add-form">
                     <div class="form-control">
                         <label>ID: </label>
-                        <input type="text" v-model="deleteFormAppointment.appointment_id" id="id"
+                        <input type="text" v-model="deleteFormAppointment.id" id="id"
                                placeholder="Enter appointment ID"/>
                     </div>
                     <hr>
@@ -1018,7 +1018,7 @@ export default {
             deleteAppointmentClicked: false,
 
             emptyAppointment: {
-                appointment_id: '',
+                id: '',
                 dog_id: '',
                 vet_id: '',
                 date: '',
@@ -1026,7 +1026,7 @@ export default {
                 description: ''
             },
             clickedAppointment: {
-                appointment_id: '',
+                id: '',
                 dog_id: '',
                 vet_id: '',
                 date: '',
@@ -1035,7 +1035,7 @@ export default {
             },
             appointments: [],
             createFormAppointment: {
-                appointment_id: '',
+                id: '',
                 dog_id: '',
                 vet_id: '',
                 date: '',
@@ -1043,7 +1043,7 @@ export default {
                 description: ''
             },
             deleteFormAppointment: {
-                appointment_id: '',
+                id: '',
                 dog_id: '',
                 vet_id: '',
                 date: '',
@@ -1051,7 +1051,7 @@ export default {
                 description: ''
             },
             updateFormAppointment: {
-                appointment_id: '',
+                id: '',
                 dog_id: '',
                 vet_id: '',
                 date: '',
@@ -1443,13 +1443,13 @@ export default {
 
         onSubmitDeleteAppointment(e) {
             e.preventDefault()
-            if (!this.deleteFormAppointment.appointment_id) {
+            if (!this.deleteFormAppointment.id) {
                 alert('Please Add an ID')
                 return
             }
 
             this.showLoader = true
-            axios.delete(AppointmentService.getUrl() + '/' + this.deleteFormAppointment.appointment_id, this.deleteFormAppointment)
+            axios.delete(AppointmentService.getUrl() + '/' + this.deleteFormAppointment.id, this.deleteFormAppointment)
                 .then((res) => {
                     window.location.reload()
                 })
@@ -1459,7 +1459,7 @@ export default {
                 }).finally(() => {
                 this.showLoader = false
             });
-            this.deleteFormAppointment.appointment_id = ' '
+            this.deleteFormAppointment.id = ' '
         },
 
         onSubmitUpdateDog(e) {
@@ -1745,7 +1745,7 @@ export default {
 
             // use local const, we don't want changes to affect for due to reactivity
             const localAppointment = {
-                appointment_id: '',
+                id: '',
                 dog_id: '',
                 vet_id: '',
                 date: '',
@@ -1753,22 +1753,22 @@ export default {
                 description: ''
             }
 
-            localAppointment.appointment_id = this.clickedAppointment.appointment_id;
+            localAppointment.id = this.clickedAppointment.id;
             localAppointment.dog_id = this.clickedAppointment.dog_id;
             localAppointment.vet_id = this.clickedAppointment.vet_id;
             localAppointment.price = this.clickedAppointment.price;
             localAppointment.date = this.clickedAppointment.date;
             localAppointment.description = this.clickedAppointment.description;
 
-            if (!localAppointment.appointment_id) {
-                localAppointment.appointment_id = document.getElementById('update_input_id').value;
+            if (!localAppointment.id) {
+                localAppointment.id = document.getElementById('update_input_id').value;
             }
 
-            if (!localAppointment.appointment_id) {
-                localAppointment.appointment_id = document.getElementById('update_span_id').textContent;
+            if (!localAppointment.id) {
+                localAppointment.id = document.getElementById('update_span_id').textContent;
             }
 
-            if (!localAppointment.appointment_id) {
+            if (!localAppointment.id) {
                 alert('Please Add an ID');
 
                 this.clickedAppointment = this.emptyAppointment;
@@ -1814,7 +1814,7 @@ export default {
             }
 
             this.showLoader = true;
-            axios.put(AppointmentService.getUrl() + '/' + localAppointment.appointment_id, localAppointment)
+            axios.put(AppointmentService.getUrl() + '/' + localAppointment.id, localAppointment)
                 .then((res) => {
                     window.location.reload();
                 })

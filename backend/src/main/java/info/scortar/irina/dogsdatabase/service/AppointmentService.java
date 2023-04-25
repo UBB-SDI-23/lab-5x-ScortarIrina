@@ -30,11 +30,11 @@ public class AppointmentService {
         Map<String, Object> response = new HashMap<>();
 
         if (page > -1) {
-            Pageable p = PageRequest.of(page, pSize > 0 ? pSize : AppointmentController.PAGE_SIZE, Sort.by("appointment_id"));
+            Pageable p = PageRequest.of(page, pSize > 0 ? pSize : AppointmentController.PAGE_SIZE, Sort.by("id"));
 
             Page<Appointment> pageAppointments = appointmentRepository.findAll(p);
 
-            response.put("dogs", pageAppointments.getContent());
+            response.put("appointments", pageAppointments.getContent());
             response.put("currentPage", pageAppointments.getNumber());
             response.put("totalItems", pageAppointments.getTotalElements());
             response.put("totalPages", pageAppointments.getTotalPages());
