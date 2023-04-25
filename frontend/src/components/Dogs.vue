@@ -418,7 +418,7 @@
                                         </thead>
                                         <tbody>
                                         <tr v-for="appointment in sortedAppointments" v-bind:key="appointment.id"
-                                            @click="showModalClickedLicenses(appointment, false, true, false, false)">
+                                            @click="showModalClickedAppointments(appointment, false, true, false, false)">
                                             <td> {{ appointment.id }}</td>
                                             <td> {{ appointment.dog_id }}</td>
                                             <td> {{ appointment.vet_id }}</td>
@@ -683,7 +683,9 @@
                 <form v-on:submit.prevent="onSubmitUpdateLicense" class="add-form">
                     <div class="form-control">
                         <label>ID: </label>
-                        <span v-show="this.clickedLicense.id !== ''" id="update_span_id">{{this.clickedLicense.id }}</span>
+                        <span v-show="this.clickedLicense.id !== ''" id="update_span_id">{{
+                            this.clickedLicense.id
+                            }}</span>
                         <input type="text" v-show="this.clickedLicense.id === ''" id="update_input_id"
                                v-bind="this.clickedLicense.id"
                                placeholder="Enter license ID"/>
@@ -770,7 +772,8 @@
                 <form v-on:submit.prevent="onSubmitUpdateAppointment" class="add-form">
                     <div class="form-control">
                         <label>ID: </label>
-                        <span v-show="this.clickedAppointment.id !== ''" id="update_span_id">{{this.clickedAppointment.id }}</span>
+                        <span v-show="this.clickedAppointment.id !== ''"
+                              id="update_span_id">{{ this.clickedAppointment.id }}</span>
                         <input type="text" v-show="this.clickedAppointment.id === ''" id="update_input_id"
                                v-bind="this.clickedAppointment.id"
                                placeholder="Enter appointment ID"/>
@@ -791,6 +794,11 @@
                                placeholder="Enter appointment date"/>
                     </div>
                     <div class="form-control">
+                        <label>Price: </label>
+                        <input type="text" v-model="clickedAppointment.price" id="price"
+                               placeholder="Enter appointment price"/>
+                    </div>
+                    <div class="form-control">
                         <label>Description: </label>
                         <input type="text" v-model="clickedAppointment.description" id="description"
                                placeholder="Enter appointment description"/>
@@ -804,27 +812,27 @@
                 <form v-on:submit.prevent="onSubmitCreateAppointment" class="add-form">
                     <div class="form-control">
                         <label>Dog ID: </label>
-                        <input type="text" v-model="clickedAppointment.dog_id" id="dog_id"
+                        <input type="text" v-model="createFormAppointment.dog_id" id="dog_id"
                                placeholder="Enter appointment dog ID"/>
                     </div>
                     <div class="form-control">
                         <label>Vet ID: </label>
-                        <input type="text" v-model="clickedAppointment.vet_id" id="vet_id"
+                        <input type="text" v-model="createFormAppointment.vet_id" id="vet_id"
                                placeholder="Enter appointment vet ID"/>
                     </div>
                     <div class="form-control">
                         <label>Date: </label>
-                        <input type="text" v-model="clickedAppointment.date" id="date"
+                        <input type="text" v-model="createFormAppointment.date" id="date"
                                placeholder="Enter appointment date"/>
                     </div>
                     <div class="form-control">
                         <label>Price: </label>
-                        <input type="text" v-model="clickedAppointment.price" id="price"
+                        <input type="text" v-model="createFormAppointment.price" id="price"
                                placeholder="Enter appointment price"/>
                     </div>
                     <div class="form-control">
                         <label>Description: </label>
-                        <input type="text" v-model="clickedAppointment.description" id="description"
+                        <input type="text" v-model="createFormAppointment.description" id="description"
                                placeholder="Enter appointment description"/>
                     </div>
                     <hr>
@@ -1242,13 +1250,13 @@ export default {
         showModalClickedAppointments(appointment, lClicked, uClicked, cClicked, dClicked) {
             this.clickedAppointment = appointment;
             this.listAppointmentsClicked = lClicked;
-            this.updateAppointmentsClicked = uClicked;
-            this.createAppointmentsClicked = cClicked;
-            this.deleteAppointmentsClicked = dClicked;
+            this.updateAppointmentClicked = uClicked;
+            this.createAppointmentClicked = cClicked;
+            this.deleteAppointmentClicked = dClicked;
             this.showModalAppointments = true;
             if (this.listAppointmentsClicked) {
                 this.divHeight = 150;
-            } else if (this.deleteAppointmentsClicked) {
+            } else if (this.deleteAppointmentClicked) {
                 this.divHeight = 200;
             } else {
                 this.divHeight = 440;
@@ -1846,7 +1854,7 @@ export default {
 
             if (!localAppointment.vet_id) {
                 alert('Please Add a Vet ID');
-                this.clickedAppointment = this.emptyLicense;
+                this.clickedAppointment = this.emptyAppointment;
 
                 window.location.reload();
 

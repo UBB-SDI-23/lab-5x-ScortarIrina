@@ -4,6 +4,9 @@ import info.scortar.irina.dogsdatabase.DTOs.*;
 import info.scortar.irina.dogsdatabase.model.*;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -41,7 +44,13 @@ public class Mapper {
 
     public AppointmentDTO toAppointmentDTO(Appointment appointment) {
         return new AppointmentDTO(appointment.getId(), appointment.getDog().getId(), appointment.getVet().getId(),
-                appointment.getDate().toString(), appointment.getDescription());
+                appointment.getDate().toString(), appointment.getPrice(), appointment.getDescription());
+    }
+
+    public Appointment fromAppointmentDTO(AppointmentDTO appointment) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = simpleDateFormat.parse(appointment.getDate());
+        return new Appointment(appointment.getId(), null, null, date, appointment.getPrice(), appointment.getDescription());
     }
 
     public MedicalLicenceDTO toMedicalLicenceDTO(MedicalLicense medicalLicense) {

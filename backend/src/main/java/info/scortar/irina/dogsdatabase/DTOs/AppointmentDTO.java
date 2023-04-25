@@ -6,14 +6,24 @@ public class AppointmentDTO {
     private Long dog_id;
     private Long vet_id;
     private String date;
+    private float price;
     private String description;
 
-    public AppointmentDTO(Long appointment_id, Long dog_id, Long vet_id, String date, String description) {
+    public AppointmentDTO(Long appointment_id, Long dog_id, Long vet_id, String date, float price, String description) {
         this.dog_id = dog_id;
         this.vet_id = vet_id;
         this.date = date;
         this.id = appointment_id;
         this.description = description;
+        this.price = price;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
 
     public Long getId() {
