@@ -49,23 +49,23 @@
                                     <table class="table table-striped" id="dogTable">
                                         <thead>
                                         <tr>
-                                            <th @click="sortList('id')"><h5 class="text-center"> Dog Id<span
+                                            <th @click="sortList('id')"><h5 class="text-center"> Id<span
                                                     id="sid"
                                                     style="opacity: 0"> ▲</span>
                                             </h5></th>
-                                            <th @click="sortList('name')"><h5 class="text-center"> Dog Name<span
+                                            <th @click="sortList('name')"><h5 class="text-center"> Name<span
                                                     id="sname"
                                                     style="opacity: 0"> ▲</span>
                                             </h5></th>
-                                            <th @click="sortList('breed')"><h5 class="text-center"> Dog Breed<span
+                                            <th @click="sortList('breed')"><h5 class="text-center"> Breed<span
                                                     id="sbreed"
                                                     style="opacity: 0"> ▲</span>
                                             </h5></th>
-                                            <th @click="sortList('age')"><h5 class="text-center"> Dog Age<span
+                                            <th @click="sortList('age')"><h5 class="text-center"> Age<span
                                                     id="sage"
                                                     style="opacity: 0"> ▲</span>
                                             </h5></th>
-                                            <th @click="sortList('weight')"><h5 class="text-center"> Dog Weight<span
+                                            <th @click="sortList('weight')"><h5 class="text-center"> Weight<span
                                                     id="sweight"
                                                     style="opacity: 0"> ▲</span>
                                             </h5></th>
@@ -136,21 +136,21 @@
                                     <table class="table table-striped" id="ownerTable">
                                         <thead>
                                         <tr>
-                                            <th @click="sortList('id')"><h5 class="text-center"> Owner Id<span
+                                            <th @click="sortList('id')"><h5 class="text-center"> Id<span
                                                     id="sid"
                                                     style="opacity: 0"> ▲</span>
                                             </h5></th>
-                                            <th @click="sortList('first_name')"><h5 class="text-center"> Owner First
+                                            <th @click="sortList('first_name')"><h5 class="text-center"> First
                                                 Name<span
                                                         id="sfname"
                                                         style="opacity: 0"> ▲</span>
                                             </h5></th>
-                                            <th @click="sortList('last_name')"><h5 class="text-center"> Owner Last
+                                            <th @click="sortList('last_name')"><h5 class="text-center"> Last
                                                 Name<span
                                                         id="slname"
                                                         style="opacity: 0"> ▲</span>
                                             </h5></th>
-                                            <th @click="sortList('job')"><h5 class="text-center"> Owner Job<span
+                                            <th @click="sortList('job')"><h5 class="text-center"> Job<span
                                                     id="sjob" style="opacity: 0"> ▲</span></h5></th>
                                         </tr>
                                         </thead>
@@ -219,22 +219,22 @@
                                         <thead>
                                         <tr>
                                             <th @click="sortList('id')">
-                                                <h5 class="text-center"> Vet Id
+                                                <h5 class="text-center"> Id
                                                     <span id="sid" style="opacity: 0"> ▲</span>
                                                 </h5>
                                             </th>
                                             <th @click="sortList('first_name')">
-                                                <h5 class="text-center"> Vet First Name
+                                                <h5 class="text-center"> First Name
                                                     <span id="sfname" style="opacity: 0"> ▲</span>
                                                 </h5>
                                             </th>
                                             <th @click="sortList('last_name')">
-                                                <h5 class="text-center"> Vet Last Name
+                                                <h5 class="text-center"> Last Name
                                                     <span id="slname" style="opacity: 0"> ▲</span>
                                                 </h5>
                                             </th>
                                             <th @click="sortList('specialty')">
-                                                <h5 class="text-center"> Vet Specialty
+                                                <h5 class="text-center"> Specialty
                                                     <span id="sspecialty" style="opacity: 0"> ▲</span>
                                                 </h5>
                                             </th>
@@ -259,7 +259,7 @@
             </TabItem>
 
             <TabItem title="Licenses" class="tabs">
-                <table class="table table-striped" id="contentTableVets">
+                <table class="table table-striped" id="contentTableLicenses">
                     <table class="table table-striped" id="contentTableVetsList">
                         <thead>
                         <tr>
@@ -305,22 +305,22 @@
                                         <thead>
                                         <tr>
                                             <th @click="sortList('id')">
-                                                <h5 class="text-center"> License Id
+                                                <h5 class="text-center"> Id
                                                     <span id="sid" style="opacity: 0"> ▲</span>
                                                 </h5>
                                             </th>
                                             <th @click="sortList('serial_number')">
-                                                <h5 class="text-center"> License Serial Number
+                                                <h5 class="text-center"> Serial Number
                                                     <span id="sserialno" style="opacity: 0"> ▲</span>
                                                 </h5>
                                             </th>
                                             <th @click="sortList('university')">
-                                                <h5 class="text-center"> License University
+                                                <h5 class="text-center"> University
                                                     <span id="suniversity" style="opacity: 0"> ▲</span>
                                                 </h5>
                                             </th>
                                             <th @click="sortList('city')">
-                                                <h5 class="text-center"> License City
+                                                <h5 class="text-center"> City
                                                     <span id="scity" style="opacity: 0"> ▲</span>
                                                 </h5>
                                             </th>
@@ -344,7 +344,96 @@
                 </table>
             </TabItem>
 
-            <TabItem title="Appointments">Appointments</TabItem>
+            <TabItem title="Appointments" class="tabs">
+                <table class="table table-striped" id="contentTableAppointments">
+                    <table class="table table-striped" id="contentTableAppointmentsList">
+                        <thead>
+                        <tr>
+                            <input type="button" value="Update appointment" class="btn btn-primary"
+                                   @click="showModalClickedAppointments(this.clickedAppointment, false, true, false, false)"/>
+                            <input type="button" value="Create appointment" class="btn btn-primary"
+                                   @click="showModalClickedAppointments(this.clickedAppointment, false, false, true, false)"/>
+                            <input type="button" value="Delete appointment" class="btn btn-primary"
+                                   @click="showModalClickedAppointments(this.clickedAppointment, false, false, false, true)"/>
+                        </tr>
+                        <tr>
+                            <th>
+                                <h2 class="text-center"> Appointments List &#128203;</h2>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="container">
+                                  <span class="showItems">
+                                    Show Items:
+                                        <select @change="onChangeRecordsPerPage" v-model.number="recordsPerPage">
+                                            <option :value="10">10</option>
+                                            <option :value="20">20</option>
+                                            <option :value="30">30</option>
+                                            <option :value="40">40</option>
+                                            <option :value="50">50</option>
+                                            <option :value="100">100</option>
+                                        </select>
+                                  </span>
+                                    <span>
+                                    Go to Page <input type="text" v-model="enterPageNo">
+                                        <button type="button" @click.prevent="gotoPageAppointments">Go</button>
+                                  </span>
+                                    <span>
+                                    <Pagination v-if="appointments" :total-pages='this.totalPages'
+                                                :per-page='this.recordsPerPage' :current-page='this.page'
+                                                @pagechanged="onPageChangeAppointments"/>
+                                  </span>
+                                    <table class="table table-striped" id="appointmentTable">
+                                        <thead>
+                                        <tr>
+                                            <th @click="sortList('appointment_id')">
+                                                <h5 class="text-center"> ID
+                                                    <span id="sid" style="opacity: 0"> ▲</span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('dog_id')">
+                                                <h5 class="text-center"> Dog ID
+                                                    <span id="sdogid" style="opacity: 0"> ▲</span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('vet_id')">
+                                                <h5 class="text-center"> Vet ID
+                                                    <span id="svetid" style="opacity: 0"> ▲</span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('date')">
+                                                <h5 class="text-center"> Date
+                                                    <span id="sdate" style="opacity: 0"> ▲</span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('description')">
+                                                <h5 class="text-center"> Description
+                                                    <span id="sdescription" style="opacity: 0"> ▲</span>
+                                                </h5>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="appointment in sortedAppointments" v-bind:key="appointment.appointment_id"
+                                            @click="showModalClickedLicenses(appointment, false, true, false, false)">
+                                            <td> {{ appointment.appointment_id }}</td>
+                                            <td> {{ appointment.dog_id }}</td>
+                                            <td> {{ appointment.vet_id }}</td>
+                                            <td> {{ appointment.date }}</td>
+                                            <td> {{ appointment.description }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </table>
+            </TabItem>
         </TabsWrapper>
 
         <Modal ref="modal" v-show="showModalDogs" @close-modal="updateAndCloseModalDogs()" :div-height="this.divHeight"
@@ -643,6 +732,88 @@
             </div>
         </Modal>
 
+        <Modal ref="modal" v-show="showModalAppointments" @close-modal="updateAndCloseModalAppointments()"
+               :div-height="this.divHeight"
+               @keydown.esc="updateAndCloseModalAppointments()" tabindex="0" id="modal">
+            <div v-show="this.updateAppointmentClicked" class="add-form">
+                <h6>APPOINTMENT DETAILS</h6>
+                <form v-on:submit.prevent="onSubmitUpdateAppointment" class="add-form">
+                    <div class="form-control">
+                        <label>ID: </label>
+                        <span v-show="this.clickedAppointment.appointment_id !== ''" id="update_span_id">{{this.clickedAppointment.appointment_id }}</span>
+                        <input type="text" v-show="this.clickedAppointment.appointment_id === ''" id="update_input_id"
+                               v-bind="this.clickedAppointment.appointment_id"
+                               placeholder="Enter appointment ID"/>
+                    </div>
+                    <div class="form-control">
+                        <label>Dog ID: </label>
+                        <input type="text" v-model="clickedAppointment.dog_id" id="dog_id"
+                               placeholder="Enter appointment dog id"/>
+                    </div>
+                    <div class="form-control">
+                        <label>Vet ID: </label>
+                        <input type="text" v-model="clickedAppointment.vet_id" id="vet_id"
+                               placeholder="Enter appointment vet id"/>
+                    </div>
+                    <div class="form-control">
+                        <label>Date: </label>
+                        <input type="text" v-model="clickedAppointment.date" id="date"
+                               placeholder="Enter appointment date"/>
+                    </div>
+                    <div class="form-control">
+                        <label>Description: </label>
+                        <input type="text" v-model="clickedAppointment.description" id="description"
+                               placeholder="Enter appointment description"/>
+                    </div>
+                    <hr>
+                    <input type="submit" value="Update appointment" class="btn btn-primary"/>
+                </form>
+            </div>
+            <div v-show="this.createAppointmentClicked" class="add-form">
+                <h6>APPOINTMENT DETAILS</h6>
+                <form v-on:submit.prevent="onSubmitCreateAppointment" class="add-form">
+                    <div class="form-control">
+                        <label>Dog ID: </label>
+                        <input type="text" v-model="clickedAppointment.dog_id" id="dog_id"
+                               placeholder="Enter appointment dog ID"/>
+                    </div>
+                    <div class="form-control">
+                        <label>Vet ID: </label>
+                        <input type="text" v-model="clickedAppointment.vet_id" id="vet_id"
+                               placeholder="Enter appointment vet ID"/>
+                    </div>
+                    <div class="form-control">
+                        <label>Date: </label>
+                        <input type="text" v-model="clickedAppointment.date" id="date"
+                               placeholder="Enter appointment date"/>
+                    </div>
+                    <div class="form-control">
+                        <label>Price: </label>
+                        <input type="text" v-model="clickedAppointment.price" id="price"
+                               placeholder="Enter appointment price"/>
+                    </div>
+                    <div class="form-control">
+                        <label>Description: </label>
+                        <input type="text" v-model="clickedAppointment.description" id="description"
+                               placeholder="Enter appointment description"/>
+                    </div>
+                    <hr>
+                    <input type="submit" value="Add appointment" class="btn btn-primary"/>
+                </form>
+            </div>
+            <div v-show="this.deleteAppointmentClicked" class="add-form">
+                <form v-on:submit.prevent="onSubmitDeleteAppointment" class="add-form">
+                    <div class="form-control">
+                        <label>ID: </label>
+                        <input type="text" v-model="deleteFormAppointment.appointment_id" id="id"
+                               placeholder="Enter appointment ID"/>
+                    </div>
+                    <hr>
+                    <input type="submit" value="Delete appointment" class="btn btn-primary"/>
+                </form>
+            </div>
+        </Modal>
+
     </div>
 </template>
 
@@ -658,6 +829,7 @@ import Modal from "@/components/Modal.vue";
 import OwnerService from "@/services/OwnerService";
 import VetService from "@/services/VetService";
 import LicenseService from "@/services/LicenseService";
+import AppointmentService from "@/services/AppointmentService";
 
 export default {
     name: 'Dogs',
@@ -676,6 +848,7 @@ export default {
             showModalOwners: false,
             showModalVets: false,
             showModalLicenses: false,
+            showModalAppointments: false,
 
             listDogsClicked: false,
             updateDogClicked: false,
@@ -792,7 +965,6 @@ export default {
                 specialty: ''
             },
 
-            //
             listLicensesClicked: false,
             updateLicenseClicked: false,
             createLicenseClicked: false,
@@ -838,6 +1010,53 @@ export default {
                 city: '',
                 country: '',
                 vet_id: ''
+            },
+
+            listAppointmentsClicked: false,
+            updateAppointmentClicked: false,
+            createAppointmentClicked: false,
+            deleteAppointmentClicked: false,
+
+            emptyAppointment: {
+                appointment_id: '',
+                dog_id: '',
+                vet_id: '',
+                date: '',
+                price: '',
+                description: ''
+            },
+            clickedAppointment: {
+                appointment_id: '',
+                dog_id: '',
+                vet_id: '',
+                date: '',
+                price: '',
+                description: ''
+            },
+            appointments: [],
+            createFormAppointment: {
+                appointment_id: '',
+                dog_id: '',
+                vet_id: '',
+                date: '',
+                price: '',
+                description: ''
+            },
+            deleteFormAppointment: {
+                appointment_id: '',
+                dog_id: '',
+                vet_id: '',
+                date: '',
+                price: '',
+                description: ''
+            },
+            updateFormAppointment: {
+                appointment_id: '',
+                dog_id: '',
+                vet_id: '',
+                date: '',
+                price: '',
+                description: ''
             },
 
             currentSort: 'id',
@@ -888,6 +1107,16 @@ export default {
 
         sortedLicenses: function () {
             return this.licenses.sort((a, b) => {
+                let modifier = 1;
+                if (this.currentSortDir === 'desc') modifier = -1;
+                if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+                if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+                return 0;
+            });
+        },
+
+        sortedAppointments: function () {
+            return this.appointments.sort((a, b) => {
                 let modifier = 1;
                 if (this.currentSortDir === 'desc') modifier = -1;
                 if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
@@ -962,6 +1191,22 @@ export default {
             }
         },
 
+        showModalClickedAppointments(appointment, lClicked, uClicked, cClicked, dClicked) {
+            this.clickedAppointment = appointment;
+            this.listAppointmentsClicked = lClicked;
+            this.updateAppointmentsClicked = uClicked;
+            this.createAppointmentsClicked = cClicked;
+            this.deleteAppointmentsClicked = dClicked;
+            this.showModalAppointments = true;
+            if (this.listAppointmentsClicked) {
+                this.divHeight = 150;
+            } else if (this.deleteAppointmentsClicked) {
+                this.divHeight = 200;
+            } else {
+                this.divHeight = 440;
+            }
+        },
+
         updateAndCloseModalDogs() {
             this.showModalDogs = false
             document.getElementById('update_input_id').value = '';
@@ -984,6 +1229,12 @@ export default {
             this.showModalLicenses = false
             document.getElementById('update_input_id').value = '';
             this.clickedLicense = this.emptyLicense;
+        },
+
+        updateAndCloseModalAppointments() {
+            this.showModalAppointments = false
+            document.getElementById('update_input_id').value = '';
+            this.clickedAppointment = this.emptyAppointment;
         },
 
         onSubmitCreateDog(e) {
@@ -1081,6 +1332,31 @@ export default {
             this.createFormLicense.vet_id = ' '
         },
 
+        onSubmitCreateAppointment(e) {
+            e.preventDefault()
+            if (!this.createFormAppointment.dog_id) {
+                alert('Please Add a Dog ID')
+                return
+            }
+
+            this.showLoader = true
+            axios.post(AppointmentService.getUrl(), this.createFormAppointment)
+                .then((res) => {
+                    window.location.reload()
+                })
+                .catch((error) => {
+                    alert(JSON.stringify(error.response.data));
+                    console.log(JSON.stringify(error.response.data));
+                }).finally(() => {
+                this.showLoader = false
+            });
+            this.createFormAppointment.dog_id = ' '
+            this.createFormAppointment.vet_id = ' '
+            this.createFormAppointment.date = ' '
+            this.createFormAppointment.price = ' '
+            this.createFormAppointment.description = ' '
+        },
+
         onSubmitDeleteDog(e) {
             e.preventDefault()
             if (!this.deleteFormDog.id) {
@@ -1163,6 +1439,27 @@ export default {
                 this.showLoader = false
             });
             this.deleteFormLicense.id = ' '
+        },
+
+        onSubmitDeleteAppointment(e) {
+            e.preventDefault()
+            if (!this.deleteFormAppointment.appointment_id) {
+                alert('Please Add an ID')
+                return
+            }
+
+            this.showLoader = true
+            axios.delete(AppointmentService.getUrl() + '/' + this.deleteFormAppointment.appointment_id, this.deleteFormAppointment)
+                .then((res) => {
+                    window.location.reload()
+                })
+                .catch((error) => {
+                    alert(JSON.stringify(error.response.data));
+                    console.log(JSON.stringify(error.response.data));
+                }).finally(() => {
+                this.showLoader = false
+            });
+            this.deleteFormAppointment.appointment_id = ' '
         },
 
         onSubmitUpdateDog(e) {
@@ -1443,6 +1740,94 @@ export default {
             });
         },
 
+        onSubmitUpdateAppointment(e) {
+            e.preventDefault()
+
+            // use local const, we don't want changes to affect for due to reactivity
+            const localAppointment = {
+                appointment_id: '',
+                dog_id: '',
+                vet_id: '',
+                date: '',
+                price: '',
+                description: ''
+            }
+
+            localAppointment.appointment_id = this.clickedAppointment.appointment_id;
+            localAppointment.dog_id = this.clickedAppointment.dog_id;
+            localAppointment.vet_id = this.clickedAppointment.vet_id;
+            localAppointment.price = this.clickedAppointment.price;
+            localAppointment.date = this.clickedAppointment.date;
+            localAppointment.description = this.clickedAppointment.description;
+
+            if (!localAppointment.appointment_id) {
+                localAppointment.appointment_id = document.getElementById('update_input_id').value;
+            }
+
+            if (!localAppointment.appointment_id) {
+                localAppointment.appointment_id = document.getElementById('update_span_id').textContent;
+            }
+
+            if (!localAppointment.appointment_id) {
+                alert('Please Add an ID');
+
+                this.clickedAppointment = this.emptyAppointment;
+
+                window.location.reload();
+
+                return;
+            }
+            if (!localAppointment.dog_id) {
+                alert('Please Add a Dog ID');
+                this.clickedAppointment = this.emptyAppointment;
+
+                window.location.reload();
+
+                return;
+            }
+
+            if (!localAppointment.vet_id) {
+                alert('Please Add a Vet ID');
+                this.clickedAppointment = this.emptyLicense;
+
+                window.location.reload();
+
+                return;
+            }
+
+            if (!localAppointment.date) {
+                alert('Please Add a Date');
+                this.clickedAppointment = this.emptyAppointment;
+
+                window.location.reload();
+
+                return;
+            }
+
+            if (!localAppointment.price) {
+                alert('Please Add a price');
+                this.clickedAppointment = this.emptyAppointment;
+
+                window.location.reload();
+
+                return;
+            }
+
+            this.showLoader = true;
+            axios.put(AppointmentService.getUrl() + '/' + localAppointment.appointment_id, localAppointment)
+                .then((res) => {
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    alert(JSON.stringify(error.response.data));
+                    console.log(JSON.stringify(error.response.data));
+                    window.location.reload();
+                }).finally(() => {
+                this.clickedAppointment = this.emptyAppointment;
+                this.showLoader = false;
+            });
+        },
+
         onSubmitShowFilteredDogs(e) {
             e.preventDefault()
             if (this.filterFormDog.weight.length === 0) {
@@ -1522,6 +1907,22 @@ export default {
             });
         },
 
+        loadPageAppointments() {
+            this.showLoader = true
+            const updatedPage = this.page - 1;
+            this.showLoader = true;
+            axios.get(AppointmentService.getUrl() + '?page=' + updatedPage + '&size=' + this.recordsPerPage)
+                .then((response) => {
+                    this.showLoader = false
+                    this.appointments = response.data.appointments;
+                    this.totalRecords = response.data.totalItems;
+                    this.totalPages = response.data.totalPages;
+                    this.page = response.data.currentPage + 1;
+                }).finally(() => {
+                this.showLoader = false;
+            });
+        },
+
         onPageChangeDogs(page) {
             this.page = page
             this.loadPageDogs()
@@ -1542,11 +1943,17 @@ export default {
             this.loadPageLicenses()
         },
 
+        onPageChangeAppointments(page) {
+            this.page = page
+            this.loadPageAppointments()
+        },
+
         onChangeRecordsPerPage() {
             this.loadPageDogs()
             this.loadPageOwners()
             this.loadPageVets()
             this.loadPageLicenses()
+            this.loadPageAppointments()
         },
 
         gotoPageDogs() {
@@ -1577,6 +1984,13 @@ export default {
             }
         },
 
+        gotoPageAppointments() {
+            if (!isNaN(parseInt(this.enterPageNo))) {
+                this.page = parseInt(this.enterPageNo)
+                this.loadPageAppointments()
+            }
+        },
+
         sortList: function (s) {
             // remove icon of current sort icon
             document.getElementById('s' + this.currentSort).style.opacity = "0";
@@ -1598,6 +2012,7 @@ export default {
         this.loadPageOwners();
         this.loadPageVets();
         this.loadPageLicenses();
+        this.loadPageAppointments();
 
         this.escapeHandler = (e) => {
             if (e.key === 'Escape' && this.showModalDogs) {
@@ -1611,6 +2026,9 @@ export default {
             }
             if (e.key === 'Escape' && this.showModalLicenses) {
                 this.updateAndCloseModalLicenses();
+            }
+            if (e.key === 'Escape' && this.showModalAppointments) {
+                this.updateAndCloseModalAppointments();
             }
         }
 
@@ -1646,6 +2064,11 @@ export default {
 }
 
 #licenseTable {
+    width: 800px;
+    table-layout: auto;
+}
+
+#appointmentTable {
     width: 800px;
     table-layout: auto;
 }
