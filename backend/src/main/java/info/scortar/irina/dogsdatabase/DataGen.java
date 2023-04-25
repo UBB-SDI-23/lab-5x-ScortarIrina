@@ -171,9 +171,7 @@ public class DataGen {
 
 
         // ~~~~~~~~~~~~~~~ GENERATE APPOINTMENTS ~~~~~~~~~~~~~~~
-        f = new
-
-                File("/tmp/appointments.csv");
+        f = new File("/tmp/appointments.csv");
 
         if (!f.exists()) {
             f.createNewFile();
@@ -193,11 +191,12 @@ public class DataGen {
             for (int i = 0; i < 10000000; i++) {
                 int idx = getRandomNumberUsingNextInt(0, fNames.length);
 
-                String record = writer.convertToCsvFormat(new String[]{String.valueOf(i),                                           // id
+                String record = writer.convertToCsvFormat(new String[]{String.valueOf(i),       // id
                         generateRandomDateBetween(twoYearsAgo, tenDaysFromNow).toString(),      // date
                         String.valueOf(getRandomNumberUsingNextInt(100, 1000)),                 // price
                         String.valueOf(getRandomNumberUsingNextInt(0, 1000000)),                // dog_id
-                        String.valueOf(getRandomNumberUsingNextInt(0, 1000000))                 // vet_id
+                        String.valueOf(getRandomNumberUsingNextInt(0, 1000000)),                // vet_id
+                        generateRandomDescription()
                 });
 
                 bw.write(record);
@@ -283,130 +282,22 @@ public class DataGen {
         return new Date(randomMillisSinceEpoch);
     }
 
-    private static List<String[]> createCsvOwnerData() {
-        String[] fNames = {"Alin", "Ioana", "Andrei", "Irina", "Paul", "Simona", "Alex", "Cristina", "Maria", "David",
-                "Marius", "Mircea", "Paula", "George", "Mihai", "Bogdan", "Adela", "Laura", "Sonia", "Sergiu"};
-        String[] lNames = {"Popescu", "Ionescu", "Georgescu", "Constantinescu", "Andreescu", "Stefanescu", "Petrescu",
-                "Dumitrescu", "Iliescu", "Marinescu"};
-        String[] genders = {"Male", "Female", "Male", "Female", "Male", "Female", "Male", "Female"};
-        String[] jobs = {"Engineer", "Teacher", "Medic", "Psychologist", "Mechanic", "Gardener", "Singer", "Architect",
-                "Lawyer", "Carpenter", "Bartender", "Firefighter", "Electrician"};
+    public static String generateRandomDescription() {
+        String[] conjunction = {"and", "or", "but", "because", "to", "for", "from", "against"};
+        String[] nouns = {"Jane", "Richard Nixon", "Miss America", "man", "woman", "fish", "elephant", "unicorn",
+                "rabbit", "bread", "meat", "knee", "playground", "backpack", "paracetamol", "JLo", "Shakira"};
+        String[] numerals = {"two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"};
+        String[] adjectives = {"big", "tiny", "pretty", "bald", "red", "smart", "fat", "dull", "fancy", "gigantic",
+                "nervous", "petty", "cruel"};
+        String[] verbs = {"wants", "runs", "jumps", "talks", "sleeps", "loves", "hates", "sees", "knows", "looks for", "finds",
+                "eats", "drinks", "cries", "swims"};
+        String[] destinations = {"trees", "dogs", "apples", "mermaids", "sharks", "palm trees", "computers"};
 
-        List<String[]> list = new ArrayList<>();
-
-        // id, fName, lName, gender, job, age
-        for (int i = 0; i < 1000000; i++) {
-            int idx = getRandomNumberUsingNextInt(0, fNames.length);
-
-            String[] record = {String.valueOf(i),
-                      fNames[idx] + "_" + i,
-                      lNames[getRandomNumberUsingNextInt(0, lNames.length)],
-                      genders[idx],
-                      jobs[getRandomNumberUsingNextInt(0, jobs.length)],
-                      String.valueOf(getRandomNumberUsingNextInt(18, 80))
-            };
-            list.add(record);
-        }
-
-        return list;
-    }
-
-    private static List<String[]> createCsvDogsData() {
-        String[] names = {"Patrocle", "Benji", "Nino", "Adolf", "Ivan", "Fifi", "Lulu", "Lola", "Lizzie", "Coco",
-                "Loki", "Max", "Rex", "Marissa", "Cosmo", "Bailey", "Luna", "Charlie", "Lady", "Coco"};
-        String[] breeds = {"Terrier", "Shih-Tzu", "Beagle", "Mix-breed", "Labrador", "Boxer", "Yorkshire", "Poodle",
-                "Chihuahua", "Bulldog", "Dachshund", "Rottweiler", "Samoyed", "Dalmatian"};
-
-        List<String[]> list = new ArrayList<>();
-
-        // id, name, breed, age, weight, owner_id
-        for (int i = 0; i < 1000000; i++) {
-            String[] record = {String.valueOf(i),                                       // id
-                    names[getRandomNumberUsingNextInt(0, names.length)] + "_" + i,      // name
-                    breeds[getRandomNumberUsingNextInt(0, breeds.length)],              // breed
-                    String.valueOf(getRandomNumberUsingNextInt(1, 21)),                 // age
-                    String.valueOf(getRandomNumberUsingNextInt(1, 51)),                 // weight
-                    String.valueOf(getRandomNumberUsingNextInt(0, 1000000))             // owner_id
-            };
-            list.add(record);
-        }
-
-        return list;
-    }
-
-    private static List<String[]> createCsvVetsData() {
-        String[] fNames = {"Alin", "Ioana", "Andrei", "Irina", "Paul", "Simona", "Alex", "Cristina", "Maria", "David",
-                "Marius", "Mircea", "Paula", "George", "Mihai", "Bogdan", "Adela", "Laura", "Sonia", "Sergiu"};
-        String[] lNames = {"Popescu", "Ionescu", "Georgescu", "Constantinescu", "Andreescu", "Stefanescu", "Petrescu",
-                "Dumitrescu", "Iliescu", "Marinescu"};
-        String[] specialties = {"Neurology", "Rheumatology", "Gynecology", "General", "Pharmacology", "Dentistry",
-                "Dermatology", "Emergency", "Oncology", "Cardiology", "Nutrition", "Ophthalmology", "Pathology"};
-
-        List<String[]> list = new ArrayList<>();
-
-        // id, fName, lName, age, salary, specialty, years of experience
-        for (int i = 0; i < 1000000; i++) {
-            String[] record = {String.valueOf(i),                                       // id
-                    fNames[getRandomNumberUsingNextInt(0, fNames.length)] + "_" + i,    // first name
-                    lNames[getRandomNumberUsingNextInt(0, lNames.length)],              // last name
-                    String.valueOf(getRandomNumberUsingNextInt(25, 80)),                // age
-                    String.valueOf(getRandomNumberUsingNextInt(1000, 10000)),           // salary
-                    specialties[getRandomNumberUsingNextInt(0, specialties.length)],    // specialty
-                    String.valueOf(getRandomNumberUsingNextInt(1, 50))                  // years of experience
-            };
-            list.add(record);
-        }
-
-        return list;
-    }
-
-    private static List<String[]> createCsvMedicalLicenseData() {
-        String[] cities = {"Cluj-Napoca", "London", "Belfast", "New-York", "Bucharest", "Paris", "Utrecht", "Bern"};
-        String[] countries = {"Romania", "USA", "France", "Ireland", "UK", "Netherlands", "Switzerland"};
-        String[] universities = {"University 1", "University 2", "University 3", "University 4", "University 5"};
-
-        List<String[]> list = new ArrayList<>();
-
-        ArrayList<Integer> vIds = new ArrayList<Integer>();
-        for (int i = 0; i < 1000000; i++) {
-            vIds.add(i);
-        }
-        Collections.shuffle(vIds);
-
-        // id, city, country, serial number, university, v_id
-        for (int i = 0; i < 1000000; i++) {
-            String[] record = {String.valueOf(i),                                           // id
-                    cities[getRandomNumberUsingNextInt(0, cities.length)],                  // city
-                    countries[getRandomNumberUsingNextInt(0, countries.length)],            // country
-                    generateSerial(),                                                       // serial number
-                    universities[getRandomNumberUsingNextInt(0, universities.length)],      // university
-                    String.valueOf(vIds.get(i))                                             // vet_id
-            };
-            list.add(record);
-        }
-
-        return list;
-    }
-
-    private static List<String[]> createCsvAppointmentData() {
-        long aDay = TimeUnit.DAYS.toMillis(1);
-        long now = new Date().getTime();
-        Date twoYearsAgo = new Date(now - aDay * 365 * 10);
-        Date tenDaysFromNow = new Date(now + aDay * 10);
-
-        List<String[]> list = new ArrayList<>();
-
-        // id, date, price, dId, vId
-        for (int i = 0; i < 10000000; i++) {
-            String[] record = {String.valueOf(i),                                           // id
-                    generateRandomDateBetween(twoYearsAgo, tenDaysFromNow).toString(),      // date
-                    String.valueOf(getRandomNumberUsingNextInt(100, 1000)),                 // price
-                    String.valueOf(getRandomNumberUsingNextInt(0, 1000000)),                // dog_id
-                    String.valueOf(getRandomNumberUsingNextInt(0, 1000000))                 // vet_id
-            };
-            list.add(record);
-        }
-
-        return list;
+        return "the" + adjectives[getRandomNumberUsingNextInt(0, adjectives.length)] +
+                nouns[getRandomNumberUsingNextInt(0, nouns.length)] +
+                verbs[getRandomNumberUsingNextInt(0, verbs.length)] +
+                conjunction[getRandomNumberUsingNextInt(0, conjunction.length)] +
+                numerals[getRandomNumberUsingNextInt(0, numerals.length)] +
+                destinations[getRandomNumberUsingNextInt(0, destinations.length)];
     }
 }

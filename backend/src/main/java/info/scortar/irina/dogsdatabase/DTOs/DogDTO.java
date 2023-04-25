@@ -7,13 +7,15 @@ public class DogDTO {
     private String breed;
     private int age;
     private int weight;
+    private Long owner_id;
 
-    public DogDTO(Long id, String name, String breed, int age, int weight) {
+    public DogDTO(Long id, String name, String breed, int age, int weight, Long owner_id) {
         this.id = id;
         this.name = name;
         this.breed = breed;
         this.age = age;
         this.weight = weight;
+        this.owner_id = owner_id;
     }
 
     public Long getId() {

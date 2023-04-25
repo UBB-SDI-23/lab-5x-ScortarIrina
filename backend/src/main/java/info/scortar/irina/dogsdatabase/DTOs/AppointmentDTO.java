@@ -2,7 +2,7 @@ package info.scortar.irina.dogsdatabase.DTOs;
 
 public class AppointmentDTO {
 
-    private Long appointment_id;
+    private Long id;
     private Long dog_id;
     private Long vet_id;
     private String date;
@@ -12,16 +12,16 @@ public class AppointmentDTO {
         this.dog_id = dog_id;
         this.vet_id = vet_id;
         this.date = date;
-        this.appointment_id = appointment_id;
+        this.id = appointment_id;
         this.description = description;
     }
 
-    public Long getAppointment_id() {
-        return appointment_id;
+    public Long getId() {
+        return id;
     }
 
-    public void setAppointment_id(Long appointment_id) {
-        this.appointment_id = appointment_id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getDog_id() {

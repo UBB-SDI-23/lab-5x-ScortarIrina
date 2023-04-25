@@ -12,7 +12,7 @@ import static java.util.stream.Collectors.toList;
 public class Mapper {
 
     public DogDTO toDogDTO(Dog dog) {
-        return new DogDTO(dog.getId(), dog.getName(), dog.getBreed(), dog.getAge(), dog.getWeight());
+        return new DogDTO(dog.getId(), dog.getName(), dog.getBreed(), dog.getAge(), dog.getWeight(), dog.getOwner().getId());
     }
 
     public OwnerDTO toOwnerDTO(Owner owner) {

@@ -468,6 +468,11 @@
                         <input type="text" v-model="clickedDog.weight" id="weight"
                                placeholder="Enter dog weight"/>
                     </div>
+                    <div class="form-control">
+                        <label>Owner ID: </label>
+                        <input type="text" v-model="createFormDog.owner.id" id="owner_id"
+                               placeholder="Enter dog owner ID"/>
+                    </div>
                     <hr>
                     <input type="submit" value="Update dog" class="btn btn-primary"/>
                 </form>
@@ -494,6 +499,11 @@
                         <label>Weight: </label>
                         <input type="text" v-model="createFormDog.weight" id="weight"
                                placeholder="Enter dog weight"/>
+                    </div>
+                    <div class="form-control">
+                        <label>Owner ID: </label>
+                        <input type="text" v-model="createFormDog.owner.id" id="owner_id"
+                               placeholder="Enter dog owner ID"/>
                     </div>
                     <hr>
                     <input type="submit" value="Add dog" class="btn btn-primary"/>
@@ -843,6 +853,7 @@ export default {
 
     data() {
         return {
+            // modals
             divHeight: 440,
             showModalDogs: false,
             showModalOwners: false,
@@ -850,6 +861,8 @@ export default {
             showModalLicenses: false,
             showModalAppointments: false,
 
+
+            // dogs
             listDogsClicked: false,
             updateDogClicked: false,
             createDogClicked: false,
@@ -860,21 +873,24 @@ export default {
                 name: '',
                 breed: '',
                 age: '',
-                weight: ''
+                weight: '',
+                owner: {id: ''}
             },
             clickedDog: {
                 id: '',
                 name: '',
                 breed: '',
                 age: '',
-                weight: ''
+                weight: '',
+                owner: {id: ''}
             },
             dogs: [],
             createFormDog: {
                 name: '',
                 breed: '',
                 age: '',
-                weight: ''
+                weight: '',
+                owner: {id: ''}
             },
             deleteFormDog: {
                 id: ''
@@ -884,13 +900,15 @@ export default {
                 name: '',
                 breed: '',
                 age: '',
-                weight: ''
+                weight: '',
+                owner: {id: ''}
             },
             filterFormDog: {
                 weight: ''
             },
 
 
+            // owners
             listOwnersClicked: false,
             updateOwnerClicked: false,
             createOwnerClicked: false,
@@ -928,6 +946,8 @@ export default {
                 job: ''
             },
 
+
+            // vets
             listVetsClicked: false,
             updateVetClicked: false,
             createVetClicked: false,
@@ -965,6 +985,8 @@ export default {
                 specialty: ''
             },
 
+
+            // medical licenses
             listLicensesClicked: false,
             updateLicenseClicked: false,
             createLicenseClicked: false,
@@ -1012,6 +1034,8 @@ export default {
                 vet_id: ''
             },
 
+
+            // appointments
             listAppointmentsClicked: false,
             updateAppointmentClicked: false,
             createAppointmentClicked: false,
@@ -1259,6 +1283,7 @@ export default {
             this.createFormDog.breed = ' '
             this.createFormDog.age = ' '
             this.createFormDog.weight = ' '
+            this.createFormDog.owner = ''
         },
 
         onSubmitCreateOwner(e) {
@@ -1470,54 +1495,60 @@ export default {
                 name: '',
                 breed: '',
                 age: '',
-                weight: ''
+                weight: '',
+                owner: {id: ''}
             }
+            try {
+                localDog.id = this.clickedDog.id;
+                localDog.name = this.clickedDog.name;
+                localDog.breed = this.clickedDog.breed;
+                localDog.age = this.clickedDog.age;
+                localDog.weight = this.clickedDog.weight;
+                localDog.owner.id = this.clickedDog.owner.id;
 
-            localDog.id = this.clickedDog.id;
-            localDog.name = this.clickedDog.name;
-            localDog.breed = this.clickedDog.breed;
-            localDog.age = this.clickedDog.age;
-            localDog.weight = this.clickedDog.weight;
+                if (!localDog.id) {
+                    localDog.id = document.getElementById('update_input_id').value;
+                }
 
-            if (!localDog.id) {
-                localDog.id = document.getElementById('update_input_id').value;
-            }
+                if (!localDog.id) {
+                    localDog.id = document.getElementById('update_span_id').textContent;
+                }
 
-            if (!localDog.id) {
-                localDog.id = document.getElementById('update_span_id').textContent;
-            }
+                if (!localDog.id) {
+                    alert('Please Add an ID');
 
-            if (!localDog.id) {
-                alert('Please Add an ID');
+                    this.clickedDog = this.emptyDog;
 
-                this.clickedDog = this.emptyDog;
-
-                window.location.reload();
-
-                return;
-            }
-            if (!localDog.name) {
-                alert('Please Add a name');
-                this.clickedDog = this.emptyDog;
-
-                window.location.reload();
-
-                return;
-            }
-
-            this.showLoader = true;
-            axios.put(DogService.getUrl() + '/' + localDog.id, localDog)
-                .then((res) => {
                     window.location.reload();
-                })
-                .catch((error) => {
-                    alert(JSON.stringify(error.response.data));
-                    console.log(JSON.stringify(error.response.data));
+
+                    return;
+                }
+                if (!localDog.name) {
+                    alert('Please Add a name');
+                    this.clickedDog = this.emptyDog;
+
                     window.location.reload();
-                }).finally(() => {
+
+                    return;
+                }
+
+                this.showLoader = true;
+                axios.put(DogService.getUrl() + '/' + localDog.id, localDog)
+                    .then((res) => {
+                        window.location.reload();
+                    })
+                    .catch((error) => {
+                        alert(JSON.stringify(error.response.data));
+                        console.log(JSON.stringify(error.response.data));
+                        window.location.reload();
+                    }).finally(() => {
+                    this.clickedDog = this.emptyDog;
+                    this.showLoader = false;
+                });
+            } finally {
                 this.clickedDog = this.emptyDog;
                 this.showLoader = false;
-            });
+            }
         },
 
         onSubmitUpdateOwner(e) {
