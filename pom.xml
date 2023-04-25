@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>DogsDatabase</name>
     <description>DogsDatabase</description>
-    <packaging>pom</packaging>
+<!--    <packaging>war</packaging>-->
     <properties>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
