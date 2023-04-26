@@ -20,190 +20,190 @@ public class DataGen {
     private static final String NEW_LINE_UNIX = "\n";
     private static final String NEW_LINE_WINDOWS = "\r\n";
 
-//    public static void main(String[] args) throws IOException {
-//
-//        String[] fNames = {"Alin", "Ioana", "Andrei", "Irina", "Paul", "Simona", "Alex", "Cristina", "Maria", "David",
-//                "Marius", "Mircea", "Paula", "George", "Mihai", "Bogdan", "Adela", "Laura", "Sonia", "Sergiu"};
-//        String[] lNames = {"Popescu", "Ionescu", "Georgescu", "Constantinescu", "Andreescu", "Stefanescu", "Petrescu",
-//                "Dumitrescu", "Iliescu", "Marinescu"};
-//        String[] genders = {"Male", "Female", "Male", "Female", "Male", "Female", "Male", "Female", "Female", "Male",
-//                "Male", "Male", "Female", "Male", "Male", "Female", "Female", "Female", "Female", "Male"};
-//        String[] jobs = {"Engineer", "Teacher", "Medic", "Psychologist", "Mechanic", "Gardener", "Singer", "Architect",
-//                "Lawyer", "Carpenter", "Bartender", "Firefighter", "Electrician"};
-//        String[] names = {"Patrocle", "Benji", "Nino", "Adolf", "Ivan", "Fifi", "Lulu", "Lola", "Lizzie", "Coco",
-//                "Loki", "Max", "Rex", "Marissa", "Cosmo", "Bailey", "Luna", "Charlie", "Lady", "Coco"};
-//        String[] breeds = {"Terrier", "Shih-Tzu", "Beagle", "Mix-breed", "Labrador", "Boxer", "Yorkshire", "Poodle",
-//                "Chihuahua", "Bulldog", "Dachshund", "Rottweiler", "Samoyed", "Dalmatian"};
-//        String[] specialties = {"Neurology", "Rheumatology", "Gynecology", "General", "Pharmacology", "Dentistry",
-//                "Dermatology", "Emergency", "Oncology", "Cardiology", "Nutrition", "Ophthalmology", "Pathology"};
-//        String[] cities = {"Cluj-Napoca", "London", "Belfast", "New-York", "Bucharest", "Paris", "Utrecht", "Bern"};
-//        String[] countries = {"Romania", "USA", "France", "Ireland", "UK", "Netherlands", "Switzerland"};
-//        String[] universities = {"University 1", "University 2", "University 3", "University 4", "University 5"};
-//
-//        DataGen writer = new DataGen();
-//
-//
-//        // ~~~~~~~~~~~~~~~ GENERATE OWNERS ~~~~~~~~~~~~~~~
-//
-//        File f = new File("/tmp/owners.csv");
-//
-//        if (!f.exists()) {
-//            f.createNewFile();
-//        } else {
-//            f.delete();
-//            f.createNewFile();
-//        }
-//
-//        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
-//            // id, fName, lName, gender, job, age
-//            for (int i = 0; i < 1000000; i++) {
-//                int idx = getRandomNumberUsingNextInt(0, fNames.length);
-//
-//                String record = writer.convertToCsvFormat(new String[]{String.valueOf(i),
-//                        fNames[idx] + "_" + i,
-//                        lNames[getRandomNumberUsingNextInt(0, lNames.length)],
-//                        genders[idx],
-//                        jobs[getRandomNumberUsingNextInt(0, jobs.length)],
-//                        String.valueOf(getRandomNumberUsingNextInt(18, 80))
-//                });
-//
-//                bw.write(record);
-//                bw.newLine();
-//            }
-//        }
-//
-//        // ~~~~~~~~~~~~~~~ GENERATE DOGS ~~~~~~~~~~~~~~~
-//
-//        f = new File("/tmp/dogs.csv");
-//
-//        if (!f.exists()) {
-//            f.createNewFile();
-//        } else {
-//            f.delete();
-//            f.createNewFile();
-//        }
-//
-//        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
-//            // id, name, breed, age, weight, owner_id
-//            for (int i = 0; i < 1000000; i++) {
-//                int idx = getRandomNumberUsingNextInt(0, fNames.length);
-//
-//                String record = writer.convertToCsvFormat(new String[]{String.valueOf(i),                                       // id
-//                        names[getRandomNumberUsingNextInt(0, names.length)] + "_" + i,      // name
-//                        breeds[getRandomNumberUsingNextInt(0, breeds.length)],              // breed
-//                        String.valueOf(getRandomNumberUsingNextInt(1, 21)),                 // age
-//                        String.valueOf(getRandomNumberUsingNextInt(1, 51)),                 // weight
-//                        String.valueOf(getRandomNumberUsingNextInt(0, 1000000))             // owner_id
-//                });
-//
-//                bw.write(record);
-//                bw.newLine();
-//            }
-//        }
-//
-//
-//        // ~~~~~~~~~~~~~~~ GENERATE VETS ~~~~~~~~~~~~~~~
-//
-//        f = new File("/tmp/vets.csv");
-//
-//        if (!f.exists()) {
-//            f.createNewFile();
-//        } else {
-//            f.delete();
-//            f.createNewFile();
-//        }
-//
-//        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
-//            // id, fName, lName, age, salary, specialty, years of experience
-//            for (int i = 0; i < 1000000; i++) {
-//                int idx = getRandomNumberUsingNextInt(0, fNames.length);
-//
-//                String record = writer.convertToCsvFormat(new String[]{String.valueOf(i),                                       // id
-//                        fNames[getRandomNumberUsingNextInt(0, fNames.length)] + "_" + i,    // first name
-//                        lNames[getRandomNumberUsingNextInt(0, lNames.length)],              // last name
-//                        String.valueOf(getRandomNumberUsingNextInt(25, 80)),                // age
-//                        String.valueOf(getRandomNumberUsingNextInt(1000, 10000)),           // salary
-//                        specialties[getRandomNumberUsingNextInt(0, specialties.length)],    // specialty
-//                        String.valueOf(getRandomNumberUsingNextInt(1, 50))                  // years of experience
-//                });
-//
-//                bw.write(record);
-//                bw.newLine();
-//            }
-//        }
-//
-//
-//        // ~~~~~~~~~~~~~~~ GENERATE LICENSES ~~~~~~~~~~~~~~~
-//
-//        f = new File("/tmp/licenses.csv");
-//
-//        if (!f.exists()) {
-//            f.createNewFile();
-//        } else {
-//            f.delete();
-//            f.createNewFile();
-//        }
-//
-//        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
-//
-//            ArrayList<Integer> vIds = new ArrayList<Integer>();
-//            for (int i = 0; i < 1000000; i++) {
-//                vIds.add(i);
-//            }
-//            Collections.shuffle(vIds);
-//
-//            // id, city, country, serial number, university, v_id
-//            for (int i = 0; i < 1000000; i++) {
-//                int idx = getRandomNumberUsingNextInt(0, fNames.length);
-//
-//                String record = writer.convertToCsvFormat(new String[]{String.valueOf(i),                                           // id
-//                        cities[getRandomNumberUsingNextInt(0, cities.length)],                  // city
-//                        countries[getRandomNumberUsingNextInt(0, countries.length)],            // country
-//                        generateSerial(),                                                       // serial number
-//                        universities[getRandomNumberUsingNextInt(0, universities.length)],      // university
-//                        String.valueOf(vIds.get(i))                                             // vet_id
-//                });
-//
-//                bw.write(record);
-//                bw.newLine();
-//            }
-//        }
-//
-//
-//        // ~~~~~~~~~~~~~~~ GENERATE APPOINTMENTS ~~~~~~~~~~~~~~~
-//        f = new File("/tmp/appointments.csv");
-//
-//        if (!f.exists()) {
-//            f.createNewFile();
-//        } else {
-//            f.delete();
-//            f.createNewFile();
-//        }
-//
-//        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
-//
-//            long aDay = TimeUnit.DAYS.toMillis(1);
-//            long now = new Date().getTime();
-//            Date twoYearsAgo = new Date(now - aDay * 365 * 10);
-//            Date tenDaysFromNow = new Date(now + aDay * 10);
-//
-//            // id, date, price, dId, vId
-//            for (int i = 0; i < 10000000; i++) {
-//                int idx = getRandomNumberUsingNextInt(0, fNames.length);
-//
-//                String record = writer.convertToCsvFormat(new String[]{String.valueOf(i),       // id
-//                        generateRandomDateBetween(twoYearsAgo, tenDaysFromNow).toString(),      // date
-//                        String.valueOf(getRandomNumberUsingNextInt(100, 1000)),                 // price
-//                        String.valueOf(getRandomNumberUsingNextInt(0, 1000000)),                // dog_id
-//                        String.valueOf(getRandomNumberUsingNextInt(0, 1000000)),                // vet_id
-//                        generateRandomDescription()
-//                });
-//
-//                bw.write(record);
-//                bw.newLine();
-//            }
-//        }
-//    }
+    public static void main(String[] args) throws IOException {
+
+        String[] fNames = {"Alin", "Ioana", "Andrei", "Irina", "Paul", "Simona", "Alex", "Cristina", "Maria", "David",
+                "Marius", "Mircea", "Paula", "George", "Mihai", "Bogdan", "Adela", "Laura", "Sonia", "Sergiu"};
+        String[] lNames = {"Popescu", "Ionescu", "Georgescu", "Constantinescu", "Andreescu", "Stefanescu", "Petrescu",
+                "Dumitrescu", "Iliescu", "Marinescu"};
+        String[] genders = {"Male", "Female", "Male", "Female", "Male", "Female", "Male", "Female", "Female", "Male",
+                "Male", "Male", "Female", "Male", "Male", "Female", "Female", "Female", "Female", "Male"};
+        String[] jobs = {"Engineer", "Teacher", "Medic", "Psychologist", "Mechanic", "Gardener", "Singer", "Architect",
+                "Lawyer", "Carpenter", "Bartender", "Firefighter", "Electrician"};
+        String[] names = {"Patrocle", "Benji", "Nino", "Adolf", "Ivan", "Fifi", "Lulu", "Lola", "Lizzie", "Coco",
+                "Loki", "Max", "Rex", "Marissa", "Cosmo", "Bailey", "Luna", "Charlie", "Lady", "Coco"};
+        String[] breeds = {"Terrier", "Shih-Tzu", "Beagle", "Mix-breed", "Labrador", "Boxer", "Yorkshire", "Poodle",
+                "Chihuahua", "Bulldog", "Dachshund", "Rottweiler", "Samoyed", "Dalmatian"};
+        String[] specialties = {"Neurology", "Rheumatology", "Gynecology", "General", "Pharmacology", "Dentistry",
+                "Dermatology", "Emergency", "Oncology", "Cardiology", "Nutrition", "Ophthalmology", "Pathology"};
+        String[] cities = {"Cluj-Napoca", "London", "Belfast", "New-York", "Bucharest", "Paris", "Utrecht", "Bern"};
+        String[] countries = {"Romania", "USA", "France", "Ireland", "UK", "Netherlands", "Switzerland"};
+        String[] universities = {"University 1", "University 2", "University 3", "University 4", "University 5"};
+
+        DataGen writer = new DataGen();
+
+
+        // ~~~~~~~~~~~~~~~ GENERATE OWNERS ~~~~~~~~~~~~~~~
+
+        File f = new File("/tmp/owners.csv");
+
+        if (!f.exists()) {
+            f.createNewFile();
+        } else {
+            f.delete();
+            f.createNewFile();
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
+            // id, fName, lName, gender, job, age
+            for (int i = 0; i < 1000000; i++) {
+                int idx = getRandomNumberUsingNextInt(0, fNames.length);
+
+                String record = writer.convertToCsvFormat(new String[]{String.valueOf(i),
+                        fNames[idx] + "_" + i,
+                        lNames[getRandomNumberUsingNextInt(0, lNames.length)],
+                        genders[idx],
+                        jobs[getRandomNumberUsingNextInt(0, jobs.length)],
+                        String.valueOf(getRandomNumberUsingNextInt(18, 80))
+                });
+
+                bw.write(record);
+                bw.newLine();
+            }
+        }
+
+        // ~~~~~~~~~~~~~~~ GENERATE DOGS ~~~~~~~~~~~~~~~
+
+        f = new File("/tmp/dogs.csv");
+
+        if (!f.exists()) {
+            f.createNewFile();
+        } else {
+            f.delete();
+            f.createNewFile();
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
+            // id, name, breed, age, weight, owner_id
+            for (int i = 0; i < 1000000; i++) {
+                int idx = getRandomNumberUsingNextInt(0, fNames.length);
+
+                String record = writer.convertToCsvFormat(new String[]{String.valueOf(i),                                       // id
+                        names[getRandomNumberUsingNextInt(0, names.length)] + "_" + i,      // name
+                        breeds[getRandomNumberUsingNextInt(0, breeds.length)],              // breed
+                        String.valueOf(getRandomNumberUsingNextInt(1, 21)),                 // age
+                        String.valueOf(getRandomNumberUsingNextInt(1, 51)),                 // weight
+                        String.valueOf(getRandomNumberUsingNextInt(0, 1000000))             // owner_id
+                });
+
+                bw.write(record);
+                bw.newLine();
+            }
+        }
+
+
+        // ~~~~~~~~~~~~~~~ GENERATE VETS ~~~~~~~~~~~~~~~
+
+        f = new File("/tmp/vets.csv");
+
+        if (!f.exists()) {
+            f.createNewFile();
+        } else {
+            f.delete();
+            f.createNewFile();
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
+            // id, fName, lName, age, salary, specialty, years of experience
+            for (int i = 0; i < 1000000; i++) {
+                int idx = getRandomNumberUsingNextInt(0, fNames.length);
+
+                String record = writer.convertToCsvFormat(new String[]{String.valueOf(i),                                       // id
+                        fNames[getRandomNumberUsingNextInt(0, fNames.length)] + "_" + i,    // first name
+                        lNames[getRandomNumberUsingNextInt(0, lNames.length)],              // last name
+                        String.valueOf(getRandomNumberUsingNextInt(25, 80)),                // age
+                        String.valueOf(getRandomNumberUsingNextInt(1000, 10000)),           // salary
+                        specialties[getRandomNumberUsingNextInt(0, specialties.length)],    // specialty
+                        String.valueOf(getRandomNumberUsingNextInt(1, 50))                  // years of experience
+                });
+
+                bw.write(record);
+                bw.newLine();
+            }
+        }
+
+
+        // ~~~~~~~~~~~~~~~ GENERATE LICENSES ~~~~~~~~~~~~~~~
+
+        f = new File("/tmp/licenses.csv");
+
+        if (!f.exists()) {
+            f.createNewFile();
+        } else {
+            f.delete();
+            f.createNewFile();
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
+
+            ArrayList<Integer> vIds = new ArrayList<Integer>();
+            for (int i = 0; i < 1000000; i++) {
+                vIds.add(i);
+            }
+            Collections.shuffle(vIds);
+
+            // id, city, country, serial number, university, v_id
+            for (int i = 0; i < 1000000; i++) {
+                int idx = getRandomNumberUsingNextInt(0, fNames.length);
+
+                String record = writer.convertToCsvFormat(new String[]{String.valueOf(i),                                           // id
+                        cities[getRandomNumberUsingNextInt(0, cities.length)],                  // city
+                        countries[getRandomNumberUsingNextInt(0, countries.length)],            // country
+                        generateSerial(),                                                       // serial number
+                        universities[getRandomNumberUsingNextInt(0, universities.length)],      // university
+                        String.valueOf(vIds.get(i))                                             // vet_id
+                });
+
+                bw.write(record);
+                bw.newLine();
+            }
+        }
+
+
+        // ~~~~~~~~~~~~~~~ GENERATE APPOINTMENTS ~~~~~~~~~~~~~~~
+        f = new File("/tmp/appointments.csv");
+
+        if (!f.exists()) {
+            f.createNewFile();
+        } else {
+            f.delete();
+            f.createNewFile();
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
+
+            long aDay = TimeUnit.DAYS.toMillis(1);
+            long now = new Date().getTime();
+            Date twoYearsAgo = new Date(now - aDay * 365 * 10);
+            Date tenDaysFromNow = new Date(now + aDay * 10);
+
+            // id, date, price, dId, vId
+            for (int i = 0; i < 10000000; i++) {
+                int idx = getRandomNumberUsingNextInt(0, fNames.length);
+
+                String record = writer.convertToCsvFormat(new String[]{String.valueOf(i),       // id
+                        generateRandomDateBetween(twoYearsAgo, tenDaysFromNow).toString(),      // date
+                        String.valueOf(getRandomNumberUsingNextInt(100, 1000)),                 // price
+                        String.valueOf(getRandomNumberUsingNextInt(0, 1000000)),                // dog_id
+                        String.valueOf(getRandomNumberUsingNextInt(0, 1000000)),                // vet_id
+                        "ajdsbfsjdhf"
+                });
+
+                bw.write(record);
+                bw.newLine();
+            }
+        }
+    }
 
     public String convertToCsvFormat(final String[] line) {
         return convertToCsvFormat(line, DEFAULT_SEPARATOR);
