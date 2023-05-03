@@ -2,7 +2,7 @@
     <div class="container" id="container">
         <Loader :loading="showLoader"/>
 
-        <TabsWrapper class="allTabs">
+        <TabsWrapper @tabClicked="tabClicked" class="allTabs">
             <TabItem title="Dogs" class="tabs">
                 <table class="table table-striped" id="contentTableDogs">
                     <table class="table table-striped" id="contentTableDogsList">
@@ -284,7 +284,7 @@
                                             <th @click="sortList('first_name')">
                                                 <h5 class="text-center"> First Name
                                                     <span
-                                                            id="sfname"
+                                                            id="sfirst_name"
                                                             style="opacity: 0"> ▲
                                                     </span>
                                                 </h5>
@@ -292,7 +292,7 @@
                                             <th @click="sortList('last_name')">
                                                 <h5 class="text-center"> Last Name
                                                     <span
-                                                            id="slname"
+                                                            id="slast_name"
                                                             style="opacity: 0"> ▲
                                                     </span>
                                                 </h5>
@@ -391,7 +391,7 @@
                                             <th @click="sortList('serial_number')">
                                                 <h5 class="text-center"> Serial Number
                                                     <span
-                                                            id="sserialno"
+                                                            id="sserial_number"
                                                             style="opacity: 0"> ▲
                                                     </span>
                                                 </h5>
@@ -488,14 +488,14 @@
                                             <th @click="sortList('dog_id')">
                                                 <h5 class="text-center"> Dog ID
                                                     <span
-                                                            id="sdogid" style="opacity: 0"> ▲
+                                                            id="sdog_id" style="opacity: 0"> ▲
                                                     </span>
                                                 </h5>
                                             </th>
                                             <th @click="sortList('vet_id')">
                                                 <h5 class="text-center"> Vet ID
                                                     <span
-                                                            id="svetid"
+                                                            id="svet_id"
                                                             style="opacity: 0"> ▲
                                                     </span>
                                                 </h5>
@@ -991,6 +991,8 @@ export default {
             showModalLicenses: false,
             showModalAppointments: false,
 
+            clickedTab: '',
+
 
             // dogs
             listDogsClicked: false,
@@ -1288,6 +1290,24 @@ export default {
     },
 
     methods: {
+        tabClicked(title) {
+            this.clickedTab = title;
+
+            this.page = 1;
+
+            if (title === 'Dogs') {
+                this.loadPageDogs();
+            } else if (title === 'Owners') {
+                this.loadPageOwners();
+            } else if (title === 'Vets') {
+                this.loadPageVets();
+            } else if (title === 'Licenses') {
+                this.loadPageLicenses();
+            } else {
+                this.loadPageAppointments();
+            }
+        },
+
         showModalClickedDogs(dog, lClicked, uClicked, cClicked, dClicked) {
             this.clickedDog = dog;
             this.listDogsClicked = lClicked;
@@ -2200,39 +2220,25 @@ export default {
         },
 
         onChangeRecordsPerPage() {
-            this.loadPageDogs()
-            this.loadPageOwners()
-            this.loadPageVets()
-            this.loadPageLicenses()
-            this.loadPageAppointments()
+            if (this.clickedTab === 'Dogs') {
+                this.loadPageDogs();
+            } else if (this.clickedTab === 'Owners') {
+                this.loadPageOwners();
+            } else if (this.clickedTab === 'Vets') {
+                this.loadPageVets();
+            } else if (this.clickedTab === 'Licenses') {
+                this.loadPageLicenses();
+            } else {
+                this.loadPageAppointments();
+            }
         },
 
-        // onChangeRecordsPerPageDogs() {
-        //     this.loadPageDogs()
-        // },
-        //
-        // onChangeRecordsPerPageVets() {
-        //     this.loadPageVets()
-        // },
-        //
-        // onChangeRecordsPerPageOwners() {
-        //     this.loadPageOwners()
-        // },
-        //
-        // onChangeRecordsPerPageLicenses() {
-        //     this.loadPageLicenses()
-        // },
-        //
-        // onChangeRecordsPerPageAppointments() {
-        //     this.loadPageAppointments()
-        // },
-        //
-        // gotoPageDogs() {
-        //     if (!isNaN(parseInt(this.enterPageNo))) {
-        //         this.page = parseInt(this.enterPageNo)
-        //         this.loadPageDogs()
-        //     }
-        // },
+        gotoPageDogs() {
+            if (!isNaN(parseInt(this.enterPageNo))) {
+                this.page = parseInt(this.enterPageNo)
+                this.loadPageDogs()
+            }
+        },
 
         gotoPageOwners() {
             if (!isNaN(parseInt(this.enterPageNo))) {
@@ -2280,10 +2286,10 @@ export default {
 
     created() {
         this.loadPageDogs();
-        this.loadPageOwners();
-        this.loadPageVets();
-        this.loadPageLicenses();
-        this.loadPageAppointments();
+        // this.loadPageOwners();
+        // this.loadPageVets();
+        // this.loadPageLicenses();
+        // this.loadPageAppointments();
 
         this.escapeHandler = (e) => {
             if (e.key === 'Escape' && this.showModalDogs) {

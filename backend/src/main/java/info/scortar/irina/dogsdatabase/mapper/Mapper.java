@@ -46,7 +46,7 @@ public class Mapper {
     }
 
     public AppointmentDTO toAppointmentDTO(Appointment appointment) {
-        return new AppointmentDTO(appointment.getId(), appointment.getDog().getId(), appointment.getVet().getId(),
+        return new AppointmentDTO(appointment.getId(), appointment.getDog_id(), appointment.getVet_id(),
                 appointment.getDate().toString(), appointment.getPrice(), appointment.getDescription());
     }
 

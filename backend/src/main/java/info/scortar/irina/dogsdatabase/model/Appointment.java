@@ -9,14 +9,27 @@ import java.util.Date;
 public class Appointment {
 
     private @Id @GeneratedValue Long id;
-    @ManyToOne
+
+    @Column(name = "dog_id", insertable = false, updatable = false)
+    protected Long dog_id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dog_id")
     private Dog dog;
-    @ManyToOne
+
+    @Column(name = "vet_id", insertable = false, updatable = false)
+    protected Long vet_id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vet_id")
     private Vet vet;
+
     @Temporal(TemporalType.DATE)
     private Date date;
+
     @Min(value = 0, message = "The price of an appointment cannot be a negative number!")
     private float price;
+
     private String description;
 
     public Appointment() {
@@ -29,6 +42,22 @@ public class Appointment {
         this.date = date;
         this.price = price;
         this.description = description;
+    }
+
+    public Long getDog_id() {
+        return dog_id;
+    }
+
+    public void setDog_id(Long dog_id) {
+        this.dog_id = dog_id;
+    }
+
+    public Long getVet_id() {
+        return vet_id;
+    }
+
+    public void setVet_id(Long vet_id) {
+        this.vet_id = vet_id;
     }
 
     public Long getId() {

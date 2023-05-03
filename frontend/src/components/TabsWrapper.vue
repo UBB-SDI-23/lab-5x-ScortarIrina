@@ -19,7 +19,7 @@ provide('selectedTitle', selectedTitle)
                     :key="title"
                     class="tabs__item"
                     :class="{ selected: selectedTitle === title}"
-                    @click="selectedTitle = title"
+                    @click="selectedTitle = title; this.$emit('tabClicked', selectedTitle)"
             >
                 {{ title }}
             </li>
