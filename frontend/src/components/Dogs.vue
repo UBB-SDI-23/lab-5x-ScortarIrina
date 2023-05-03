@@ -2207,12 +2207,32 @@ export default {
             this.loadPageAppointments()
         },
 
-        gotoPageDogs() {
-            if (!isNaN(parseInt(this.enterPageNo))) {
-                this.page = parseInt(this.enterPageNo)
-                this.loadPageDogs()
-            }
-        },
+        // onChangeRecordsPerPageDogs() {
+        //     this.loadPageDogs()
+        // },
+        //
+        // onChangeRecordsPerPageVets() {
+        //     this.loadPageVets()
+        // },
+        //
+        // onChangeRecordsPerPageOwners() {
+        //     this.loadPageOwners()
+        // },
+        //
+        // onChangeRecordsPerPageLicenses() {
+        //     this.loadPageLicenses()
+        // },
+        //
+        // onChangeRecordsPerPageAppointments() {
+        //     this.loadPageAppointments()
+        // },
+        //
+        // gotoPageDogs() {
+        //     if (!isNaN(parseInt(this.enterPageNo))) {
+        //         this.page = parseInt(this.enterPageNo)
+        //         this.loadPageDogs()
+        //     }
+        // },
 
         gotoPageOwners() {
             if (!isNaN(parseInt(this.enterPageNo))) {
