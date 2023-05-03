@@ -37,7 +37,7 @@ public class Mapper {
 
     public VetDTO toVetDTO(Vet vet) {
         return new VetDTO(vet.getId(), vet.getFirst_name(), vet.getLast_name(), vet.getSpecialty(), vet.getAge(),
-                vet.getMedicalLicence() != null ? vet.getMedicalLicence().getId() : null);
+                vet.getMedicalLicence() != null ? vet.getMedicalLicence().getId() : null, 0L);
     }
 
     public Vet fromVetDTO(VetDTO vetDTO) {

@@ -322,7 +322,7 @@
                                             <td> {{ vet.first_name }}</td>
                                             <td> {{ vet.last_name }}</td>
                                             <td> {{ vet.specialty }}</td>
-                                            <td> {{ vet.number_of_appointments }}</td>
+                                            <td> {{ vet.number_of_dogs }}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -516,14 +516,6 @@
                                                     </span>
                                                 </h5>
                                             </th>
-                                            <th @click="sortList('number_appointments_on_day')">
-                                                <h5 class="text-center"> #appointments on day
-                                                    <span
-                                                            id="snrappointments"
-                                                            style="opacity: 0"> ▲
-                                                    </span>
-                                                </h5>
-                                            </th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -534,7 +526,6 @@
                                             <td> {{ appointment.vet_id }}</td>
                                             <td> {{ appointment.date }}</td>
                                             <td> {{ appointment.description }}</td>
-                                            <td> {{ appointments.number_appointments_on_day }}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -1201,8 +1192,7 @@ export default {
                 vet_id: '',
                 date: '',
                 price: '',
-                description: '',
-                number_appointments_on_day: ''
+                description: ''
             },
             appointments: [],
             createFormAppointment: {

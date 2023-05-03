@@ -73,9 +73,7 @@ public class VetService {
         vetRepository.deleteById(id);
     }
 
-//    public List<VetDTO> getVetsSortedByMedicalField() {
-//        List<Vet> vets = getAllVets();
-//        List<Vet> vetsSorted = vets.stream().sorted(Comparator.comparing(Vet::getSpecialty)).toList();
-//        return vetsSorted.stream().map((mapper::toVetDTO)).toList();
-//    }
+    public Long findDogIdsForVet(Long vet_id) {
+        return vetRepository.findDogIdsForVet(vet_id);
+    }
 }

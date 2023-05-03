@@ -37,7 +37,15 @@ public class VetController {
 
         Map<String, Object> ret = vetService.getAllVets(p, pSize);
 
-        List<VetDTO> dtos = ((List<Vet>) ret.get("vets")).stream().map(mapper::toVetDTO).collect(Collectors.toList());
+        List<VetDTO> dtos = ((List<Vet>) ret.get("vets"))
+                .stream()
+                .map(mapper::toVetDTO)
+                .collect(Collectors.toList());
+
+        dtos = dtos.stream().map(dto -> {
+            dto.setNumber_of_dogs(vetService.findDogIdsForVet(dto.getId()));
+            return dto;
+        }).collect(Collectors.toList());
 
         ret.put("vets", dtos);
 

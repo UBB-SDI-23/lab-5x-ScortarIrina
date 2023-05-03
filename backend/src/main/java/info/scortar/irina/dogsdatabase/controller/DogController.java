@@ -50,8 +50,10 @@ public class DogController {
 
         Map<String, Object> ret = dogService.getAllDogs(p, pSize);
 
-        List<DogDTO> dtos = ((List<Dog>) ret.get("dogs")).stream()
-                .map(mapper::toDogDTO).collect(Collectors.toList());
+        List<DogDTO> dtos = ((List<Dog>) ret.get("dogs"))
+                .stream()
+                .map(mapper::toDogDTO)
+                .collect(Collectors.toList());
 
         dtos = dtos.stream().map(dto -> {
             dto.setNumber_of_vets(dogService.findVetIdsForDog(dto.getId()));
