@@ -1,8 +1,10 @@
 package info.scortar.irina.dogsdatabase.service;
 
 import info.scortar.irina.dogsdatabase.controller.DogController;
+import info.scortar.irina.dogsdatabase.model.Appointment;
 import info.scortar.irina.dogsdatabase.model.Dog;
 import info.scortar.irina.dogsdatabase.model.Owner;
+import info.scortar.irina.dogsdatabase.repository.AppointmentRepository;
 import info.scortar.irina.dogsdatabase.repository.DogRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,9 @@ public class DogService {
 
     @Autowired
     private DogRepository dogRepository;
+
+    @Autowired
+    private AppointmentService appointmentService;
 
     public Map<String, Object> getAllDogs(int page, int pSize) {
         List<Dog> dogs = new ArrayList<>();
@@ -86,5 +91,10 @@ public class DogService {
             }
         }
         return filtered_dogs;
+    }
+
+    public int getNumberOfAppointmentsOfDog(Long dog_id) {
+        List<Appointment> appointments = appointmentService.getAppointmentsOfDog(dog_id);
+        return appointments.size();
     }
 }

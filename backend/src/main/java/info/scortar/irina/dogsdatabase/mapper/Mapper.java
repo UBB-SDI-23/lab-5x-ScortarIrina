@@ -19,7 +19,8 @@ public class Mapper {
     }
 
     public Dog fromDogDTO(DogDTO dogDTO) {
-        return new Dog(dogDTO.getId(), dogDTO.getName(), dogDTO.getBreed(), dogDTO.getAge(), dogDTO.getWeight(), null, null);
+        return new Dog(dogDTO.getId(), dogDTO.getName(), dogDTO.getBreed(), dogDTO.getAge(), dogDTO.getWeight(),
+                null, null);
     }
 
     public OwnerDTO toOwnerDTO(Owner owner) {

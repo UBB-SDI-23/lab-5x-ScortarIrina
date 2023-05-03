@@ -69,6 +69,10 @@
                                                 id="sweight"
                                                 style="opacity: 0"> ▲</span>
                                             </h5></th>
+                                            <th @click="sortList('number_appointments')"><h5 class="text-center"> #appointments<span
+                                                id="snrappointments"
+                                                style="opacity: 0"> ▲</span>
+                                            </h5></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -79,6 +83,7 @@
                                             <td> {{ dog.breed }}</td>
                                             <td> {{ dog.age }}</td>
                                             <td> {{ dog.weight }}</td>
+                                            <td> {{dog.number_appointments}}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -151,7 +156,13 @@
                                                     style="opacity: 0"> ▲</span>
                                             </h5></th>
                                             <th @click="sortList('job')"><h5 class="text-center"> Job<span
-                                                id="sjob" style="opacity: 0"> ▲</span></h5></th>
+                                                id="sjob"
+                                                style="opacity: 0"> ▲</span>
+                                            </h5></th>
+                                            <th @click="sortList('number_of_dogs')"><h5 class="text-center"> #dogs<span
+                                                id="snrdogs"
+                                                style="opacity: 0"> ▲</span>
+                                            </h5></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -161,6 +172,7 @@
                                             <td> {{ owner.first_name }}</td>
                                             <td> {{ owner.last_name }}</td>
                                             <td> {{ owner.job }}</td>
+                                            <td> {{owner.number_of_dogs}}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -238,6 +250,11 @@
                                                     <span id="sspecialty" style="opacity: 0"> ▲</span>
                                                 </h5>
                                             </th>
+                                            <th @click="sortList('number_of_appointments')">
+                                                <h5 class="text-center"> #appointments
+                                                    <span id="snrappointments" style="opacity: 0"> ▲</span>
+                                                </h5>
+                                            </th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -247,6 +264,7 @@
                                             <td> {{ vet.first_name }}</td>
                                             <td> {{ vet.last_name }}</td>
                                             <td> {{ vet.specialty }}</td>
+                                            <td> {{vet.number_of_appointments}}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -414,6 +432,11 @@
                                                     <span id="sdescription" style="opacity: 0"> ▲</span>
                                                 </h5>
                                             </th>
+                                            <th @click="sortList('number_appointments_on_day')">
+                                                <h5 class="text-center"> #appointments on day
+                                                    <span id="snrappointments" style="opacity: 0"> ▲</span>
+                                                </h5>
+                                            </th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -424,6 +447,7 @@
                                             <td> {{ appointment.vet_id }}</td>
                                             <td> {{ appointment.date }}</td>
                                             <td> {{ appointment.description }}</td>
+                                            <td> {{appointments.number_appointments_on_day}}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -910,7 +934,8 @@ export default {
                 breed: '',
                 age: '',
                 weight: '',
-                owner_id: ''
+                owner_id: '',
+                number_appointments: ''
             },
             dogs: [],
             createFormDog: {
@@ -952,7 +977,8 @@ export default {
                 id: '',
                 first_name: '',
                 last_name: '',
-                job: ''
+                job: '',
+                number_of_dogs: ''
             },
             owners: [],
             createFormOwner: {
@@ -993,7 +1019,8 @@ export default {
                 first_name: '',
                 last_name: '',
                 age: '',
-                specialty: ''
+                specialty: '',
+                number_of_appointments: ''
             },
             vets: [],
             createFormVet: {
@@ -1087,7 +1114,8 @@ export default {
                 vet_id: '',
                 date: '',
                 price: '',
-                description: ''
+                description: '',
+                number_appointments_on_day: ''
             },
             appointments: [],
             createFormAppointment: {

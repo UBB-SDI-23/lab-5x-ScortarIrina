@@ -8,6 +8,7 @@ public class DogDTO {
     private int age;
     private int weight;
     private Long owner_id;
+    private int number_of_appointments;
 
     public DogDTO(Long id, String name, String breed, int age, int weight, Long owner_id) {
         this.id = id;

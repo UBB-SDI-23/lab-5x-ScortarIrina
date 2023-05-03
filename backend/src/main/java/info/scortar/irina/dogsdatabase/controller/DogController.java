@@ -1,6 +1,7 @@
 package info.scortar.irina.dogsdatabase.controller;
 
 import info.scortar.irina.dogsdatabase.mapper.Mapper;
+import info.scortar.irina.dogsdatabase.model.Appointment;
 import info.scortar.irina.dogsdatabase.model.Dog;
 import info.scortar.irina.dogsdatabase.DTOs.DogDTO;
 import info.scortar.irina.dogsdatabase.model.Owner;
@@ -100,5 +101,10 @@ public class DogController {
             errors.put(fieldName, errorMessage);
         });
         return errors;
+    }
+
+    @GetMapping("/dogs/no-appointments-of-dog/{dog_id}")
+    public int getNumberOfAppointmentsOfDog(@PathVariable Long dog_id) {
+        return dogService.getNumberOfAppointmentsOfDog(dog_id);
     }
 }
