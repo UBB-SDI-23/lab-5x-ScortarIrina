@@ -29,7 +29,8 @@ public class DogService {
         Map<String, Object> response = new HashMap<>();
 
         if (page > -1) {
-            Pageable p = PageRequest.of(page, pSize > 0 ? pSize : DogController.PAGE_SIZE, Sort.by("id"));
+            Pageable p = PageRequest.of(page, pSize > 0 ? pSize : DogController.PAGE_SIZE,
+                    Sort.by("id"));
 
             Page<Dog> pageDogs = dogRepository.findAll(p);
 

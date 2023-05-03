@@ -17,7 +17,8 @@
                :disabled="isInLastPage">»</a>
         </li>
         <li class="pagination-item">
-            <a href="#" @click.prevent="onClickLastPage" :class="isInLastPage? 'disabled':''" :disabled="isInLastPage">Last</a>
+            <a href="#" @click.prevent="onClickLastPage" :class="isInLastPage? 'disabled':''"
+               :disabled="isInLastPage">Last</a>
         </li>
     </ul>
 </template>

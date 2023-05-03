@@ -37,14 +37,16 @@ public class DogController {
 
 
     @GetMapping("/dogs")
-    ResponseEntity<Map<String, Object>> getAllDogs(@RequestParam Optional<String> page, @RequestParam Optional<String> size) {
+    ResponseEntity<Map<String, Object>> getAllDogs(@RequestParam Optional<String> page,
+                                                   @RequestParam Optional<String> size) {
         int p = Integer.parseInt(page.orElse("0"));
 
         int pSize = Integer.parseInt(size.orElse("0"));
 
         Map<String, Object> ret = dogService.getAllDogs(p, pSize);
 
-        List<DogDTO> dtos = ((List<Dog>) ret.get("dogs")).stream().map(mapper::toDogDTO).collect(Collectors.toList());
+        List<DogDTO> dtos = ((List<Dog>) ret.get("dogs")).stream()
+                .map(mapper::toDogDTO).collect(Collectors.toList());
 
         ret.put("dogs", dtos);
 

@@ -1,0 +1,8 @@
+/*
+ used to empty the tables
+ */
+TRUNCATE TABLE appointment CASCADE;
+TRUNCATE TABLE medical_license CASCADE;
+TRUNCATE TABLE vet CASCADE;
+TRUNCATE TABLE dog CASCADE;
+TRUNCATE TABLE owner CASCADE;

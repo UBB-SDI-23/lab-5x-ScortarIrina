@@ -50,24 +50,24 @@
                                         <thead>
                                         <tr>
                                             <th @click="sortList('id')"><h5 class="text-center"> Id<span
-                                                    id="sid"
-                                                    style="opacity: 0"> ▲</span>
+                                                id="sid"
+                                                style="opacity: 0"> ▲</span>
                                             </h5></th>
                                             <th @click="sortList('name')"><h5 class="text-center"> Name<span
-                                                    id="sname"
-                                                    style="opacity: 0"> ▲</span>
+                                                id="sname"
+                                                style="opacity: 0"> ▲</span>
                                             </h5></th>
                                             <th @click="sortList('breed')"><h5 class="text-center"> Breed<span
-                                                    id="sbreed"
-                                                    style="opacity: 0"> ▲</span>
+                                                id="sbreed"
+                                                style="opacity: 0"> ▲</span>
                                             </h5></th>
                                             <th @click="sortList('age')"><h5 class="text-center"> Age<span
-                                                    id="sage"
-                                                    style="opacity: 0"> ▲</span>
+                                                id="sage"
+                                                style="opacity: 0"> ▲</span>
                                             </h5></th>
                                             <th @click="sortList('weight')"><h5 class="text-center"> Weight<span
-                                                    id="sweight"
-                                                    style="opacity: 0"> ▲</span>
+                                                id="sweight"
+                                                style="opacity: 0"> ▲</span>
                                             </h5></th>
                                         </tr>
                                         </thead>
@@ -137,21 +137,21 @@
                                         <thead>
                                         <tr>
                                             <th @click="sortList('id')"><h5 class="text-center"> Id<span
-                                                    id="sid"
-                                                    style="opacity: 0"> ▲</span>
+                                                id="sid"
+                                                style="opacity: 0"> ▲</span>
                                             </h5></th>
                                             <th @click="sortList('first_name')"><h5 class="text-center"> First
                                                 Name<span
-                                                        id="sfname"
-                                                        style="opacity: 0"> ▲</span>
+                                                    id="sfname"
+                                                    style="opacity: 0"> ▲</span>
                                             </h5></th>
                                             <th @click="sortList('last_name')"><h5 class="text-center"> Last
                                                 Name<span
-                                                        id="slname"
-                                                        style="opacity: 0"> ▲</span>
+                                                    id="slname"
+                                                    style="opacity: 0"> ▲</span>
                                             </h5></th>
                                             <th @click="sortList('job')"><h5 class="text-center"> Job<span
-                                                    id="sjob" style="opacity: 0"> ▲</span></h5></th>
+                                                id="sjob" style="opacity: 0"> ▲</span></h5></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -684,7 +684,7 @@
                     <div class="form-control">
                         <label>ID: </label>
                         <span v-show="this.clickedLicense.id !== ''" id="update_span_id">{{
-                            this.clickedLicense.id
+                                this.clickedLicense.id
                             }}</span>
                         <input type="text" v-show="this.clickedLicense.id === ''" id="update_input_id"
                                v-bind="this.clickedLicense.id"
@@ -1296,7 +1296,22 @@ export default {
         onSubmitCreateDog(e) {
             e.preventDefault()
             if (!this.createFormDog.name) {
-                alert('Please Add a Name')
+                alert('Please add a NAME for the dog')
+                return
+            }
+
+            if (!this.createFormDog.breed) {
+                alert('Please add a BREED for the dog')
+                return
+            }
+
+            if (!this.createFormDog.age) {
+                alert('Please add an AGE for the dog')
+                return
+            }
+
+            if (!this.createFormDog.weight) {
+                alert('Please add a WEIGHT for the dog')
                 return
             }
 
@@ -1321,7 +1336,17 @@ export default {
         onSubmitCreateOwner(e) {
             e.preventDefault()
             if (!this.createFormOwner.first_name) {
-                alert('Please Add a First Name')
+                alert('Please add a FIRST NAME for the owner')
+                return
+            }
+
+            if (!this.createFormOwner.last_name) {
+                alert('Please add a LAST NAME for the owner')
+                return
+            }
+
+            if (!this.createFormOwner.job) {
+                alert('Please give the owner a job')
                 return
             }
 
@@ -1344,7 +1369,22 @@ export default {
         onSubmitCreateVet(e) {
             e.preventDefault()
             if (!this.createFormVet.first_name) {
-                alert('Please Add a First Name')
+                alert('Please add a FIRST NAME to the vet')
+                return
+            }
+
+            if (!this.createFormVet.last_name) {
+                alert('Please add a LAST NAME to the vet')
+                return
+            }
+
+            if (!this.createFormVet.age) {
+                alert('Please add an AGE to the vet')
+                return
+            }
+
+            if (!this.createFormVet.specialty) {
+                alert('Please add a SPECIALTY to the vet')
                 return
             }
 
@@ -1368,7 +1408,27 @@ export default {
         onSubmitCreateLicense(e) {
             e.preventDefault()
             if (!this.createFormLicense.serial_number) {
-                alert('Please Add a Serial Number')
+                alert('Please add a SERIAL NUMBER for the medical license')
+                return
+            }
+
+            if (!this.createFormLicense.university) {
+                alert('Please add a UNIVERSITY for the medical license')
+                return
+            }
+
+            if (!this.createFormLicense.city) {
+                alert('Please add the CITY of the medical license')
+                return
+            }
+
+            if (!this.createFormLicense.country) {
+                alert('Please add the COUNTRY of the medical license')
+                return
+            }
+
+            if (!this.createFormLicense.vet_id) {
+                alert('Please add a VET ID')
                 return
             }
 
@@ -1393,7 +1453,27 @@ export default {
         onSubmitCreateAppointment(e) {
             e.preventDefault()
             if (!this.createFormAppointment.dog_id) {
-                alert('Please Add a Dog ID')
+                alert('Please add a DOG ID for the appointment')
+                return
+            }
+
+            if (!this.createFormAppointment.vet_id) {
+                alert('Please add a VET ID for the appointment')
+                return
+            }
+
+            if (!this.createFormAppointment.date) {
+                alert('Please add a DATE for the appointment')
+                return
+            }
+
+            if (!this.createFormAppointment.price) {
+                alert('Please add an appointment PRICE')
+                return
+            }
+
+            if (!this.createFormAppointment.description) {
+                alert('Please add an appointment DESCRIPTION')
                 return
             }
 
