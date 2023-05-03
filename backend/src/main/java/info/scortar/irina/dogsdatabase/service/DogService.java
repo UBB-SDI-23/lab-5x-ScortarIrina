@@ -25,9 +25,6 @@ public class DogService {
     @Autowired
     private DogRepository dogRepository;
 
-    @Autowired
-    private AppointmentService appointmentService;
-
     public Map<String, Object> getAllDogs(int page, int pSize) {
         List<Dog> dogs = new ArrayList<>();
 
@@ -91,10 +88,5 @@ public class DogService {
             }
         }
         return filtered_dogs;
-    }
-
-    public int getNumberOfAppointmentsOfDog(Long dog_id) {
-        List<Appointment> appointments = appointmentService.getAppointmentsOfDog(dog_id);
-        return appointments.size();
     }
 }

@@ -1,10 +1,10 @@
 package info.scortar.irina.dogsdatabase.controller;
 
 import info.scortar.irina.dogsdatabase.mapper.Mapper;
-import info.scortar.irina.dogsdatabase.model.Appointment;
 import info.scortar.irina.dogsdatabase.model.Dog;
 import info.scortar.irina.dogsdatabase.DTOs.DogDTO;
 import info.scortar.irina.dogsdatabase.model.Owner;
+import info.scortar.irina.dogsdatabase.service.AppointmentService;
 import info.scortar.irina.dogsdatabase.service.DogService;
 import info.scortar.irina.dogsdatabase.service.OwnerService;
 import jakarta.validation.Valid;
@@ -15,6 +15,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +36,10 @@ public class DogController {
     private OwnerService ownerService;
 
     @Autowired
-    private Mapper mapper;
+    private AppointmentService appointmentService;
 
+    @Autowired
+    private Mapper mapper;
 
     @GetMapping("/dogs")
     ResponseEntity<Map<String, Object>> getAllDogs(@RequestParam Optional<String> page,
@@ -48,6 +52,12 @@ public class DogController {
 
         List<DogDTO> dtos = ((List<Dog>) ret.get("dogs")).stream()
                 .map(mapper::toDogDTO).collect(Collectors.toList());
+
+//        for (DogDTO dogDTO : dtos) {
+//            Statement statement = con.createStatement();
+//            ResultSet resultSet =
+//            dogDTO.setNumber_of_appointments();
+//        }
 
         ret.put("dogs", dtos);
 
@@ -101,10 +111,5 @@ public class DogController {
             errors.put(fieldName, errorMessage);
         });
         return errors;
-    }
-
-    @GetMapping("/dogs/no-appointments-of-dog/{dog_id}")
-    public int getNumberOfAppointmentsOfDog(@PathVariable Long dog_id) {
-        return dogService.getNumberOfAppointmentsOfDog(dog_id);
     }
 }

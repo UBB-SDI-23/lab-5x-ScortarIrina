@@ -10,13 +10,14 @@ public class DogDTO {
     private Long owner_id;
     private int number_of_appointments;
 
-    public DogDTO(Long id, String name, String breed, int age, int weight, Long owner_id) {
+    public DogDTO(Long id, String name, String breed, int age, int weight, Long owner_id, int number_of_appointments) {
         this.id = id;
         this.name = name;
         this.breed = breed;
         this.age = age;
         this.weight = weight;
         this.owner_id = owner_id;
+        this.number_of_appointments = number_of_appointments;
     }
 
     public Long getOwner_id() {
@@ -65,5 +66,13 @@ public class DogDTO {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    public int getNumber_of_appointments() {
+        return number_of_appointments;
+    }
+
+    public void setNumber_of_appointments(int number_of_appointments) {
+        this.number_of_appointments = number_of_appointments;
     }
 }
