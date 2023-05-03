@@ -10,14 +10,24 @@ public class OwnerDTO {
     private String job;
     private int age;
     private List<String> dogs;
+    private int number_of_dogs;
 
-    public OwnerDTO(Long id, String first_name, String last_name, String job, int age, List<String> dogs) {
+    public OwnerDTO(Long id, String first_name, String last_name, String job, int age, List<String> dogs, int number_of_dogs) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.job = job;
         this.dogs = dogs;
         this.age = age;
+        this.number_of_dogs = number_of_dogs;
+    }
+
+    public int getNumber_of_dogs() {
+        return number_of_dogs;
+    }
+
+    public void setNumber_of_dogs(int number_of_dogs) {
+        this.number_of_dogs = number_of_dogs;
     }
 
     public int getAge() {

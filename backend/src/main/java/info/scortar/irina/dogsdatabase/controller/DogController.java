@@ -53,11 +53,10 @@ public class DogController {
         List<DogDTO> dtos = ((List<Dog>) ret.get("dogs")).stream()
                 .map(mapper::toDogDTO).collect(Collectors.toList());
 
-//        for (DogDTO dogDTO : dtos) {
-//            Statement statement = con.createStatement();
-//            ResultSet resultSet =
-//            dogDTO.setNumber_of_appointments();
-//        }
+        dtos = dtos.stream().map(dto -> {
+            dto.setNumber_of_vets(dogService.findVetIdsForDog(dto.getId()));
+            return dto;
+        }).collect(Collectors.toList());
 
         ret.put("dogs", dtos);
 
@@ -99,6 +98,15 @@ public class DogController {
     @DeleteMapping("/dogs/{id}")
     void deleteDog(@PathVariable Long id) {
         dogService.deleteDog(id);
+    }
+
+    @GetMapping("/dogs/number-appointments-of-dog/{id}")
+    int numberAppointmentsOfDog(@PathVariable Long id) {
+        Dog dog = dogService.getDogById(id).orElse(null);
+        if (dog == null) {
+            return 0;
+        }
+        return dog.getAppointments().size();
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

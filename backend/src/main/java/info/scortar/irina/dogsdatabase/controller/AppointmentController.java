@@ -18,10 +18,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -78,7 +75,8 @@ public class AppointmentController {
 
     @PostMapping("/appointments")
     void addAppointment(@RequestBody @Valid AppointmentDTO appointment) throws ParseException {
-        Appointment appointment2 = mapper.fromAppointmentDTO(appointment);
+        Appointment appointment2;
+        appointment2 = mapper.fromAppointmentDTO(appointment);
         Optional<Dog> dog = dogService.getDogById(appointment.getDog_id());
         Optional<Vet> vet = vetService.getVetById(appointment.getVet_id());
         appointment2.setDog(dog.orElse(null));
@@ -102,13 +100,26 @@ public class AppointmentController {
         appointmentService.deleteAppointment(id);
     }
 
+    @GetMapping("/appointments/number-vets-of-dog/{dog_id}")
+    int numberVetsOfDog(@PathVariable Long dog_id) {
+        List<AppointmentDTO> appointmentsOfDog = getAppointmentsOfDog(dog_id);
+        List<Long> vetIDs = new ArrayList<>();
+        for (AppointmentDTO appointmentDTO : appointmentsOfDog) {
+            if (!vetIDs.contains(appointmentDTO.getVet_id())) {
+                vetIDs.add(appointmentDTO.getVet_id());
+            }
+        }
+        return vetIDs.size();
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
+        Map<String, String> errors;
+        errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName =((FieldError) error).getField();
-            String errorMessage =error.getDefaultMessage();
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
         return errors;

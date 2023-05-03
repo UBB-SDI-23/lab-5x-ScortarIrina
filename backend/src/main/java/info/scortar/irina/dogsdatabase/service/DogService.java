@@ -1,10 +1,8 @@
 package info.scortar.irina.dogsdatabase.service;
 
 import info.scortar.irina.dogsdatabase.controller.DogController;
-import info.scortar.irina.dogsdatabase.model.Appointment;
 import info.scortar.irina.dogsdatabase.model.Dog;
 import info.scortar.irina.dogsdatabase.model.Owner;
-import info.scortar.irina.dogsdatabase.repository.AppointmentRepository;
 import info.scortar.irina.dogsdatabase.repository.DogRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -88,5 +86,9 @@ public class DogService {
             }
         }
         return filtered_dogs;
+    }
+
+    public Long findVetIdsForDog(Long dog_id) {
+        return dogRepository.findVetIdsForDog(dog_id);
     }
 }

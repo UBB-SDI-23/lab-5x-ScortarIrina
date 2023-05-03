@@ -2,8 +2,10 @@ package info.scortar.irina.dogsdatabase.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class Dog {
@@ -22,13 +24,11 @@ public class Dog {
             cascade = CascadeType.ALL
     )
     private List<Appointment> appointments;
-//    private int number_of_appointments;
 
     public Dog() {
     }
 
-    public Dog(Long id, String name, String breed, int age, int weight, Owner owner, List<Appointment> appointments/*,
-               int number_appointments*/) {
+    public Dog(Long id, String name, String breed, int age, int weight, Owner owner, List<Appointment> appointments) {
         this.id = id;
         this.name = name;
         this.breed = breed;
@@ -36,16 +36,7 @@ public class Dog {
         this.weight = weight;
         this.owner = owner;
         this.appointments = appointments;
-//        this.number_of_appointments = number_appointments;
     }
-
-//    public int getNumber_of_appointments() {
-//        return number_of_appointments;
-//    }
-//
-//    public void setNumber_of_appointments(int number_appointments) {
-//        this.number_of_appointments = number_appointments;
-//    }
 
     public Long getId() {
         return id;

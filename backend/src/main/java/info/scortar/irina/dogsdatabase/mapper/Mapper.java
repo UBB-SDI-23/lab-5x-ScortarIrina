@@ -16,7 +16,7 @@ public class Mapper {
 
     public DogDTO toDogDTO(Dog dog) {
         return new DogDTO(dog.getId(), dog.getName(), dog.getBreed(), dog.getAge(), dog.getWeight(),
-                dog.getOwner().getId(), 0);
+                dog.getOwner().getId(), 0L);
     }
 
     public Dog fromDogDTO(DogDTO dogDTO) {
@@ -31,7 +31,8 @@ public class Mapper {
                         .map(Dog::getName)
                         .collect(toList());
 
-        return new OwnerDTO(owner.getId(), owner.getFirst_name(), owner.getLast_name(), owner.getJob(), owner.getAge(), dog_names);
+        return new OwnerDTO(owner.getId(), owner.getFirst_name(), owner.getLast_name(), owner.getJob(), owner.getAge(),
+                dog_names, dog_names.size());
     }
 
     public VetDTO toVetDTO(Vet vet) {

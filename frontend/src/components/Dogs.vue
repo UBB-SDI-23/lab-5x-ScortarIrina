@@ -1,6 +1,7 @@
 <template>
     <div class="container" id="container">
         <Loader :loading="showLoader"/>
+
         <TabsWrapper class="allTabs">
             <TabItem title="Dogs" class="tabs">
                 <table class="table table-striped" id="contentTableDogs">
@@ -49,30 +50,54 @@
                                     <table class="table table-striped" id="dogTable">
                                         <thead>
                                         <tr>
-                                            <th @click="sortList('id')"><h5 class="text-center"> Id<span
-                                                id="sid"
-                                                style="opacity: 0"> ▲</span>
-                                            </h5></th>
-                                            <th @click="sortList('name')"><h5 class="text-center"> Name<span
-                                                id="sname"
-                                                style="opacity: 0"> ▲</span>
-                                            </h5></th>
-                                            <th @click="sortList('breed')"><h5 class="text-center"> Breed<span
-                                                id="sbreed"
-                                                style="opacity: 0"> ▲</span>
-                                            </h5></th>
-                                            <th @click="sortList('age')"><h5 class="text-center"> Age<span
-                                                id="sage"
-                                                style="opacity: 0"> ▲</span>
-                                            </h5></th>
-                                            <th @click="sortList('weight')"><h5 class="text-center"> Weight<span
-                                                id="sweight"
-                                                style="opacity: 0"> ▲</span>
-                                            </h5></th>
-                                            <th @click="sortList('number_appointments')"><h5 class="text-center"> #appointments<span
-                                                id="snrappointments"
-                                                style="opacity: 0"> ▲</span>
-                                            </h5></th>
+                                            <th @click="sortList('id')">
+                                                <h5 class="text-center"> Id
+                                                    <span
+                                                            id="sid"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('name')">
+                                                <h5 class="text-center"> Name
+                                                    <span
+                                                            id="sname"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('breed')">
+                                                <h5 class="text-center"> Breed
+                                                    <span
+                                                            id="sbreed"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('age')">
+                                                <h5 class="text-center"> Age
+                                                    <span
+                                                            id="sage"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('weight')">
+                                                <h5 class="text-center"> Weight
+                                                    <span
+                                                            id="sweight"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('number_of_vets')">
+                                                <h5 class="text-center"> #visited vets
+                                                    <span
+                                                            id="snumber_of_vets"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
+                                                </h5>
+                                            </th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -83,7 +108,7 @@
                                             <td> {{ dog.breed }}</td>
                                             <td> {{ dog.age }}</td>
                                             <td> {{ dog.weight }}</td>
-                                            <td> {{dog.number_appointments}}</td>
+                                            <td> {{ dog.number_of_vets }}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -141,28 +166,46 @@
                                     <table class="table table-striped" id="ownerTable">
                                         <thead>
                                         <tr>
-                                            <th @click="sortList('id')"><h5 class="text-center"> Id<span
-                                                id="sid"
-                                                style="opacity: 0"> ▲</span>
-                                            </h5></th>
-                                            <th @click="sortList('first_name')"><h5 class="text-center"> First
-                                                Name<span
-                                                    id="sfname"
-                                                    style="opacity: 0"> ▲</span>
-                                            </h5></th>
-                                            <th @click="sortList('last_name')"><h5 class="text-center"> Last
-                                                Name<span
-                                                    id="slname"
-                                                    style="opacity: 0"> ▲</span>
-                                            </h5></th>
-                                            <th @click="sortList('job')"><h5 class="text-center"> Job<span
-                                                id="sjob"
-                                                style="opacity: 0"> ▲</span>
-                                            </h5></th>
-                                            <th @click="sortList('number_of_dogs')"><h5 class="text-center"> #dogs<span
-                                                id="snrdogs"
-                                                style="opacity: 0"> ▲</span>
-                                            </h5></th>
+                                            <th @click="sortList('id')">
+                                                <h5 class="text-center"> Id
+                                                    <span
+                                                            id="sid"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('first_name')">
+                                                <h5 class="text-center"> First Name
+                                                    <span
+                                                            id="sfirst_name"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('last_name')">
+                                                <h5 class="text-center"> Last Name
+                                                    <span
+                                                            id="slast_name"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('job')">
+                                                <h5 class="text-center"> Job
+                                                    <span
+                                                            id="sjob"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
+                                                </h5>
+                                            </th>
+                                            <th @click="sortList('number_of_dogs')">
+                                                <h5 class="text-center"> #dogs
+                                                    <span
+                                                            id="snumber_of_dogs"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
+                                                </h5>
+                                            </th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -172,7 +215,7 @@
                                             <td> {{ owner.first_name }}</td>
                                             <td> {{ owner.last_name }}</td>
                                             <td> {{ owner.job }}</td>
-                                            <td> {{owner.number_of_dogs}}</td>
+                                            <td> {{ owner.number_of_dogs }}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -232,27 +275,42 @@
                                         <tr>
                                             <th @click="sortList('id')">
                                                 <h5 class="text-center"> Id
-                                                    <span id="sid" style="opacity: 0"> ▲</span>
+                                                    <span
+                                                            id="sid"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
                                                 </h5>
                                             </th>
                                             <th @click="sortList('first_name')">
                                                 <h5 class="text-center"> First Name
-                                                    <span id="sfname" style="opacity: 0"> ▲</span>
+                                                    <span
+                                                            id="sfname"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
                                                 </h5>
                                             </th>
                                             <th @click="sortList('last_name')">
                                                 <h5 class="text-center"> Last Name
-                                                    <span id="slname" style="opacity: 0"> ▲</span>
+                                                    <span
+                                                            id="slname"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
                                                 </h5>
                                             </th>
                                             <th @click="sortList('specialty')">
                                                 <h5 class="text-center"> Specialty
-                                                    <span id="sspecialty" style="opacity: 0"> ▲</span>
+                                                    <span
+                                                            id="sspecialty"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
                                                 </h5>
                                             </th>
-                                            <th @click="sortList('number_of_appointments')">
-                                                <h5 class="text-center"> #appointments
-                                                    <span id="snrappointments" style="opacity: 0"> ▲</span>
+                                            <th @click="sortList('number_of_dogs')">
+                                                <h5 class="text-center"> #consulted dogs
+                                                    <span
+                                                            id="snumber_of_dogs"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
                                                 </h5>
                                             </th>
                                         </tr>
@@ -264,7 +322,7 @@
                                             <td> {{ vet.first_name }}</td>
                                             <td> {{ vet.last_name }}</td>
                                             <td> {{ vet.specialty }}</td>
-                                            <td> {{vet.number_of_appointments}}</td>
+                                            <td> {{ vet.number_of_appointments }}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -324,22 +382,34 @@
                                         <tr>
                                             <th @click="sortList('id')">
                                                 <h5 class="text-center"> Id
-                                                    <span id="sid" style="opacity: 0"> ▲</span>
+                                                    <span
+                                                            id="sid"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
                                                 </h5>
                                             </th>
                                             <th @click="sortList('serial_number')">
                                                 <h5 class="text-center"> Serial Number
-                                                    <span id="sserialno" style="opacity: 0"> ▲</span>
+                                                    <span
+                                                            id="sserialno"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
                                                 </h5>
                                             </th>
                                             <th @click="sortList('university')">
                                                 <h5 class="text-center"> University
-                                                    <span id="suniversity" style="opacity: 0"> ▲</span>
+                                                    <span
+                                                            id="suniversity"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
                                                 </h5>
                                             </th>
                                             <th @click="sortList('city')">
                                                 <h5 class="text-center"> City
-                                                    <span id="scity" style="opacity: 0"> ▲</span>
+                                                    <span
+                                                            id="scity"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
                                                 </h5>
                                             </th>
                                         </tr>
@@ -409,32 +479,49 @@
                                         <tr>
                                             <th @click="sortList('id')">
                                                 <h5 class="text-center"> ID
-                                                    <span id="sid" style="opacity: 0"> ▲</span>
+                                                    <span
+                                                            id="sid"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
                                                 </h5>
                                             </th>
                                             <th @click="sortList('dog_id')">
                                                 <h5 class="text-center"> Dog ID
-                                                    <span id="sdogid" style="opacity: 0"> ▲</span>
+                                                    <span
+                                                            id="sdogid" style="opacity: 0"> ▲
+                                                    </span>
                                                 </h5>
                                             </th>
                                             <th @click="sortList('vet_id')">
                                                 <h5 class="text-center"> Vet ID
-                                                    <span id="svetid" style="opacity: 0"> ▲</span>
+                                                    <span
+                                                            id="svetid"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
                                                 </h5>
                                             </th>
                                             <th @click="sortList('date')">
                                                 <h5 class="text-center"> Date
-                                                    <span id="sdate" style="opacity: 0"> ▲</span>
+                                                    <span
+                                                            id="sdate"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
                                                 </h5>
                                             </th>
                                             <th @click="sortList('description')">
                                                 <h5 class="text-center"> Description
-                                                    <span id="sdescription" style="opacity: 0"> ▲</span>
+                                                    <span
+                                                            id="sdescription"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
                                                 </h5>
                                             </th>
                                             <th @click="sortList('number_appointments_on_day')">
                                                 <h5 class="text-center"> #appointments on day
-                                                    <span id="snrappointments" style="opacity: 0"> ▲</span>
+                                                    <span
+                                                            id="snrappointments"
+                                                            style="opacity: 0"> ▲
+                                                    </span>
                                                 </h5>
                                             </th>
                                         </tr>
@@ -447,7 +534,7 @@
                                             <td> {{ appointment.vet_id }}</td>
                                             <td> {{ appointment.date }}</td>
                                             <td> {{ appointment.description }}</td>
-                                            <td> {{appointments.number_appointments_on_day}}</td>
+                                            <td> {{ appointments.number_appointments_on_day }}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -708,7 +795,7 @@
                     <div class="form-control">
                         <label>ID: </label>
                         <span v-show="this.clickedLicense.id !== ''" id="update_span_id">{{
-                                this.clickedLicense.id
+                            this.clickedLicense.id
                             }}</span>
                         <input type="text" v-show="this.clickedLicense.id === ''" id="update_input_id"
                                v-bind="this.clickedLicense.id"
@@ -935,7 +1022,7 @@ export default {
                 age: '',
                 weight: '',
                 owner_id: '',
-                number_appointments: ''
+                number_of_vets: ''
             },
             dogs: [],
             createFormDog: {
@@ -1020,7 +1107,7 @@ export default {
                 last_name: '',
                 age: '',
                 specialty: '',
-                number_of_appointments: ''
+                number_of_dogs: ''
             },
             vets: [],
             createFormVet: {
@@ -1164,7 +1251,7 @@ export default {
                 let modifier = 1;
                 if (this.currentSortDir === 'desc') modifier = -1;
                 if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
-                if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+                if (a[this.currentSort] > b[this.currentSort]) return modifier;
                 return 0;
             });
         },
@@ -1174,7 +1261,7 @@ export default {
                 let modifier = 1;
                 if (this.currentSortDir === 'desc') modifier = -1;
                 if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
-                if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+                if (a[this.currentSort] > b[this.currentSort]) return modifier;
                 return 0;
             });
         },
@@ -1184,7 +1271,7 @@ export default {
                 let modifier = 1;
                 if (this.currentSortDir === 'desc') modifier = -1;
                 if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
-                if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+                if (a[this.currentSort] > b[this.currentSort]) return modifier;
                 return 0;
             });
         },
@@ -1194,7 +1281,7 @@ export default {
                 let modifier = 1;
                 if (this.currentSortDir === 'desc') modifier = -1;
                 if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
-                if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+                if (a[this.currentSort] > b[this.currentSort]) return modifier;
                 return 0;
             });
         },
@@ -1204,7 +1291,7 @@ export default {
                 let modifier = 1;
                 if (this.currentSortDir === 'desc') modifier = -1;
                 if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
-                if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+                if (a[this.currentSort] > b[this.currentSort]) return modifier;
                 return 0;
             });
         }
@@ -1526,7 +1613,7 @@ export default {
         onSubmitDeleteDog(e) {
             e.preventDefault()
             if (!this.deleteFormDog.id) {
-                alert('Please Add an ID')
+                alert('Please add an ID')
                 return
             }
 
@@ -1547,7 +1634,7 @@ export default {
         onSubmitDeleteOwner(e) {
             e.preventDefault()
             if (!this.deleteFormOwner.id) {
-                alert('Please Add an ID')
+                alert('Please add an ID')
                 return
             }
 
@@ -1568,7 +1655,7 @@ export default {
         onSubmitDeleteVet(e) {
             e.preventDefault()
             if (!this.deleteFormVet.id) {
-                alert('Please Add an ID')
+                alert('Please add an ID')
                 return
             }
 
@@ -1589,7 +1676,7 @@ export default {
         onSubmitDeleteLicense(e) {
             e.preventDefault()
             if (!this.deleteFormLicense.id) {
-                alert('Please Add an ID')
+                alert('Please add an ID')
                 return
             }
 
@@ -1610,7 +1697,7 @@ export default {
         onSubmitDeleteAppointment(e) {
             e.preventDefault()
             if (!this.deleteFormAppointment.id) {
-                alert('Please Add an ID')
+                alert('Please add an ID')
                 return
             }
 
@@ -1656,7 +1743,7 @@ export default {
                 }
 
                 if (!localDog.id) {
-                    alert('Please Add an ID');
+                    alert('Please add an ID');
 
                     this.clickedDog = this.emptyDog;
 
@@ -1665,7 +1752,7 @@ export default {
                     return;
                 }
                 if (!localDog.name) {
-                    alert('Please Add a name');
+                    alert('Please add a name');
                     this.clickedDog = this.emptyDog;
 
                     window.location.reload();
@@ -1717,7 +1804,7 @@ export default {
             }
 
             if (!localOwner.id) {
-                alert('Please Add an ID');
+                alert('Please add an ID');
 
                 this.clickedOwner = this.emptyOwner;
 
@@ -1726,7 +1813,7 @@ export default {
                 return;
             }
             if (!localOwner.first_name) {
-                alert('Please Add a First Name');
+                alert('Please add a FIRST NAME');
                 this.clickedOwner = this.emptyOwner;
 
                 window.location.reload();
@@ -1735,7 +1822,7 @@ export default {
             }
 
             if (!localOwner.last_name) {
-                alert('Please Add a Last Name');
+                alert('Please add a LAST NAME');
                 this.clickedOwner = this.emptyOwner;
 
                 window.location.reload();
@@ -1785,7 +1872,7 @@ export default {
             }
 
             if (!localVet.id) {
-                alert('Please Add an ID');
+                alert('Please add an ID');
 
                 this.clickedVet = this.emptyVet;
 
@@ -1794,7 +1881,7 @@ export default {
                 return;
             }
             if (!localVet.first_name) {
-                alert('Please Add a First Name');
+                alert('Please add a FIRST NAME');
                 this.clickedVet = this.emptyVet;
 
                 window.location.reload();
@@ -1803,7 +1890,7 @@ export default {
             }
 
             if (!localVet.last_name) {
-                alert('Please Add a Last Name');
+                alert('Please add a LAST NAME');
                 this.clickedVet = this.emptyVet;
 
                 window.location.reload();
@@ -1855,7 +1942,7 @@ export default {
             }
 
             if (!localLicense.id) {
-                alert('Please Add an ID');
+                alert('Please add an ID');
 
                 this.clickedLicense = this.emptyLicense;
 
@@ -1864,7 +1951,7 @@ export default {
                 return;
             }
             if (!localLicense.serial_number) {
-                alert('Please Add a Serial Number');
+                alert('Please add a SERIAL NUMBER');
                 this.clickedLicense = this.emptyLicense;
 
                 window.location.reload();
@@ -1873,7 +1960,7 @@ export default {
             }
 
             if (!localLicense.university) {
-                alert('Please Add a University');
+                alert('Please add a UNIVERSITY');
                 this.clickedLicense = this.emptyLicense;
 
                 window.location.reload();
@@ -1882,7 +1969,7 @@ export default {
             }
 
             if (!localLicense.city) {
-                alert('Please Add a City');
+                alert('Please add a CITY');
                 this.clickedLicense = this.emptyLicense;
 
                 window.location.reload();
@@ -1891,7 +1978,7 @@ export default {
             }
 
             if (!localLicense.country) {
-                alert('Please Add a Country');
+                alert('Please add a COUNTRY');
                 this.clickedLicense = this.emptyLicense;
 
                 window.location.reload();
@@ -1943,7 +2030,7 @@ export default {
             }
 
             if (!localAppointment.id) {
-                alert('Please Add an ID');
+                alert('Please add an APPOINTMENT ID');
 
                 this.clickedAppointment = this.emptyAppointment;
 
@@ -1952,7 +2039,7 @@ export default {
                 return;
             }
             if (!localAppointment.dog_id) {
-                alert('Please Add a Dog ID');
+                alert('Please add a DOG ID');
                 this.clickedAppointment = this.emptyAppointment;
 
                 window.location.reload();
@@ -1961,7 +2048,7 @@ export default {
             }
 
             if (!localAppointment.vet_id) {
-                alert('Please Add a Vet ID');
+                alert('Please add a VET ID');
                 this.clickedAppointment = this.emptyAppointment;
 
                 window.location.reload();
@@ -1970,7 +2057,7 @@ export default {
             }
 
             if (!localAppointment.date) {
-                alert('Please Add a Date');
+                alert('Please add a DATE for the appointment');
                 this.clickedAppointment = this.emptyAppointment;
 
                 window.location.reload();
@@ -1979,7 +2066,7 @@ export default {
             }
 
             if (!localAppointment.price) {
-                alert('Please Add a price');
+                alert('Please add a PRICE for the appointment');
                 this.clickedAppointment = this.emptyAppointment;
 
                 window.location.reload();

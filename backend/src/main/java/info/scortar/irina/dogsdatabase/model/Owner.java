@@ -37,14 +37,6 @@ public class Owner {
         this.dogs = dogs;
     }
 
-    //    public Owner(String first_name, String last_name, int age, String gender, String job) {
-//        this.first_name = first_name;
-//        this.last_name = last_name;
-//        this.age = age;
-//        this.gender = gender;
-//        this.job = job;
-//    }
-
     public Long getId() {
         return id;
     }
